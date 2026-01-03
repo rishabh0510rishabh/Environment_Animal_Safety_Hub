@@ -1,1 +1,373 @@
-<!-- plant-care.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="../assets/FAVICON.png"> 
+    <title>Plant Care | EcoLife</title>
+    <meta name="description" content="Expert gardening tips and plant care guide." />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/navbar.css" /> 
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        --primary-color: #2e7d32;
+        --secondary-color: #81c784;
+        --text-color: #333;
+        --bg-light: #f9f9f9;
+        --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      /* --- Custom Hero Section (Side-by-Side) --- */
+      .plant-hero {
+        padding: 120px 20px 80px;
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+        z-index: 2;
+      }
+
+      .hero-text h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        color: #1b5e20;
+        font-weight: 700;
+      }
+
+      .hero-text p {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .hero-image-box {
+        position: relative;
+      }
+
+      .hero-image-box img {
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        transform: perspective(1000px) rotateY(-5deg);
+        transition: transform 0.3s ease;
+      }
+
+      .hero-image-box img:hover {
+        transform: perspective(1000px) rotateY(0deg);
+      }
+
+      /* --- Section Styling --- */
+      .section-padding {
+        padding: 80px 20px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-tag {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #e8f5e9;
+        color: var(--primary-color);
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      /* --- Cards Grid --- */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .info-card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s ease;
+        text-align: center;
+        border-bottom: 4px solid transparent;
+      }
+
+      .info-card:hover {
+        transform: translateY(-10px);
+        border-bottom: 4px solid var(--primary-color);
+      }
+
+      .info-card i {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+      }
+
+      .info-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .info-card p {
+        color: #666;
+        line-height: 1.6;
+      }
+
+      /* --- Split Section (Indoor/Outdoor) --- */
+      .split-section {
+        background-color: #fff;
+        max-width: 1200px;
+        margin: 0 auto;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+      }
+      
+      @media (min-width: 768px) {
+        .split-section {
+          flex-direction: row;
+        }
+      }
+
+      .split-box {
+        flex: 1;
+        padding: 60px;
+        position: relative;
+        overflow: hidden;
+        color: white;
+      }
+
+      .split-box.indoor {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=800');
+        background-size: cover;
+      }
+
+      .split-box.outdoor {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1592150621744-aca64f22746b?auto=format&fit=crop&q=80&w=800');
+        background-size: cover;
+      }
+
+      .split-box h3 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .split-box ul {
+        list-style: none;
+        padding: 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .split-box li {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .split-box li i {
+        margin-right: 10px;
+        color: #81c784;
+      }
+
+      /* --- Button --- */
+      .btn-custom {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        padding: 15px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        background: #1b5e20;
+        transform: translateY(-2px);
+      }
+
+      /* Responsive */
+      @media (max-width: 968px) {
+        .hero-container {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-image-box {
+          margin-top: 40px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="../index.html" class="logo">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="EcoLife Logo" class="logo-img"/>
+          <span>EcoLife</span>
+        </a>
+
+        <div class="nav-toggle" id="navToggle">
+          <span></span><span></span><span></span>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="../index.html#about" class="nav-link">About</a></li>
+          <li><a href="../index.html#animal" class="nav-link">Animals</a></li>
+          <li><a href="../index.html#environment" class="nav-link">Environment</a></li>
+          <li><a href="quiz.html" class="nav-link">Kids Zone</a></li>
+          <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="plant-hero">
+      <div class="hero-container">
+        <div class="hero-text" data-aos="fade-right">
+          <span class="section-tag"><i class="fa-solid fa-leaf"></i> Go Green</span>
+          <h1>Grow Your Own <br>Green Paradise</h1>
+          <p>Whether you have a small balcony or a large garden, we'll help you create your own green space. Discover expert tips, sustainable practices, and join our community.</p>
+          <a href="#tips" class="btn-custom"><i class="fa-solid fa-seedling"></i> Get Started</a>
+        </div>
+        <div class="hero-image-box" data-aos="fade-left">
+          <img src="https://i.pinimg.com/736x/52/7a/cc/527accddb75efd9315c8d6afba2bba1d.jpg" alt="Gardening">
+        </div>
+      </div>
+    </section>
+
+    <section id="tips" class="section-padding">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-star"></i> Expert Advice</span>
+        <h2 class="section-title">Gardening Tips & Tricks</h2>
+      </div>
+      
+      <div class="grid-3">
+        <div class="info-card" data-aos="fade-up" data-aos-delay="0">
+          <i class="fa-solid fa-sun"></i>
+          <h3>Sunlight</h3>
+          <p>Understand your plant's light needs. Most vegetables need 6-8 hours of direct sun, while many indoor plants prefer indirect light.</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+          <i class="fa-solid fa-droplet"></i>
+          <h3>Watering</h3>
+          <p>Overwatering is the #1 killer of plants. Always check if the top inch of soil is dry before watering again.</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+          <i class="fa-solid fa-recycle"></i>
+          <h3>Composting</h3>
+          <p>Turn kitchen scraps into gold. Use fruit peels, coffee grounds, and eggshells to create nutrient-rich soil.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" style="background: #f4fdf4;">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag"><i class="fa-solid fa-compass"></i> Plant Guide</span>
+        <h2 class="section-title">Indoor vs Outdoor Plants</h2>
+      </div>
+
+      <div class="split-section" data-aos="zoom-in">
+        <div class="split-box indoor">
+          <h3><i class="fa-solid fa-home"></i> Indoor Plants</h3>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> <strong>Snake Plant:</strong> Purifies air, low light.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Peace Lily:</strong> Beautiful blooms, needs shade.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Spider Plant:</strong> Easy to grow and propagate.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Pothos:</strong> Trailing vine, very hardy.</li>
+          </ul>
+        </div>
+        <div class="split-box outdoor">
+          <h3><i class="fa-solid fa-sun"></i> Outdoor Plants</h3>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> <strong>Marigolds:</strong> Natural pest repellent.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Basil & Herbs:</strong> Need warmth and sun.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Hibiscus:</strong> Stunning tropical flowers.</li>
+            <li><i class="fa-solid fa-check"></i> <strong>Aloe Vera:</strong> Medicinal and drought tolerant.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding" style="text-align: center;">
+      <div class="hero-container" style="display: block;">
+         <h2 class="section-title" data-aos="fade-up">Join Our Community Garden</h2>
+         <p style="max-width: 600px; margin: 0 auto 30px; color: #666;" data-aos="fade-up">
+           Connect with fellow nature lovers, share seeds, and grow together. We organize weekly drives to plant trees and maintain urban gardens.
+         </p>
+         <a href="join-garden-drive.html" class="btn-custom" data-aos="fade-up"><i class="fa-solid fa-users"></i> Join Garden Drive</a>
+      </div>
+    </section>
+
+    <footer class="eco-footer">
+      <div class="footer-bottom">
+        <div class="footer-container">
+          <p>Made with ❤️ by <strong>EcoLife Team</strong> | © 2026 EcoLife.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+      // Simple Mobile Navbar Toggle
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if(navToggle){
+        navToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          navToggle.classList.toggle('active');
+        });
+      }
+    </script>
+  </body>
+</html>
