@@ -1163,3 +1163,20 @@ const toggle = document.getElementById("themeToggle");
 
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
+
+  const scrollBtn = document.getElementById("scrollBottomBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+  });
