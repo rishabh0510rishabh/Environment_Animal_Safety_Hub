@@ -5,15 +5,15 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(46, 125, 50, 0.95);
+  background: var(--navbar-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: var(--transition-normal);
 }
 
 .navbar.scrolled {
-  background: rgba(27, 94, 32, 0.98);
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+  background: var(--navbar-bg);
+  box-shadow: var(--shadow-lg);
 }
 
 .nav-container {
@@ -52,17 +52,19 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  order: 2;
 }
 
 .nav-link {
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 10px 16px;
+  padding: 8px 12px;
   border-radius: var(--radius-md);
   transition: var(--transition-normal);
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -93,18 +95,20 @@
 .nav-auth {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: 20px;
+  gap: 6px;
+  margin-left: 8px;
+  flex-shrink: 0;
 }
 
 .btn-login {
-  padding: 10px 22px;
+  padding: 6px 12px;
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-xl);
   color: #fff;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: var(--transition-normal);
+  white-space: nowrap;
 }
 
 .btn-login:hover {
@@ -115,14 +119,15 @@
 }
 
 .btn-signup {
-  padding: 10px 22px;
+  padding: 6px 12px;
   background: #fff;
   color: var(--primary-color);
   border-radius: var(--radius-xl);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   transition: var(--transition-normal);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
 }
 
 .btn-signup:hover {
@@ -165,8 +170,21 @@
 /* ===== RESPONSIVE NAVBAR ===== */
 @media (max-width: 1200px) {
   .nav-link {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+
+  .btn-login,
+  .btn-signup {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .theme-toggle-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 4px 6px;
+    font-size: 0.95rem;
   }
 }
 
@@ -174,7 +192,66 @@
    .nav-toggle {
     display: flex;
   }
+}
 
+/* Tablet styles (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-container {
+    padding: 0 15px;
+    height: 70px;
+  }
+
+  .nav-links {
+    gap: 2px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    max-width: calc(100% - 180px);
+  }
+
+  .nav-link {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .nav-auth {
+    margin-left: 6px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .btn-login,
+  .btn-signup {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .theme-toggle-btn {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--navbar-text);
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+  }
+
+  .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .theme-toggle-btn i {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
   .nav-links {
     position: fixed;
     top: 0;
@@ -214,12 +291,37 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .btn-login,
-  .btn-signup {
+  .theme-toggle-btn {
     width: 100%;
-    text-align: center;
-    padding: 14px 20px;
+    margin: 10px 0;
   }
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--navbar-text);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.theme-toggle-btn i {
+  transition: var(--transition-normal);
 }
 
 @media (max-width: 480px) {

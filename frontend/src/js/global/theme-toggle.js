@@ -5,10 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButton.innerHTML = '<i class="fas fa-moon"></i>'; // Default icon
     toggleButton.setAttribute('aria-label', 'Toggle Dark Mode');
 
-    // Append to navbar
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        navbar.appendChild(toggleButton);
+    // Append to nav-auth (inside nav-links)
+    const navAuth = document.querySelector('.nav-auth');
+    if (navAuth) {
+        navAuth.appendChild(toggleButton);
+    } else {
+        // Fallback to nav-container if nav-auth not found
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer) {
+            navContainer.appendChild(toggleButton);
+        }
     }
 
     // Load saved theme

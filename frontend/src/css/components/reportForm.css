@@ -1,7 +1,17 @@
 /* ===== REPORT SECTION ===== */
 .report-section {
   padding: var(--section-padding);
-  background: var(--bg-secondary);
+  background: var(--gradient-primary);
+}
+
+.report-section .section-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.report-section .section-title,
+.report-section .section-desc {
+  color: #fff;
 }
 
 .report-content {
@@ -20,7 +30,7 @@
 
 .report-info .section-desc {
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color:#fff;
   line-height: 1.7;
   margin-bottom: 30px;
 }
@@ -37,7 +47,7 @@
   align-items: center;
   gap: 15px;
   padding: 20px 25px;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   flex: 1;
@@ -62,7 +72,7 @@
 
 /* Recent Reports */
 .recent-reports {
-  background: #fff;
+  background: var(--card-bg);
   padding: 25px;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
@@ -137,7 +147,7 @@
 
 /* Report Form Wrapper */
 .report-form-wrapper {
-  background: #fff;
+  background: var(--card-bg);
   padding: 40px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);

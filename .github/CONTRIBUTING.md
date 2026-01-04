@@ -1,3 +1,15 @@
+✅Mandatory Onboarding
+
+All contributors must:
+
+fork the repository
+Complete the registration form: https://forms.gle/2aVtenoaHg65qi4G7
+
+Join the Discord server: https://discord.gg/3FKndgyuJp
+
+PRs without onboarding will not be reviewed.
+
+
 # Contributing to Environment_Animal_Safety_Hub
 
 Thank you for considering contributing! 

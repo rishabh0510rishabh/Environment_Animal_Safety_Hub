@@ -5,7 +5,17 @@
 }
 
 .cards-section.alt-bg {
-  background: var(--bg-secondary);
+  background: var(--gradient-primary);
+}
+
+.cards-section.alt-bg .section-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.cards-section.alt-bg .section-title,
+.cards-section.alt-bg .section-subtitle {
+  color: #fff;
 }
 
 .cards-grid {
@@ -16,7 +26,7 @@
 
 /* ===== FEATURE CARD ===== */
 .feature-card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -94,7 +104,7 @@
 
 .card-content p {
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: rgb(71, 45, 45);
   line-height: 1.6;
   margin-bottom: 20px;
 }

@@ -3,6 +3,7 @@
     --bg-color: #f4f9f4;
     /* Very light green/white tint */
     --text-color: #333333;
+    --text-secondary: #555555;
     --heading-color: #2e8b57;
 
     --navbar-bg: #2e8b57;
@@ -39,6 +40,29 @@
     --report-btn-bg: #ff4500;
     --report-btn-hover: #ff6347;
     --report-list-text: #333333;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+        135deg,
+        #2e7d32 0%,
+        #1b5e20 50%,
+        #004d40 100%
+    );
+    --gradient-secondary: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    --gradient-hero: linear-gradient(
+        135deg,
+        #1a5c1f 0%,
+        #2e7d32 50%,
+        #388e3c 100%
+    );
+    --gradient-card: linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
+    --shadow-green: 0 10px 40px rgba(46, 125, 50, 0.3);
 }
 
 [data-theme="dark"] {
@@ -46,6 +70,7 @@
     --bg-color: #121212;
     /* Deep dark background */
     --text-color: #e0e0e0;
+    --text-secondary: #bbbbbb;
     --heading-color: #4ade80;
     /* Lighter green for headers */
 
@@ -85,4 +110,27 @@
     --report-btn-bg: #dc2626;
     --report-btn-hover: #ef4444;
     --report-list-text: #cccccc;
+
+    /* Dark Mode Gradients */
+    --gradient-primary: linear-gradient(
+        135deg,
+        #0f5132 0%,
+        #0a3622 50%,
+        #052e16 100%
+    );
+    --gradient-secondary: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+    --gradient-hero: linear-gradient(
+        135deg,
+        #0a2e0a 0%,
+        #0f5132 50%,
+        #166534 100%
+    );
+    --gradient-card: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
+
+    /* Dark Mode Shadows */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --shadow-green: 0 10px 40px rgba(20, 83, 45, 0.5);
 }
