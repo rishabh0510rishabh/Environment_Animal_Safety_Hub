@@ -1538,7 +1538,7 @@ body.dark-theme .bot-message {
   position: relative;
   overflow: hidden;
 }
-
+}
 .calculator-cta-section::before {
   content: '';
   position: absolute;
@@ -1699,17 +1699,6 @@ body.dark-theme .bot-message {
   filter: drop-shadow(0 0 15px red);
 }
 
-.happy ~ .sun-rays {
-  opacity: 1;
-}
-
-.sad ~ .rain {
-  opacity: 1;
-}
-
-.critical .cracks {
-  opacity: 1;
-}
 
 /* Animations */
 @keyframes shake {
