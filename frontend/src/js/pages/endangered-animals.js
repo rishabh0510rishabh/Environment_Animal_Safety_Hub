@@ -20,7 +20,6 @@ async function loadAnimalsData() {
         filteredAnimals = [...animalsData];
         displayAnimals(filteredAnimals);
     } catch (error) {
-        console.error('Error loading animals data:', error);
         document.getElementById('noResults').style.display = 'block';
     }
 }

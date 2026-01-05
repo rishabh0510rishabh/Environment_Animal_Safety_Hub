@@ -243,7 +243,6 @@ function initCounterAnimation() {
 
     // Skip if target is not a valid number
     if (isNaN(target)) {
-      console.warn("Invalid data-count value:", countAttr);
       return;
     }
 
@@ -732,7 +731,14 @@ function sharePet() {
     navigator
       .share(shareData)
       .then(() => showNotification("Thanks for sharing! 🙏", "success"))
-      .catch((err) => console.log("Error sharing:", err));
+      .catch(() => {
+        // Fallback: copy to clipboard
+        const shareText = `${shareData.text}\n${shareData.url}`;
+        navigator.clipboard
+          .writeText(shareText)
+          .then(() => showNotification("Link copied to clipboard!", "success"))
+          .catch(() => showNotification("Failed to copy link", "error"));
+      });
   } else {
     // Fallback: copy to clipboard
     const shareText = `${shareData.text}\n${shareData.url}`;
@@ -1425,13 +1431,3 @@ document.querySelectorAll('a[href="#adopt-form"]').forEach((link) => {
     }
   });
 });
-
-/* ===== CONSOLE MESSAGE ===== */
-console.log(
-  "%c🐾 EcoLife - Adopt Pets Page",
-  "font-size: 18px; font-weight: bold; color: #2e7d32;"
-);
-console.log(
-  "%cHelping pets find their forever homes! ❤️",
-  "font-size: 14px; color: #666;"
-);
