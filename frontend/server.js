@@ -4,7 +4,7 @@ const path = require('path');
 
 const server = http.createServer((req, res) => {
     let filePath = path.join(__dirname, 'src', req.url === '/' ? 'index.html' : req.url);
-    
+
     const ext = path.extname(filePath);
     const contentType = {
         '.html': 'text/html',
@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 3005;
 server.listen(PORT, () => {
     console.log(`🌍 EcoLife server running at http://localhost:${PORT}`);
     console.log(`📊 Impact Calculator: http://localhost:${PORT}/pages/impact-calculator.html`);
