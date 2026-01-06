@@ -11,6 +11,7 @@
     <style>
         /* ===== GLOBAL ===== */
         * {margin:0;padding:0;box-sizing:border-box;}
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right,#f1f8e9,#d0f0c0);
@@ -19,6 +20,12 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        body.dark-mode {
+            background: linear-gradient(to right,#0a1929,#1a1a2e);
+            color: #e6e6e6;
         }
         
         .main-container {
@@ -54,6 +61,49 @@
             max-width: 600px;
         }
 
+        body.dark-mode p.subtitle {
+            color: #e6e6e6;
+            opacity: 0.9;
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .theme-btn {
+            background: #ffffff;
+            border: 2px solid #2e7d32;
+            border-radius: 30px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .theme-btn {
+            background: #1f4068;
+            color: #4ade80;
+            border-color: #4ade80;
+        }
+        
+        .theme-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .theme-btn i {
+            font-size: 1.2rem;
+        }
+
         /* ===== ANIMAL TYPE BUTTONS ===== */
         .animal-types {
             display: flex;
@@ -75,11 +125,23 @@
             transition: all 0.3s ease;
         }
         
+        body.dark-mode .animal-type-btn {
+            color: #4ade80;
+            border-color: #4ade80;
+        }
+        
         .animal-type-btn.active, .animal-type-btn:hover {
             background: linear-gradient(135deg,#2e7d32,#1b5e20);
             color: #fff;
             border-color: #2e7d32;
             box-shadow: 0 5px 20px rgba(46,125,50,0.3);
+        }
+        
+        body.dark-mode .animal-type-btn.active,
+        body.dark-mode .animal-type-btn:hover {
+            background: linear-gradient(135deg,#4ade80,#22c55e);
+            color: #1a1a2e;
+            border-color: #4ade80;
         }
 
         /* ===== FIRST AID GRID ===== */
@@ -99,6 +161,11 @@
             text-align: center;
         }
         
+        body.dark-mode .aid-card {
+            background: #1f4068;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
         .aid-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 50px rgba(0,0,0,0.2);
@@ -110,14 +177,28 @@
             color: #2e7d32;
         }
         
+        body.dark-mode .aid-icon {
+            color: #4ade80;
+        }
+        
         .aid-card h4 {
             margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+        
+        body.dark-mode .aid-card h4 {
+            color: #e6e6e6;
         }
         
         .aid-card p {
             font-size: 0.9rem;
             color: #555;
             line-height: 1.4;
+        }
+        
+        body.dark-mode .aid-card p {
+            color: #e6e6e6;
+            opacity: 0.8;
         }
 
         /* ===== NEW CENTERED SYMPTOM ASSESSMENT SECTION ===== */
@@ -140,6 +221,11 @@
             position: relative;
         }
         
+        body.dark-mode .assessment-section {
+            background: linear-gradient(135deg, #1b1b2f, #162447);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
         /* Center everything inside assessment section */
         .assessment-section > * {
             display: flex;
@@ -159,9 +245,18 @@
             margin-bottom: 0.5rem;
         }
         
+        body.dark-mode .assessment-header h3 {
+            color: #4ade80;
+        }
+        
         .assessment-header p {
             color: #555;
             font-size: 1rem;
+        }
+        
+        body.dark-mode .assessment-header p {
+            color: #e6e6e6;
+            opacity: 0.8;
         }
         
         /* Centered Symptom Checklist */
@@ -189,14 +284,28 @@
             justify-content: flex-start;
         }
         
+        body.dark-mode .symptom-item {
+            background: #2d3748;
+            border-color: #4ade80;
+        }
+        
         .symptom-item:hover {
             background: #e8f5e9;
             transform: translateY(-2px);
         }
         
+        body.dark-mode .symptom-item:hover {
+            background: #4ade80;
+        }
+        
         .symptom-item.selected {
             background: #c8e6c9;
             border-color: #2e7d32;
+        }
+        
+        body.dark-mode .symptom-item.selected {
+            background: #4ade80;
+            border-color: #4ade80;
         }
         
         .symptom-item input {
@@ -209,6 +318,16 @@
             cursor: pointer;
             font-weight: 500;
             flex: 1;
+            color: #333;
+        }
+        
+        body.dark-mode .symptom-item label {
+            color: #e6e6e6;
+        }
+        
+        body.dark-mode .symptom-item.selected label {
+            color: #1a1a2e;
+            font-weight: 600;
         }
         
         /* Centered Emergency Level Indicator */
@@ -223,6 +342,12 @@
             width: 100%;
             max-width: 600px;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .emergency-level {
+            background: #1f4068;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
         .emergency-level.show {
@@ -236,14 +361,26 @@
             background: linear-gradient(135deg, #fff5f5, #ffebee);
         }
         
+        body.dark-mode .emergency-level.critical {
+            background: linear-gradient(135deg, #450a0a, #7f1d1d);
+        }
+        
         .emergency-level.urgent {
             border-color: #ffaa00;
             background: linear-gradient(135deg, #fff9e6, #fff3cd);
         }
         
+        body.dark-mode .emergency-level.urgent {
+            background: linear-gradient(135deg, #422006, #854d0e);
+        }
+        
         .emergency-level.monitor {
             border-color: #00c853;
             background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        }
+        
+        body.dark-mode .emergency-level.monitor {
+            background: linear-gradient(135deg, #14532d, #166534);
         }
         
         .level-header {
@@ -278,6 +415,12 @@
             width: 100%;
             max-width: 600px;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .action-steps {
+            background: #1f4068;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
         .action-steps.show {
@@ -292,6 +435,10 @@
             font-size: 1.3rem;
         }
         
+        body.dark-mode .action-steps h4 {
+            color: #4ade80;
+        }
+        
         .step {
             display: flex;
             align-items: flex-start;
@@ -302,6 +449,11 @@
             border-radius: 10px;
             border-left: 4px solid #2e7d32;
             text-align: left;
+        }
+        
+        body.dark-mode .step {
+            background: #2d3748;
+            border-left-color: #4ade80;
         }
         
         .step-number {
@@ -317,6 +469,19 @@
             flex-shrink: 0;
         }
         
+        body.dark-mode .step-number {
+            background: #4ade80;
+            color: #1a1a2e;
+        }
+        
+        .step div:last-child {
+            color: #333;
+        }
+        
+        body.dark-mode .step div:last-child {
+            color: #e6e6e6;
+        }
+        
         /* Centered Vet Guidance */
         .vet-guidance {
             background: #fff;
@@ -329,6 +494,12 @@
             width: 100%;
             max-width: 600px;
             text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .vet-guidance {
+            background: #1f4068;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
         .vet-guidance.show {
@@ -345,6 +516,14 @@
             gap: 0.5rem;
             margin-bottom: 1rem;
             font-size: 1.2rem;
+        }
+        
+        .vet-guidance p {
+            color: #333;
+        }
+        
+        body.dark-mode .vet-guidance p {
+            color: #e6e6e6;
         }
         
         /* Centered Assessment Buttons */
@@ -377,6 +556,18 @@
         .assessment-btn.secondary {
             background: #f0f0f0;
             color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        body.dark-mode .assessment-btn.secondary {
+            background: #2d3748;
+            color: #e6e6e6;
+            border: 1px solid #4ade80;
+        }
+        
+        body.dark-mode .assessment-btn.secondary:hover {
+            background: #4ade80;
+            color: #1a1a2e;
         }
         
         .assessment-btn:hover {
@@ -397,6 +588,24 @@
             100% { box-shadow: 0 0 5px rgba(255, 68, 68, 0.5); }
         }
         
+        /* Footer */
+        .footer-note {
+            text-align: center;
+            padding: 2rem;
+            color: #333;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 2rem;
+            border-top: 1px solid #c8e6c9;
+        }
+        
+        body.dark-mode .footer-note {
+            color: #e6e6e6;
+            border-top-color: #4ade80;
+        }
+        
         /* Responsive */
         @media(max-width: 768px){
             .aid-card {padding: 1rem;}
@@ -408,16 +617,42 @@
             .level-header {flex-direction: column;}
             h2 {font-size: 2rem;}
             .assessment-header h3 {font-size: 1.5rem;}
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            .theme-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
         }
         
         @media(max-width: 480px){
             .symptom-item {max-width: 100%;}
             .assessment-section {padding: 1rem;}
             section {padding: 2rem 1rem;}
+            .theme-btn span {
+                display: none;
+            }
+            .theme-btn {
+                padding: 10px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-moon"></i>
+            <span>Dark Mode</span>
+        </button>
+    </div>
+
     <div class="main-container">
         <section data-aos="fade-up">
             <h2>🩺 Animal First Aid</h2>
@@ -535,33 +770,84 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Footer Note -->
+        <div class="footer-note" data-aos="fade-up">
+            <p>⚠️ Important: This tool provides general first aid guidance only. Always consult with a qualified veterinarian for professional medical advice.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">© 2024 EcoLife Animal First Aid | Dark Mode: <span id="themeStatus">Off</span></p>
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+        
+        // Theme Toggle Functionality - SIMPLIFIED VERSION
+        const themeToggle = document.getElementById('themeToggle');
+        const themeStatus = document.getElementById('themeStatus');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            enableDarkMode();
+        }
+        
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+            themeStatus.textContent = 'On';
+            localStorage.setItem('darkMode', 'enabled');
+        }
+        
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Dark Mode</span>';
+            themeStatus.textContent = 'Off';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+            
+            // Add click animation
+            themeToggle.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                themeToggle.style.transform = '';
+            }, 150);
+        });
 
         // Original First Aid Grid Code
         const firstAidData = {
             bird: [
                 {icon:'🪶', title:'Wing Injury', desc:'Keep the bird calm, gently immobilize the wing, and consult a vet.'},
                 {icon:'🍃', title:'Hypothermia', desc:'Provide warmth using a soft cloth or heating pad at low temperature.'},
-                {icon:'💧', title:'Dehydration', desc:'Offer water using a shallow dish or syringe carefully.'}
+                {icon:'💧', title:'Dehydration', desc:'Offer water using a shallow dish or syringe carefully.'},
+                {icon:'🌡️', title:'Shock', desc:'Keep in a quiet, dark place and minimize handling.'},
+                {icon:'🍽️', title:'Malnutrition', desc:'Provide species-appropriate food and consult a wildlife rehabilitator.'}
             ],
             mammal: [
                 {icon:'🐾', title:'Fractures', desc:'Immobilize the injured limb and keep the animal calm until professional help arrives.'},
                 {icon:'🩹', title:'Cuts & Wounds', desc:'Clean gently, apply antiseptic, and monitor for infection.'},
-                {icon:'💊', title:'Poisoning', desc:'Do not induce vomiting. Contact a wildlife vet immediately.'}
+                {icon:'💊', title:'Poisoning', desc:'Do not induce vomiting. Contact a wildlife vet immediately.'},
+                {icon:'🤢', title:'Digestive Issues', desc:'Withhold food for 12-24 hours, provide water, and monitor.'},
+                {icon:'👁️', title:'Eye Problems', desc:'Flush with saline solution and avoid direct sunlight.'}
             ],
             reptile: [
                 {icon:'🦎', title:'Burns', desc:'Cool the burn with lukewarm water and avoid applying creams meant for humans.'},
                 {icon:'🌡️', title:'Temperature Shock', desc:'Move to a suitable temperature environment and hydrate carefully.'},
-                {icon:'🩺', title:'Infections', desc:'Clean wounds gently and monitor. Seek vet assistance.'}
+                {icon:'🩺', title:'Infections', desc:'Clean wounds gently and monitor. Seek vet assistance.'},
+                {icon:'💧', title:'Dehydration', desc:'Provide shallow water bowl and mist habitat regularly.'},
+                {icon:'🥚', title:'Egg Binding', desc:'Provide warm bath and consult a reptile specialist immediately.'}
             ],
             amphibian: [
                 {icon:'🐸', title:'Skin Damage', desc:'Keep skin moist and avoid handling unnecessarily.'},
                 {icon:'💧', title:'Dehydration', desc:'Provide shallow water and mist environment to maintain humidity.'},
-                {icon:'🍂', title:'Contamination', desc:'Remove from polluted areas and clean habitat gently.'}
+                {icon:'🍂', title:'Contamination', desc:'Remove from polluted areas and clean habitat gently.'},
+                {icon:'🌡️', title:'Temperature Stress', desc:'Maintain optimal temperature range for the specific species.'},
+                {icon:'🦠', title:'Fungal Infections', desc:'Isolate and provide clean, filtered water. Consult a vet.'}
             ]
         };
 
@@ -581,6 +867,12 @@
                 `;
                 firstAidGrid.appendChild(card);
             });
+            
+            // Animate cards sequentially
+            const cards = firstAidGrid.querySelectorAll('.aid-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
         }
 
         buttons.forEach(btn=>{
@@ -588,6 +880,12 @@
                 buttons.forEach(b=>b.classList.remove('active'));
                 btn.classList.add('active');
                 populateFirstAid(btn.dataset.type);
+                
+                // Add click animation
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 150);
             });
         });
 
