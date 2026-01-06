@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eco Memory Match</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --green:#2e7d32;
+  --green-dark:#1b5e20;
+  --light:#e8f5e9;
+  --bg:#f4fbf6;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Poppins,system-ui;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+}
+
+/* ---------- HEADER ---------- */
+header{
+  background:linear-gradient(135deg,var(--green-dark),var(--green));
+  color:white;
+  text-align:center;
+  padding:28px 15px;
+}
+
+/* ---------- LAYOUT ---------- */
+.container{
+  max-width:1150px;
+  margin:35px auto;
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:30px;
+  padding:0 15px;
+}
+
+/* ---------- HOW TO PLAY ---------- */
+.how-to-play{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.how-to-play h2{
+  color:var(--green);
+}
+
+/* ---------- GAME ---------- */
+.game-area{
+  background:white;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,.1);
+}
+
+.game-top{
+  display:flex;
+  justify-content:space-between;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+/* ---------- GRID ---------- */
+.grid{
+  display:none;
+  grid-template-columns:repeat(4,82px);
+  gap:16px;
+  justify-content:center;
+  margin:25px 0;
+}
+
+.card{
+  width:82px;
+  height:82px;
+  background:var(--green);
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+  transition:.3s;
+}
+
+.card.open{
+  background:var(--light);
+  color:var(--green);
+  transform:scale(1.05);
+}
+
+.card.matched{
+  background:#c8e6c9;
+  cursor:default;
+  box-shadow:none;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-group{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:20px;
+}
+
+.btn{
+  padding:12px 30px;
+  background:var(--green);
+  color:white;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+.btn.secondary{
+  background:#444;
+}
+
+.status-text{
+  text-align:center;
+  color:var(--green);
+  font-weight:600;
+  margin-top:10px;
+}
+
+/* ---------- POPUP (FULL SCREEN CLEAN) ---------- */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#0f2f18;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.popup{
+  background:white;
+  padding:35px;
+  border-radius:22px;
+  text-align:center;
+  width:320px;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.popup h2{
+  color:var(--green);
+  margin-bottom:10px;
+}
+
+.popup p{
+  margin-bottom:20px;
+  color:#444;
+}
+
+.popup .btn{
+  width:100%;
+  margin-top:10px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+  .container{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🧠 Eco Memory Match</h1>
+  <p>Memorize eco-friendly cards, match pairs, and win within time 🌱</p>
+</header>
+
+<div class="container" id="mainContent">
+
+  <!-- HOW TO PLAY -->
+  <div class="how-to-play">
+    <h2>📘 How to Play</h2>
+    <ul>
+      <li>Click Start Game</li>
+      <li>Get Ready popup appears</li>
+      <li>Cards open for 6 seconds</li>
+      <li>Cards hide automatically</li>
+      <li>You get 40 seconds</li>
+      <li>Match all cards to win 🎉</li>
+    </ul>
+  </div>
+
+  <!-- GAME -->
+  <div class="game-area">
+    <div class="game-top">
+      <div>⏱ Time: <span id="time">40</span>s</div>
+      <div>Moves: <span id="moves">0</span></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="status-text" id="status"></div>
+
+    <div class="btn-group">
+      <button class="btn" id="startBtn">▶ Start Game</button>
+      <button class="btn secondary" onclick="location.href='kids-quiz-dashboard.html'">
+        🏠 Go to Dashboard
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div class="overlay" id="overlay">
+  <div class="popup" id="popup"></div>
+</div>
+
+<script>
+const icons=['🌱','🌱','♻️','♻️','🐾','🐾','🌍','🌍','💧','💧','🌳','🌳'];
+const grid=document.getElementById('grid');
+const timeEl=document.getElementById('time');
+const movesEl=document.getElementById('moves');
+const overlay=document.getElementById('overlay');
+const popup=document.getElementById('popup');
+const startBtn=document.getElementById('startBtn');
+const statusText=document.getElementById('status');
+const mainContent=document.getElementById('mainContent');
+
+let first=null, second=null, lock=false;
+let moves=0, matched=0, time=40, timer;
+
+/* ---------- GAME SETUP ---------- */
+function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
+
+function setupGame(){
+  grid.innerHTML='';
+  shuffle(icons);
+  icons.forEach(icon=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.dataset.icon=icon;
+    card.textContent='?';
+    card.onclick=()=>flip(card);
+    grid.appendChild(card);
+  });
+}
+
+function resetGame(){
+  clearInterval(timer);
+  time=40; moves=0; matched=0;
+  timeEl.textContent=time;
+  movesEl.textContent=moves;
+  statusText.textContent='';
+  grid.style.display='grid';
+}
+
+/* ---------- GAME FLOW ---------- */
+function startGame(){
+  resetGame();
+  setupGame();
+  showPopup('👀 Get Ready!', false);
+
+  setTimeout(()=>{
+    hidePopup();
+
+    document.querySelectorAll('.card').forEach(c=>{
+      c.classList.add('open');
+      c.textContent=c.dataset.icon;
+    });
+
+    setTimeout(()=>{
+      document.querySelectorAll('.card').forEach(c=>{
+        c.classList.remove('open');
+        c.textContent='?';
+      });
+
+      statusText.textContent='🎯 Start Matching!';
+      startTimer();
+    },6000);
+
+  },2000);
+}
+
+/* ---------- TIMER ---------- */
+function startTimer(){
+  timer=setInterval(()=>{
+    time--;
+    timeEl.textContent=time;
+    if(time===0) endGame(false);
+  },1000);
+}
+
+/* ---------- CARD LOGIC ---------- */
+function flip(card){
+  if(lock || card.classList.contains('matched') || card===first) return;
+
+  card.classList.add('open');
+  card.textContent=card.dataset.icon;
+
+  if(!first){
+    first=card;
+  }else{
+    second=card;
+    lock=true;
+    moves++;
+    movesEl.textContent=moves;
+
+    if(first.dataset.icon===second.dataset.icon){
+      first.classList.add('matched');
+      second.classList.add('matched');
+      matched+=2;
+      resetTurn();
+      if(matched===icons.length) endGame(true);
+    }else{
+      setTimeout(()=>{
+        first.classList.remove('open');
+        second.classList.remove('open');
+        first.textContent='?';
+        second.textContent='?';
+        resetTurn();
+      },700);
+    }
+  }
+}
+
+function resetTurn(){
+  first=second=null;
+  lock=false;
+}
+
+/* ---------- POPUPS ---------- */
+function showPopup(msg, isFinal){
+  mainContent.style.display='none';
+  popup.innerHTML = isFinal ? msg : `<h2>${msg}</h2>`;
+  overlay.style.display='flex';
+}
+
+function hidePopup(){
+  overlay.style.display='none';
+  mainContent.style.display='grid';
+}
+
+function endGame(win){
+  clearInterval(timer);
+  showPopup(`
+    <h2>${win?'🎉 You Win!':'❌ You Lose!'}</h2>
+    <p>${win?'Amazing memory!':'Time is over. Try again!'}</p>
+    <button class="btn" onclick="location.reload()">🔁 Try Again</button>
+    <button class="btn secondary" onclick="location.href='kids-quiz-dashboard.html'">
+      🏠 Back to Dashboard
+    </button>
+  `, true);
+}
+
+/* ---------- EVENT ---------- */
+startBtn.onclick=startGame;
+</script>
+
+</body>
+</html>

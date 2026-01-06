@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Plant Care Quiz | EcoLife</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --green:#2e7d32;
+  --green-dark:#1b5e20;
+  --light:#e8f5e9;
+  --bg:#f4fbf6;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:#1a1a1a;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:80px 20px 60px;
+  text-align:center;
+  background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
+  color:#fff;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
+}
+
+.hero h1{
+  font-size:2.8rem;
+}
+
+.hero p{
+  opacity:.9;
+}
+
+/* ---------- CARD ---------- */
+.card{
+  max-width:800px;
+  margin:30px auto 80px;
+  background:#fff;
+  padding:40px;
+  border-radius:24px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+/* ---------- START ---------- */
+#startScreen{
+  text-align:center;
+}
+
+select,button{
+  padding:12px 26px;
+  border-radius:30px;
+  border:none;
+  font-size:1rem;
+}
+
+select{
+  border:1px solid #ccc;
+}
+
+button{
+  background:var(--green);
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  background:var(--green-dark);
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(46,125,50,.35);
+}
+
+/* ---------- QUIZ ---------- */
+#quizScreen{display:none;}
+
+.timer{
+  background:var(--light);
+  padding:8px 18px;
+  border-radius:30px;
+  display:inline-block;
+  font-weight:600;
+  margin-bottom:15px;
+}
+
+.question{
+  font-size:1.3rem;
+  margin-bottom:20px;
+}
+
+.option{
+  background:#f7faf8;
+  padding:14px 18px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:var(--light);
+  transform:translateX(6px);
+}
+
+.option.selected{
+  border-color:var(--green);
+  background:var(--light);
+}
+
+/* ---------- RESULT ---------- */
+#resultScreen{
+  display:none;
+  text-align:center;
+}
+
+.score{
+  font-size:3rem;
+  color:var(--green);
+}
+
+/* ---------- BACK ---------- */
+.back-wrapper{
+  display:flex;
+  justify-content:center;
+  margin-top:30px;
+}
+
+.back-btn{
+  background:var(--green);
+  color:white;
+  padding:12px 28px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+}
+
+.back-btn:hover{
+  background:var(--green-dark);
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  padding:20px;
+  color:#666;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .hero h1{font-size:2.2rem;}
+  .card{padding:25px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🌱 Plant Care Quiz</h1>
+  <p>Learn how to grow and care for plants the right way 🌿</p>
+</div>
+
+<div class="card">
+
+  <!-- START -->
+  <div id="startScreen">
+    <h2>Start Plant Care Quiz</h2>
+    <p>Select time limit</p>
+    <select id="timeSelect">
+      <option value="120">2 Minutes</option>
+      <option value="180">3 Minutes</option>
+    </select>
+    <br><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizScreen">
+    <div class="timer">⏳ Time Left: <span id="time">00:00</span></div>
+    <div class="question" id="question"></div>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen">
+    <h2>🎉 Quiz Completed!</h2>
+    <div class="score" id="score"></div>
+    <p id="remark"></p>
+    <br>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+  <!-- BACK -->
+  <div class="back-wrapper">
+    <button class="back-btn" onclick="window.location.href='../index.html'">
+      ← Back to Home
+    </button>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 EcoLife • Grow Green 💚
+</footer>
+
+<script>
+const questions = [
+ {q:"How often should plants be watered?",o:["Every hour","Only when soil is dry","Never","Once a year"],a:1},
+ {q:"Why do plants need sunlight?",o:["For decoration","For photosynthesis","For water","For insects"],a:1},
+ {q:"Which is best for plant growth?",o:["Plastic soil","Healthy soil","Dry sand","Rocks"],a:1},
+ {q:"Overwatering plants can?",o:["Help growth","Kill plants","Make leaves shiny","Increase sunlight"],a:1},
+ {q:"Best time to water plants?",o:["Afternoon","Morning or evening","Midnight","Anytime"],a:1},
+ {q:"What helps plants grow strong?",o:["Trash","Fertilizer","Plastic","Smoke"],a:1},
+ {q:"Indoor plants need?",o:["Direct sunlight always","Proper light & water","No care","Only shade"],a:1},
+ {q:"Why remove dry leaves?",o:["Looks bad","Helps plant grow","Hurts plant","Attracts bugs"],a:1},
+ {q:"Plants help environment by?",o:["Making noise","Producing oxygen","Using plastic","Creating waste"],a:1},
+ {q:"Which is good plant habit?",o:["Overwatering","Ignoring","Regular care","Breaking stems"],a:2}
+];
+
+let quiz=[],index=0,score=0,timer,seconds=0;
+
+function startQuiz(){
+  quiz=[...questions].sort(()=>0.5-Math.random()).slice(0,7);
+  seconds=parseInt(timeSelect.value);
+  startScreen.style.display="none";
+  quizScreen.style.display="block";
+  loadQuestion();
+  startTimer();
+}
+
+function startTimer(){
+  updateTime();
+  timer=setInterval(()=>{
+    seconds--;
+    updateTime();
+    if(seconds<=0){
+      clearInterval(timer);
+      showResult();
+    }
+  },1000);
+}
+
+function updateTime(){
+  let m=Math.floor(seconds/60);
+  let s=seconds%60;
+  time.textContent=`${m}:${s<10?'0':''}${s}`;
+}
+
+function loadQuestion(){
+  let q=quiz[index];
+  question.textContent=`Q${index+1}. ${q.q}`;
+  options.innerHTML="";
+  q.o.forEach((opt,i)=>{
+    let div=document.createElement("div");
+    div.className="option";
+    div.textContent=opt;
+    div.onclick=()=>selectOption(div,i);
+    options.appendChild(div);
+  });
+}
+
+function selectOption(el,i){
+  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+  el.classList.add("selected");
+  el.dataset.correct=i===quiz[index].a;
+}
+
+function nextQuestion(){
+  let selected=document.querySelector(".option.selected");
+  if(!selected) return alert("Please select an option 🌱");
+  if(selected.dataset.correct==="true") score++;
+  index++;
+  index<quiz.length ? loadQuestion() : showResult();
+}
+
+function showResult(){
+  clearInterval(timer);
+  quizScreen.style.display="none";
+  resultScreen.style.display="block";
+  score.textContent=`${score} / ${quiz.length}`;
+  remark.textContent =
+    score>=6 ? "🌟 Plant Care Pro!" :
+    score>=4 ? "👍 Good Job!" :
+    "🌱 Keep Learning!";
+}
+</script>
+
+</body>
+</html>

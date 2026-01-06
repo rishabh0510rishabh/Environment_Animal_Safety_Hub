@@ -1235,3 +1235,36 @@ function updateEarth(score) {
 /* Example auto-call */
 updateEarth(75);
 
+// Learn More toggle
+  document.querySelectorAll(".learn-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const info = btn.previousElementSibling;
+      info.style.display =
+        info.style.display === "block" ? "none" : "block";
+      btn.textContent =
+        info.style.display === "block" ? "Show Less" : "Learn More";
+    });
+  });
+
+  // Filter system
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(".wildlife-card");
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === "all" || card.classList.contains(filter)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+
+  

@@ -2068,3 +2068,304 @@ body.dark-theme .bot-message {
     font-size: 1.8rem;
   }
 }
+
+
+
+
+
+
+/* museum */
+/* --- MUSEUM PREVIEW SECTION --- */
+.museum-preview {
+    padding: 4rem 10%;
+    background-color: #f0fdf4; 
+    display: flex;
+    justify-content: center;
+    
+}
+
+.museum-banner {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    width: 100%;
+    border-radius: 30px;
+    padding: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 10px 10px 10px rgb(0, 0, 0);
+    color: white;
+}
+
+/* Background Pattern Overlay */
+.museum-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+}
+
+.museum-text {
+    flex: 1;
+    z-index: 2;
+    max-width: 500px;
+}
+
+.tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.museum-text h2 {
+    font-size: 2.5rem;
+    margin: 15px 0;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgb(0, 255, 21);
+}
+
+.museum-text p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.explore-btn {
+    background: white;
+    color: #1b5e20;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.explore-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    color: wheat;
+    background: #62d66a8e;
+}
+
+/* Visuals (Floating Images) */
+.museum-visuals {
+    flex: 1;
+    position: relative;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-card {
+    position: absolute;
+    width: 200px;
+    height: 260px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 4px solid rgba(255,255,255,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+}
+
+.floating-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card Positioning & Animation */
+.card-1 {
+    transform: rotate(-10deg) translate(-30px, 10px);
+    z-index: 1;
+    animation: float1 6s ease-in-out infinite;
+}
+
+.card-2 {
+    transform: rotate(5deg) translate(50px, -20px);
+    z-index: 2;
+    animation: float2 7s ease-in-out infinite;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: rotate(-10deg) translate(-30px, 10px); }
+    50% { transform: rotate(-8deg) translate(-30px, -10px); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: rotate(5deg) translate(50px, -20px); }
+    50% { transform: rotate(7deg) translate(50px, 0px); }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .museum-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 3rem 1.5rem;
+    }
+    
+    .museum-text { margin-bottom: 2rem; }
+    
+    .museum-visuals {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .floating-card { width: 160px; height: 210px; }
+}
+
+.dict-card {
+    background:#ffffff;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeInUp 0.6s forwards;
+  }
+
+  .dict-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  }
+
+  .dict-card h3 {
+    margin-top:0;
+    font-size:1.3rem;
+    color:#2e7d32;
+  }
+
+  .dict-card p {
+    font-size:0.95rem;
+    color:#555;
+    margin:10px 0 0;
+    line-height:1.5;
+  }
+
+  .category-tag {
+    display:inline-block;
+    padding:5px 12px;
+    background:#c8e6c9;
+    color:#2e7d32;
+    font-size:0.8rem;
+    font-weight:600;
+    border-radius:15px;
+    margin-top:10px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+
+  /* ===== GLOBAL ANIMATION LAYERS ===== */
+.eco-sky,
+.birds-layer,
+.rain-layer,
+.leaves-layer,
+.sun-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== ☁️ CLOUDS ===== */
+.cloud {
+  position: absolute;
+  top: 10%;
+  width: 220px;
+  height: 80px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50px;
+  filter: blur(2px);
+  animation: moveClouds 80s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: -40px;
+}
+
+.cloud::before { left: 30px; }
+.cloud::after { right: 30px; }
+
+.cloud1 { top: 15%; left: -300px; animation-duration: 90s; }
+.cloud2 { top: 30%; left: -400px; animation-duration: 110s; }
+.cloud3 { top: 45%; left: -500px; animation-duration: 130s; }
+
+@keyframes moveClouds {
+  to { transform: translateX(120vw); }
+}
+
+/* ===== 🕊️ BIRDS ===== */
+.bird {
+  position: absolute;
+  font-size: 22px;
+  animation: flyBird 15s linear forwards;
+}
+
+@keyframes flyBird {
+  from { transform: translateX(-50px) translateY(0); }
+  to { transform: translateX(110vw) translateY(-40px); }
+}
+
+/* ===== 🌧️ RAIN ===== */
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  background: rgba(255,255,255,0.6);
+  animation: rainFall 1s linear infinite;
+}
+
+@keyframes rainFall {
+  from { transform: translateY(-100px); }
+  to { transform: translateY(110vh); }
+}
+
+/* ===== 🍃 LEAVES ===== */
+.leaf {
+  position: absolute;
+  font-size: 18px;
+  animation: leafFloat 12s linear infinite;
+}
+
+@keyframes leafFloat {
+  0% { transform: translateY(-50px) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ===== 🌞 SUN GLOW ===== */
+.sun-glow {
+  background: radial-gradient(circle at top right, rgba(255,223,128,0.35), transparent 60%);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.sun-glow.active {
+  opacity: 1;
+}

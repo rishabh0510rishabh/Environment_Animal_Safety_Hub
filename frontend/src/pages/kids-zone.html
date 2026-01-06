@@ -4,102 +4,1490 @@
   <meta charset="UTF-8" />
   <title>EcoLife Kids Zone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="/envirnoment-logo.png">
+  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
+  
   <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  
   <!-- Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== THEME VARIABLES ===== */
+    :root {
+      /* Light Theme */
+      --primary: #00c853;
+      --primary-dark: #00a844;
+      --primary-light: #69f0ae;
+      --secondary: #ff9800;
+      --accent: #536dfe;
+      --danger: #ff5252;
+      --success: #00e676;
+      
+      --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-shadow: 0 20px 60px rgba(0, 200, 83, 0.1);
+      --card-border: 1px solid rgba(0, 200, 83, 0.2);
+      --text-primary: #1a237e;
+      --text-secondary: #455a64;
+      --text-light: #78909c;
+      
+      --header-gradient: linear-gradient(135deg, var(--primary), var(--accent));
+      --button-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.4);
+    }
 
-  <link rel="stylesheet" href="../css/pages/kids-zone.css">
+    .dark-theme {
+      /* Dark Theme */
+      --primary: #00e676;
+      --primary-dark: #00c853;
+      --primary-light: #69f0ae;
+      --secondary: #ffb74d;
+      --accent: #7c4dff;
+      --danger: #ff5252;
+      --success: #00e676;
+      
+      --bg-gradient: linear-gradient(135deg, #0a192f 0%, #1a237e 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      --card-border: 1px solid rgba(0, 230, 118, 0.3);
+      --text-primary: #ffffff;
+      --text-secondary: #b0bec5;
+      --text-light: #78909c;
+      
+      --header-gradient: linear-gradient(135deg, var(--primary), var(--accent));
+      --button-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== BASE STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-primary);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== BACKGROUND EFFECTS ===== */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.3;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(100px, 100px) rotate(90deg);
+      }
+      50% {
+        transform: translate(0, 200px) rotate(180deg);
+      }
+      75% {
+        transform: translate(-100px, 100px) rotate(270deg);
+      }
+    }
+
+    /* ===== THEME TOGGLE ===== */
+    .theme-toggle {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: var(--card-border);
+      color: var(--text-primary);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(360deg) scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 200, 83, 0.4);
+    }
+
+    .theme-toggle i {
+      position: absolute;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .theme-toggle .fa-moon {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    .theme-toggle .fa-sun {
+      opacity: 0;
+      transform: scale(0) rotate(180deg);
+    }
+
+    .dark-theme .theme-toggle .fa-moon {
+      opacity: 0;
+      transform: scale(0) rotate(-180deg);
+    }
+
+    .dark-theme .theme-toggle .fa-sun {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+
+    /* ===== HEADER ===== */
+    .page-header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: var(--header-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      display: inline-block;
+    }
+
+    .page-header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--header-gradient);
+      border-radius: 2px;
+    }
+
+    .page-header .tagline {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: var(--card-bg);
+      border-radius: 50px;
+      border: var(--card-border);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      z-index: 1;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--primary);
+      transform: translateX(-3px);
+    }
+
+    .breadcrumb span {
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* ===== GAMES GRID ===== */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== GAME CARD ===== */
+    .game-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      border: var(--card-border);
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--header-gradient);
+      border-radius: 24px 24px 0 0;
+    }
+
+    .game-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .game-card:hover::after {
+      left: 100%;
+    }
+
+    .game-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 40px 80px rgba(0, 200, 83, 0.2);
+    }
+
+    /* Card Badges */
+    .card-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    .badge-new {
+      background: var(--danger);
+      color: white;
+    }
+
+    .badge-popular {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .badge-hot {
+      background: linear-gradient(135deg, #ff5252, #ff9800);
+      color: white;
+    }
+
+    /* Card Emoji */
+    .card-emoji {
+      font-size: 56px;
+      margin-bottom: 20px;
+      display: inline-block;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+    }
+
+    .game-card:hover .card-emoji {
+      transform: scale(1.2) rotate(15deg);
+    }
+
+    /* Card Content */
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      min-height: 72px;
+    }
+
+    /* Card Footer */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 200, 83, 0.1);
+    }
+
+    .age-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .age-indicator i {
+      color: var(--primary);
+    }
+
+    /* Play Button */
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--button-gradient);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .play-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .play-btn:hover::before {
+      left: 100%;
+    }
+
+    .play-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 200, 83, 0.4);
+    }
+
+    .play-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* ===== PROGRESS INDICATOR ===== */
+    .progress-container {
+      margin: 20px 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(0, 200, 83, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--header-gradient);
+      border-radius: 4px;
+      transition: width 1s ease;
+      width: 75%;
+    }
+
+    /* ===== VOICE ECHO GAME MODAL ===== */
+    .voice-game-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .voice-game-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .voice-game-container {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 40px;
+      width: 90%;
+      max-width: 800px;
+      border: var(--card-border);
+      box-shadow: 0 30px 80px rgba(0, 200, 83, 0.3);
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+
+    .voice-game-modal.active .voice-game-container {
+      transform: translateY(0);
+    }
+
+    .voice-game-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .voice-game-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: var(--header-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .voice-game-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .voice-game-emoji {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .voice-game-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .voice-game-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .word-display {
+      background: var(--glass-bg);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      border: var(--card-border);
+    }
+
+    .current-word {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 20px 0;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .word-phonetic {
+      color: var(--text-light);
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .word-meaning {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .voice-controls {
+      background: var(--glass-bg);
+      border-radius: 20px;
+      padding: 30px;
+      border: var(--card-border);
+    }
+
+    .microphone-btn {
+      width: 100%;
+      padding: 20px;
+      background: var(--button-gradient);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .microphone-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 200, 83, 0.4);
+    }
+
+    .microphone-btn.listening {
+      background: linear-gradient(135deg, #ff5252, #ff9800);
+      animation: pulse 1s infinite;
+    }
+
+    .microphone-btn i {
+      font-size: 1.5rem;
+    }
+
+    .game-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: var(--glass-bg);
+      border-radius: 15px;
+      border: var(--card-border);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .feedback-message {
+      text-align: center;
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 20px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback-success {
+      background: rgba(0, 230, 118, 0.2);
+      color: var(--success);
+      border: 2px solid var(--success);
+    }
+
+    .feedback-error {
+      background: rgba(255, 82, 82, 0.2);
+      color: var(--danger);
+      border: 2px solid var(--danger);
+    }
+
+    .close-game-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--danger);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .close-game-btn:hover {
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .word-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .word-bubble {
+      padding: 8px 16px;
+      background: var(--glass-bg);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: var(--card-border);
+      transition: all 0.3s ease;
+    }
+
+    .word-bubble.completed {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .word-bubble.current {
+      background: var(--accent);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(83, 109, 254, 0.4);
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1200px) {
+      .games-grid {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        padding: 30px 20px;
+        gap: 20px;
+      }
+
+      .page-header {
+        padding: 100px 20px 40px;
+      }
+
+      .page-header h1 {
+        font-size: 2.8rem;
+      }
+
+      .page-header .tagline {
+        font-size: 1.1rem;
+      }
+
+      .breadcrumb {
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .theme-toggle {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .voice-game-container {
+        padding: 30px 20px;
+      }
+
+      .voice-game-header h2 {
+        font-size: 2rem;
+      }
+
+      .current-word {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+
+      .game-card {
+        padding: 25px;
+      }
+
+      .card-emoji {
+        font-size: 48px;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+      }
+
+      .play-btn {
+        padding: 10px 24px;
+        font-size: 0.95rem;
+      }
+
+      .voice-game-emoji {
+        font-size: 60px;
+      }
+
+      .current-word {
+        font-size: 2rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-card {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .bounce {
+      animation: bounce 0.5s ease;
+    }
+  </style>
 </head>
 <body>
+  <!-- Background Particles -->
+  <div class="bg-particles" id="particles"></div>
 
-  <!-- Floating Emojis Background -->
-  <div class="floating-emojis"></div>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button>
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
-    <a href="../index.html">Home</a>
+    <a href="../index.html">
+      <i class="fas fa-home"></i>
+      Home
+    </a>
     <span>/</span>
     <span>Kids Zone</span>
   </nav>
 
   <!-- Header -->
-  <header class="page-header" data-aos="fade-down">
-    <h1>🌱 EcoLife Kids Zone</h1>
-    <p>Play smart • Learn green • Grow happy</p>
+  <header class="page-header">
+    <div class="header-content">
+      <h1>🌱 EcoLife Kids Zone</h1>
+      <p class="tagline">Where learning meets fun, and sustainability becomes a game!</p>
+    </div>
   </header>
 
   <!-- Games Dashboard -->
   <section class="games-grid">
-
-    <div class="game-card" data-aos="fade-up">
-      <span class="emoji">🧠</span>
-      <h3>Eco Quiz</h3>
-      <p>Fun quizzes to test eco knowledge.</p>
-      <a href="./quiz.html" class="play-btn">▶ Play</a>
+    <!-- Game 1 -->
+    <div class="game-card animate-card" style="animation-delay: 0.1s">
+      <span class="card-badge badge-new">New</span>
+      <div class="card-emoji">🧠</div>
+      <h3 class="card-title">Eco Quiz Challenge</h3>
+      <p class="card-description">Test your environmental knowledge with exciting quizzes and earn green badges!</p>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Popularity</span>
+          <span>75%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 6+</span>
+        </div>
+        <a href="./quiz.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="200">
-      <span class="emoji">♻️</span>
-      <h3>Waste Sorting</h3>
-      <p>Drag & drop waste into bins.</p>
-      <a href="./waste-game.html" class="play-btn">▶ Play</a>
+    <!-- Game 2 -->
+    <div class="game-card animate-card" style="animation-delay: 0.2s">
+      <span class="card-badge badge-popular">Popular</span>
+      <div class="card-emoji">♻️</div>
+      <h3 class="card-title">Waste Sorting Game</h3>
+      <p class="card-description">Drag & drop waste into correct bins. Master recycling through interactive gameplay!</p>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Mastery</span>
+          <span>85%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 85%"></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 5+</span>
+        </div>
+        <a href="./waste-game.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="300">
-      <span class="emoji">📘</span>
-      <h3>Kids Learning</h3>
-      <p>Interactive eco-friendly lessons.</p>
-      <a href="./kids-learning.html" class="play-btn">▶ Explore</a>
+    <!-- Game 3 -->
+    <div class="game-card animate-card" style="animation-delay: 0.3s">
+      <div class="card-emoji">📘</div>
+      <h3 class="card-title">Kids Learning Hub</h3>
+      <p class="card-description">Interactive eco-lessons with animated stories and amazing fun facts about nature!</p>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Completion</span>
+          <span>60%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 60%"></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-users"></i>
+          <span>All Ages</span>
+        </div>
+        <a href="./kids-learning.html" class="play-btn">
+          <i class="fas fa-compass"></i>
+          Explore
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="400">
-      <span class="emoji">🌳🍂</span>
-      <h3>Tree Explorer</h3>
-      <p>Learn the names of different trees by matching leaves to their tree.</p>
-      <a href="./tree-explore.html" class="play-btn">▶ Play</a>
+    <!-- Game 4 -->
+    <div class="game-card animate-card" style="animation-delay: 0.4s">
+      <span class="card-badge badge-hot">Hot</span>
+      <div class="card-emoji">🌳🍂</div>
+      <h3 class="card-title">Tree Explorer</h3>
+      <p class="card-description">Identify trees by matching leaves. Become a certified nature expert!</p>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>45%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 45%"></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 7+</span>
+        </div>
+        <a href="./tree-explore.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="500">
-      <span class="emoji">🧩🌍</span>
-      <h3>Eco Puzzle</h3>
-      <p>Solve eco-themed jigsaw puzzles of forests, oceans, and wildlife.</p>
-      <a href="./puzzle.html" class="play-btn">▶ Play</a>
+    <!-- Game 5 -->
+    <div class="game-card animate-card" style="animation-delay: 0.5s">
+      <div class="card-emoji">🧩🌍</div>
+      <h3 class="card-title">Eco Puzzle Adventure</h3>
+      <p class="card-description">Solve beautiful jigsaw puzzles featuring forests, oceans, and amazing wildlife!</p>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 4+</span>
+        </div>
+        <a href="./puzzle.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="600">
-      <span class="emoji">🐶🐱🦁🦉</span>
-      <h3>Animal Sort</h3>
-      <p>Help kids classify animals by habitat, diet, or type.</p>
-      <a href="./animal-sort.html" class="play-btn">▶ Play</a>
+    <!-- Game 6 -->
+    <div class="game-card animate-card" style="animation-delay: 0.6s">
+      <div class="card-emoji">🐶🐱🦁🦉</div>
+      <h3 class="card-title">Animal Sort Challenge</h3>
+      <p class="card-description">Classify animals by habitat, diet, or type. Learn zoology through fun games!</p>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 6+</span>
+        </div>
+        <a href="./animal-sort.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="fade-up" data-aos-delay="700">
-      <span class="emoji">🎤🗣️</span>
-      <h3>Voice Echo</h3>
-      <p>Repeat eco-friendly words aloud to train pronunciation and memory.</p>
-      <a href="./voice.html" class="play-btn">▶ Play</a>
+    <!-- Game 7 - VOICE ECHO GAME (Now Playable) -->
+    <div class="game-card animate-card" style="animation-delay: 0.7s">
+      <span class="card-badge badge-new">New</span>
+      <div class="card-emoji">🎤🗣️</div>
+      <h3 class="card-title">Voice Echo Game</h3>
+      <p class="card-description">Repeat eco-words aloud! Fun pronunciation & memory training for young learners.</p>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 3+</span>
+        </div>
+        <button class="play-btn play-voice-game">
+          <i class="fas fa-microphone"></i>
+          Play Now
+        </button>
+      </div>
     </div>
 
-    <div class="game-card" data-aos="zoom-in" data-aos-delay="800">
-      <span class="emoji">🌱🌳</span>
-      <h3>Plant & Grow Adventure</h3>
-      <p>Plant seeds, water them, and grow a green world.</p>
-      <a href="./plant-adventure.html" class="play-btn">▶ Play</a>
+    <!-- Game 8 -->
+    <div class="game-card animate-card" style="animation-delay: 0.8s">
+      <span class="card-badge badge-hot">Trending</span>
+      <div class="card-emoji">🌱🌳</div>
+      <h3 class="card-title">Plant & Grow Adventure</h3>
+      <p class="card-description">Plant virtual seeds, water them daily, and watch your green world blossom!</p>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Growth</span>
+          <span>90%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 90%"></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="age-indicator">
+          <i class="fas fa-child"></i>
+          <span>Age 5+</span>
+        </div>
+        <a href="./plant-adventure.html" class="play-btn">
+          <i class="fas fa-play-circle"></i>
+          Play Now
+        </a>
+      </div>
     </div>
-
   </section>
+
+  <!-- Voice Echo Game Modal -->
+  <div class="voice-game-modal" id="voiceGameModal">
+    <div class="voice-game-container">
+      <button class="close-game-btn" id="closeVoiceGame">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <div class="voice-game-header">
+        <div class="voice-game-emoji">🎤🗣️</div>
+        <h2>Voice Echo Game</h2>
+        <p>Repeat the eco-word you see and hear! Perfect your pronunciation and learn environmental vocabulary.</p>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-item">
+          <span class="stat-value" id="score">0</span>
+          <span class="stat-label">Score</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="level">1</span>
+          <span class="stat-label">Level</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="streak">0</span>
+          <span class="stat-label">Streak</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="accuracy">100%</span>
+          <span class="stat-label">Accuracy</span>
+        </div>
+      </div>
+
+      <div class="voice-game-content">
+        <div class="word-display">
+          <h3>Current Word</h3>
+          <div class="word-phonetic" id="wordPhonetic">/ˈiːkoʊ/</div>
+          <div class="current-word" id="currentWord">ECO</div>
+          <div class="word-meaning" id="wordMeaning">Related to the environment and nature</div>
+        </div>
+
+        <div class="voice-controls">
+          <h3>Voice Control</h3>
+          <button class="microphone-btn" id="microphoneBtn">
+            <i class="fas fa-microphone"></i>
+            <span>Click & Speak</span>
+          </button>
+          
+          <div class="instruction">
+            <p><i class="fas fa-info-circle"></i> Click the microphone, then repeat the word clearly. Try to match the pronunciation!</p>
+          </div>
+
+          <div class="feedback-message" id="feedbackMessage"></div>
+
+          <div class="game-controls">
+            <button class="play-btn" id="nextWordBtn" style="width: 100%; margin-top: 20px;">
+              <i class="fas fa-forward"></i>
+              Next Word
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="word-list" id="wordList">
+        <!-- Word bubbles will be generated here -->
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="../js/pages/kids-zone.js"></script>
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check saved theme
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-theme');
+      themeToggle.classList.add('dark');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      themeToggle.classList.toggle('dark');
+      
+      localStorage.setItem('theme', 
+        document.body.classList.contains('dark-theme') ? 'dark' : 'light'
+      );
+    });
+
+    // Create Background Particles
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      // Random properties
+      const size = Math.random() * 100 + 50; // 50-150px
+      const x = Math.random() * 100; // 0-100vw
+      const y = Math.random() * 100; // 0-100vh
+      const delay = Math.random() * 20; // 0-20s delay
+      const duration = Math.random() * 30 + 20; // 20-50s duration
+      const opacity = Math.random() * 0.3 + 0.1; // 0.1-0.4
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${x}vw`;
+      particle.style.top = `${y}vh`;
+      particle.style.animationDelay = `${delay}s`;
+      particle.style.animationDuration = `${duration}s`;
+      particle.style.opacity = opacity;
+      particle.style.background = `radial-gradient(circle, var(--primary) 0%, transparent 70%)`;
+      
+      particlesContainer.appendChild(particle);
+    }
+
+    // Animate cards on scroll
+    const animateCards = () => {
+      const cards = document.querySelectorAll('.animate-card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${(index + 1) * 0.1}s`;
+      });
+    };
+
+    // Disabled button behavior
+    document.querySelectorAll('.play-btn.disabled').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('🚧 This game is coming soon! Stay tuned for updates!');
+      });
+    });
+
+    // Add hover effect for cards
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-15px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // ===== VOICE ECHO GAME LOGIC =====
+    const voiceGameModal = document.getElementById('voiceGameModal');
+    const closeVoiceGameBtn = document.getElementById('closeVoiceGame');
+    const playVoiceGameBtn = document.querySelector('.play-voice-game');
+    const microphoneBtn = document.getElementById('microphoneBtn');
+    const nextWordBtn = document.getElementById('nextWordBtn');
+    const currentWordEl = document.getElementById('currentWord');
+    const wordPhoneticEl = document.getElementById('wordPhonetic');
+    const wordMeaningEl = document.getElementById('wordMeaning');
+    const scoreEl = document.getElementById('score');
+    const levelEl = document.getElementById('level');
+    const streakEl = document.getElementById('streak');
+    const accuracyEl = document.getElementById('accuracy');
+    const feedbackMessageEl = document.getElementById('feedbackMessage');
+    const wordListEl = document.getElementById('wordList');
+
+    // Eco-themed word list with phonetic pronunciation and meanings
+    const ecoWords = [
+      { word: "ECO", phonetic: "/ˈiːkoʊ/", meaning: "Related to the environment and nature" },
+      { word: "GREEN", phonetic: "/ɡriːn/", meaning: "Color of plants; environmentally friendly" },
+      { word: "RECYCLE", phonetic: "/ˌriːˈsaɪkəl/", meaning: "Convert waste into reusable material" },
+      { word: "TREE", phonetic: "/triː/", meaning: "Tall plant with trunk and branches" },
+      { word: "WATER", phonetic: "/ˈwɔːtər/", meaning: "Clear liquid essential for life" },
+      { word: "EARTH", phonetic: "/ɜːrθ/", meaning: "Our planet; soil or ground" },
+      { word: "SUN", phonetic: "/sʌn/", meaning: "Star that gives light and heat to Earth" },
+      { word: "LEAF", phonetic: "/liːf/", meaning: "Flat green part of a plant" },
+      { word: "SEED", phonetic: "/siːd/", meaning: "Small object from which plants grow" },
+      { word: "OCEAN", phonetic: "/ˈoʊʃən/", meaning: "Vast body of salt water" },
+      { word: "FOREST", phonetic: "/ˈfɔːrɪst/", meaning: "Large area covered with trees" },
+      { word: "ANIMAL", phonetic: "/ˈænɪməl/", meaning: "Living creature that is not a plant" },
+      { word: "BIRD", phonetic: "/bɜːrd/", meaning: "Feathered animal that can usually fly" },
+      { word: "FLOWER", phonetic: "/ˈflaʊər/", meaning: "Colorful part of a plant" },
+      { word: "SOIL", phonetic: "/sɔɪl/", meaning: "Top layer of earth where plants grow" },
+      { word: "AIR", phonetic: "/er/", meaning: "Invisible gas we breathe" },
+      { word: "CLEAN", phonetic: "/kliːn/", meaning: "Free from dirt or pollution" },
+      { word: "SAVE", phonetic: "/seɪv/", meaning: "Keep safe; prevent waste" },
+      { word: "GROW", phonetic: "/ɡroʊ/", meaning: "Increase in size; develop" },
+      { word: "NATURE", phonetic: "/ˈneɪtʃər/", meaning: "Natural world including plants and animals" }
+    ];
+
+    // Game state
+    let gameState = {
+      score: 0,
+      level: 1,
+      streak: 0,
+      totalAttempts: 0,
+      correctAttempts: 0,
+      currentWordIndex: 0,
+      isListening: false,
+      completedWords: new Set(),
+      recognition: null
+    };
+
+    // Initialize game
+    function initVoiceGame() {
+      gameState = {
+        score: 0,
+        level: 1,
+        streak: 0,
+        totalAttempts: 0,
+        correctAttempts: 0,
+        currentWordIndex: Math.floor(Math.random() * ecoWords.length),
+        isListening: false,
+        completedWords: new Set(),
+        recognition: null
+      };
+
+      updateGameDisplay();
+      generateWordBubbles();
+      
+      // Initialize speech recognition
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        gameState.recognition = new SpeechRecognition();
+        gameState.recognition.continuous = false;
+        gameState.recognition.interimResults = false;
+        gameState.recognition.lang = 'en-US';
+
+        gameState.recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript.trim().toUpperCase();
+          checkPronunciation(transcript);
+        };
+
+        gameState.recognition.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          showFeedback('Oops! Could not hear you clearly. Try again!', false);
+          microphoneBtn.classList.remove('listening');
+          gameState.isListening = false;
+          microphoneBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Click & Speak</span>';
+        };
+
+        gameState.recognition.onend = () => {
+          microphoneBtn.classList.remove('listening');
+          gameState.isListening = false;
+          microphoneBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Click & Speak</span>';
+        };
+      } else {
+        showFeedback('Your browser does not support speech recognition. Try Chrome or Edge!', false);
+        microphoneBtn.disabled = true;
+        microphoneBtn.innerHTML = '<i class="fas fa-microphone-slash"></i><span>Not Supported</span>';
+      }
+    }
+
+    // Update game display
+    function updateGameDisplay() {
+      const currentWord = ecoWords[gameState.currentWordIndex];
+      currentWordEl.textContent = currentWord.word;
+      wordPhoneticEl.textContent = currentWord.phonetic;
+      wordMeaningEl.textContent = currentWord.meaning;
+      
+      scoreEl.textContent = gameState.score;
+      levelEl.textContent = gameState.level;
+      streakEl.textContent = gameState.streak;
+      
+      const accuracy = gameState.totalAttempts > 0 
+        ? Math.round((gameState.correctAttempts / gameState.totalAttempts) * 100)
+        : 100;
+      accuracyEl.textContent = `${accuracy}%`;
+      
+      updateWordBubbles();
+    }
+
+    // Generate word bubbles
+    function generateWordBubbles() {
+      wordListEl.innerHTML = '';
+      ecoWords.forEach((wordObj, index) => {
+        const bubble = document.createElement('div');
+        bubble.className = 'word-bubble';
+        bubble.textContent = wordObj.word;
+        bubble.dataset.index = index;
+        wordListEl.appendChild(bubble);
+      });
+      updateWordBubbles();
+    }
+
+    // Update word bubbles state
+    function updateWordBubbles() {
+      const bubbles = wordListEl.querySelectorAll('.word-bubble');
+      bubbles.forEach(bubble => {
+        const index = parseInt(bubble.dataset.index);
+        bubble.classList.remove('completed', 'current');
+        
+        if (gameState.completedWords.has(index)) {
+          bubble.classList.add('completed');
+        }
+        
+        if (index === gameState.currentWordIndex) {
+          bubble.classList.add('current');
+        }
+      });
+    }
+
+    // Check pronunciation
+    function checkPronunciation(spokenWord) {
+      const currentWord = ecoWords[gameState.currentWordIndex].word;
+      gameState.totalAttempts++;
+      
+      // Simple check - allow close matches
+      const isCorrect = spokenWord === currentWord || 
+                       spokenWord.includes(currentWord) || 
+                       currentWord.includes(spokenWord);
+      
+      if (isCorrect) {
+        gameState.score += 10 * gameState.level;
+        gameState.streak++;
+        gameState.correctAttempts++;
+        
+        // Mark word as completed
+        gameState.completedWords.add(gameState.currentWordIndex);
+        
+        // Level up every 5 correct words
+        if (gameState.completedWords.size % 5 === 0) {
+          gameState.level++;
+          showFeedback(`🎉 Level Up! You're now at level ${gameState.level}`, true);
+        } else {
+          showFeedback('✅ Perfect! Great pronunciation!', true);
+        }
+        
+        // Move to next word
+        setTimeout(() => {
+          nextWord();
+        }, 1500);
+      } else {
+        gameState.streak = 0;
+        showFeedback(`Almost! You said "${spokenWord}", try saying "${currentWord}"`, false);
+      }
+      
+      updateGameDisplay();
+    }
+
+    // Show feedback message
+    function showFeedback(message, isSuccess) {
+      feedbackMessageEl.textContent = message;
+      feedbackMessageEl.className = `feedback-message ${isSuccess ? 'feedback-success' : 'feedback-error'}`;
+      feedbackMessageEl.style.display = 'block';
+      
+      if (isSuccess) {
+        currentWordEl.classList.add('bounce');
+        setTimeout(() => {
+          currentWordEl.classList.remove('bounce');
+        }, 500);
+      }
+      
+      setTimeout(() => {
+        feedbackMessageEl.style.display = 'none';
+      }, 3000);
+    }
+
+    // Move to next word
+    function nextWord() {
+      // Find next incomplete word
+      let nextIndex = (gameState.currentWordIndex + 1) % ecoWords.length;
+      let attempts = 0;
+      
+      while (gameState.completedWords.has(nextIndex) && attempts < ecoWords.length) {
+        nextIndex = (nextIndex + 1) % ecoWords.length;
+        attempts++;
+      }
+      
+      // If all words completed, reset completed list
+      if (attempts >= ecoWords.length) {
+        gameState.completedWords.clear();
+        showFeedback('🎊 Amazing! You completed all words! Starting again...', true);
+      }
+      
+      gameState.currentWordIndex = nextIndex;
+      updateGameDisplay();
+    }
+
+    // Toggle microphone
+    function toggleMicrophone() {
+      if (!gameState.recognition) {
+        showFeedback('Speech recognition not available in your browser.', false);
+        return;
+      }
+      
+      if (!gameState.isListening) {
+        gameState.recognition.start();
+        microphoneBtn.classList.add('listening');
+        gameState.isListening = true;
+        microphoneBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Listening... Speak Now!</span>';
+        showFeedback('🎤 Listening... Say the word clearly!', true);
+      } else {
+        gameState.recognition.stop();
+        microphoneBtn.classList.remove('listening');
+        gameState.isListening = false;
+        microphoneBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Click & Speak</span>';
+      }
+    }
+
+    // Event Listeners for Voice Game
+    playVoiceGameBtn.addEventListener('click', () => {
+      initVoiceGame();
+      voiceGameModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeVoiceGameBtn.addEventListener('click', () => {
+      voiceGameModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      
+      // Stop recognition if active
+      if (gameState.recognition && gameState.isListening) {
+        gameState.recognition.stop();
+      }
+    });
+
+    microphoneBtn.addEventListener('click', toggleMicrophone);
+    nextWordBtn.addEventListener('click', nextWord);
+
+    // Close modal on outside click
+    voiceGameModal.addEventListener('click', (e) => {
+      if (e.target === voiceGameModal) {
+        voiceGameModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Stop recognition if active
+        if (gameState.recognition && gameState.isListening) {
+          gameState.recognition.stop();
+        }
+      }
+    });
+
+    // Initialize
+    animateCards();
+  </script>
+  
+  <!-- Chatbase Script -->
+  <script>
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+  </script>
 </body>
 </html>

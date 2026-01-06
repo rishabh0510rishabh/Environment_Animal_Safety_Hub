@@ -40,8 +40,77 @@
 <!-- <button id="scrollBottomBtn" title="Scroll to Bottom">
   <!-- ⬇️ -->
 </button> -->
+<style>
+  .dict-card {
+    background:#ffffff;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeInUp 0.6s forwards;
+  }
+
+  .dict-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  }
+
+  .dict-card h3 {
+    margin-top:0;
+    font-size:1.3rem;
+    color:#2e7d32;
+  }
+
+  .dict-card p {
+    font-size:0.95rem;
+    color:#555;
+    margin:10px 0 0;
+    line-height:1.5;
+  }
+
+  .category-tag {
+    display:inline-block;
+    padding:5px 12px;
+    background:#c8e6c9;
+    color:#2e7d32;
+    font-size:0.8rem;
+    font-weight:600;
+    border-radius:15px;
+    margin-top:10px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+</style>
 
 <body>
+
+  <!-- 🌤️ Background Animations -->
+<div class="eco-sky">
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+</div>
+
+<!-- 🕊️ Birds -->
+<div class="birds-layer"></div>
+
+<!-- 🌧️ Rain -->
+<div class="rain-layer"></div>
+
+<!-- 🍃 Floating Leaves -->
+<div class="leaves-layer"></div>
+
+<!-- 🌞 Sun Glow -->
+<div class="sun-glow"></div>
+
   <div class="scroll-progress" id="scrollProgress"></div>
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
@@ -63,7 +132,7 @@
         <li><a href="#animal" class="nav-link">Animals</a></li>
         <li><a href="pages/endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
         <li><a href="pages/sos.html" class="nav-link">🆘 SOS Emergency</a></li>
-        <li><a href="#environment" class="nav-link">Environment</a></li>
+        <li><a href="./pages/environment.html" class="nav-link">Environment</a></li>
         <li><a href="./pages/kids-zone.html" class="nav-link">Kids Zone</a></li>
         <li><a href="./pages/report.html" class="nav-link">Report</a></li>
         <li><a href="../src/pages/contact.html" class="nav-link">Contact</a></li>
@@ -512,6 +581,107 @@
     <audio id="heartSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_8e9b5c07b3.mp3"></audio>
   </section>
 
+  <section class="quiz-section" id="climate-quiz">
+  <h2 class="quiz-title">🌍 Climate Quiz Battle ⚔️</h2>
+  <p class="quiz-subtitle">Answer fast. Build combos. Beat the AI.</p>
+
+  <div class="quiz-card">
+    <div class="quiz-header">
+      <div>⏱️ <span id="timer">10</span>s</div>
+      <div>🔥 Combo: <span id="combo">0</span></div>
+      <div>⭐ Score: <span id="score">0</span></div>
+    </div>
+
+    <h3 id="question">Loading...</h3>
+
+    <div class="options">
+      <button class="option">A</button>
+      <button class="option">B</button>
+      <button class="option">C</button>
+      <button class="option">D</button>
+    </div>
+
+    <p class="ai-status">🤖 AI: <span id="ai-result">Thinking...</span></p>
+
+    <button class="next-btn" id="nextBtn">Next ➜</button>
+  </div>
+</section>
+
+<section class="explore-wildlife" id="explore-wildlife">
+  <h2 class="section-title">🌿 Explore Wildlife Conservation</h2>
+  <p class="section-subtitle">
+    Learn how zoos, sanctuaries, and national parks protect wildlife and maintain Earth’s balance.
+  </p>
+
+  <!-- Filters -->
+  <div class="wildlife-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="zoo">Zoos</button>
+    <button class="filter-btn" data-filter="sanctuary">Sanctuaries</button>
+    <button class="filter-btn" data-filter="park">National Parks</button>
+  </div>
+
+  <!-- Cards -->
+  <div class="wildlife-grid">
+    <!-- Zoo -->
+    <div class="wildlife-card zoo">
+      <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d">
+      <h3>Modern Zoos</h3>
+      <p class="short-text">
+        Ethical centers focused on conservation and education.
+      </p>
+
+      <div class="extra-info">
+        <ul>
+          <li>🧬 Breeding endangered species</li>
+          <li>📚 Wildlife education programs</li>
+          <li>🩺 Veterinary care & rescue</li>
+        </ul>
+      </div>
+
+      <button class="learn-btn">Learn More</button>
+    </div>
+
+    <!-- Sanctuary -->
+    <div class="wildlife-card sanctuary">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+      <h3>Wildlife Sanctuaries</h3>
+      <p class="short-text">
+        Safe havens where animals live freely in nature.
+      </p>
+
+      <div class="extra-info">
+        <ul>
+          <li>🐾 Rescues injured animals</li>
+          <li>🌿 Natural, open habitats</li>
+          <li>🚫 No entertainment or cages</li>
+        </ul>
+      </div>
+
+      <button class="learn-btn">Learn More</button>
+    </div>
+
+    <!-- National Park -->
+    <div class="wildlife-card park">
+      <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2">
+      <h3>National Parks</h3>
+      <p class="short-text">
+        Protected ecosystems preserving biodiversity.
+      </p>
+
+      <div class="extra-info">
+        <ul>
+          <li>🌲 Forest & river conservation</li>
+          <li>🐘 Wildlife corridors</li>
+          <li>🛡️ Anti-poaching patrols</li>
+        </ul>
+      </div>
+
+      <button class="learn-btn">Learn More</button>
+    </div>
+  </div>
+</section>
+
 
   <!-- Environment Section -->
   <section id="environment" class="cards-section alt-bg">
@@ -645,6 +815,22 @@
     </div>
   </section>
 
+  <!-- EcoLife Dictionary Section -->
+<section id="ecoDictionary" style="padding:4rem 1rem; background: linear-gradient(135deg,#f1f8e9,#e8f5e9);">
+  <div style="max-width:1200px; margin:0 auto; text-align:center;">
+    <h2 style="font-size:2.5rem; color:#1b5e20; margin-bottom:0.5rem; font-weight:700;">🌿 EcoLife Dictionary</h2>
+    <p style="color:#555; max-width:700px; margin:0 auto 2rem;">
+      Learn important environmental and wildlife terms in a fun and interactive way. Search or browse to explore!
+    </p>
+
+    <div class="search-container" style="max-width:500px; margin:2rem auto; position:relative;">
+      <input type="text" id="searchInput" placeholder="Search for terms..." style="width:100%; padding:12px 40px 12px 15px; border-radius:25px; border:2px solid #2e7d32; font-size:1rem; outline:none;"/>
+      <span class="search-icon" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); font-size:1.2rem; color:#2e7d32;">🔍</span>
+    </div>
+
+    <div class="dictionary-grid" id="dictionaryGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:0 20px;"></div>
+    <div class="no-results" id="noResults" style="text-align:center; font-size:1.2rem; color:#555; margin:30px 0; display:none;">No terms found.</div>
+  </div></section>
   <section id="carbon" class="carbon-section">
     <div class="section-container">
       <div class="section-header">
@@ -1153,6 +1339,31 @@
     </div>
 
   </section>
+
+
+  <section class="museum-preview">
+    <div class="museum-banner" data-aos="fade-up">
+        <div class="museum-text">
+            <span class="tag">Explore the Past</span>
+            <h2>The Virtual Sanctuary</h2>
+            <p>Step into our digital archive of nature. Explore exhibits of extinct, endangered, and recovering species in a fully immersive visual journey.</p>
+            <a href="pages/visual-mueseum.html" class="explore-btn">
+                Visit Museum <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="museum-visuals">
+            <div class="floating-card card-1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg" alt="Tiger">
+            </div>
+            <div class="floating-card card-2">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvn6lVUkTAw3IUwiw7eqsIL1qUKuROlnZeVfntDyPK_j-C-GYwC4Nf5RG3LtqyQ84VKEoHcG1s7Xl4ZiDMTa1Fojvb-ZfSBiyRk9yNCZPZXA&s=10" alt="Dodo">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 
   <!-- myth fact -->
 
@@ -1745,6 +1956,223 @@
   <script>
     (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
   </script>
+
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const quizData = [
+    {
+      q: "Which gas causes global warming the most?",
+      options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+      answer: 1
+    },
+    {
+      q: "Which is a renewable energy source?",
+      options: ["Coal", "Solar", "Oil", "Gas"],
+      answer: 1
+    },
+    {
+      q: "Main cause of deforestation?",
+      options: ["Recycling", "Tree planting", "Agriculture", "Rain"],
+      answer: 2
+    }
+  ];
+
+  let index = 0, score = 0, combo = 0, time = 10, timer;
+
+  const question = document.getElementById("question");
+  const options = document.querySelectorAll(".option");
+  const scoreEl = document.getElementById("score");
+  const comboEl = document.getElementById("combo");
+  const timerEl = document.getElementById("timer");
+  const aiResult = document.getElementById("ai-result");
+  const nextBtn = document.getElementById("nextBtn");
+
+  function loadQuestion() {
+    clearInterval(timer);
+    time = 10;
+    timerEl.textContent = time;
+
+    const q = quizData[index];
+    question.textContent = q.q;
+
+    options.forEach((btn, i) => {
+      btn.textContent = q.options[i];
+      btn.className = "option";
+      btn.onclick = () => selectAnswer(i);
+    });
+
+    aiResult.textContent = "Thinking...";
+    startTimer();
+  }
+
+  function startTimer() {
+    timer = setInterval(() => {
+      time--;
+      timerEl.textContent = time;
+      if (time === 0) {
+        clearInterval(timer);
+        combo = 0;
+        comboEl.textContent = combo;
+        aiTurn();
+      }
+    }, 1000);
+  }
+
+  function selectAnswer(i) {
+    clearInterval(timer);
+    const correct = quizData[index].answer;
+
+    if (i === correct) {
+      options[i].classList.add("correct");
+      score += 10 + combo * 5;
+      combo++;
+    } else {
+      options[i].classList.add("wrong");
+      options[correct].classList.add("correct");
+      combo = 0;
+    }
+
+    scoreEl.textContent = score;
+    comboEl.textContent = combo;
+    aiTurn();
+  }
+
+  function aiTurn() {
+    aiResult.textContent = Math.random() > 0.5
+      ? "AI answered correctly 🤖✔️"
+      : "AI answered wrong 🤖❌";
+  }
+
+  nextBtn.onclick = () => {
+    index = (index + 1) % quizData.length;
+    loadQuestion();
+  };
+
+  loadQuestion();
+});
+</script>
+<script>
+  // Dictionary Data
+  const dictionary = [
+    {term:"Biodiversity", definition:"The variety of plant and animal life in the world or in a particular habitat.", category:"Environment"},
+    {term:"Conservation", definition:"The protection and preservation of the natural environment and wildlife.", category:"Environment"},
+    {term:"Endangered Species", definition:"Species at risk of extinction due to human activity or habitat loss.", category:"Wildlife"},
+    {term:"Deforestation", definition:"The clearing or thinning of forests by humans.", category:"Environment"},
+    {term:"Reforestation", definition:"The process of replanting trees in deforested areas.", category:"Environment"},
+    {term:"Poaching", definition:"Illegal hunting or capturing of animals.", category:"Wildlife"},
+    {term:"Sustainability", definition:"Meeting present needs without compromising future generations.", category:"Environment"},
+    {term:"Ecosystem", definition:"A biological community of interacting organisms and their environment.", category:"Environment"},
+    {term:"Wildlife Sanctuary", definition:"A protected area where wild animals live safely.", category:"Wildlife"},
+    {term:"Endemic Species", definition:"Species native to a specific place and found nowhere else.", category:"Wildlife"},
+    {term:"Climate Change", definition:"Long-term change in Earth's climate due to human or natural factors.", category:"Environment"},
+    {term:"Pollution", definition:"Introduction of harmful substances into the environment.", category:"Environment"},
+    {term:"Carbon Footprint", definition:"The total amount of greenhouse gases produced by human activities.", category:"Environment"},
+    {term:"Habitat Fragmentation", definition:"The process where large habitats are broken into smaller isolated patches.", category:"Environment"},
+    {term:"Overfishing", definition:"Catching too many fish from a body of water, reducing population.", category:"Wildlife"},
+    {term:"Organic Farming", definition:"Farming without synthetic pesticides or fertilizers.", category:"Environment"},
+    {term:"Urbanization", definition:"The increase of human populations in cities and towns.", category:"Environment"},
+    {term:"Extinction", definition:"The permanent loss of a species from Earth.", category:"Wildlife"},
+    {term:"Renewable Energy", definition:"Energy generated from natural resources that can be replenished.", category:"Environment"},
+    {term:"Wildlife Corridor", definition:"Protected pathways connecting fragmented habitats.", category:"Wildlife"}
+  ];
+
+  const grid = document.getElementById("dictionaryGrid");
+  const searchInput = document.getElementById("searchInput");
+  const noResults = document.getElementById("noResults");
+
+  // Function to render dictionary cards
+  function displayDictionary(list){
+    grid.innerHTML = "";
+    if(list.length === 0){
+      noResults.style.display = "block";
+      return;
+    }
+    noResults.style.display = "none";
+
+    list.forEach((item,index)=>{
+      const card = document.createElement("div");
+      card.className = "dict-card";
+      card.style.animationDelay = `${index*0.1}s`;
+      card.innerHTML = `
+        <h3>${item.term}</h3>
+        <p>${item.definition}</p>
+        <span class="category-tag">${item.category}</span>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Initial render
+  displayDictionary(dictionary);
+
+  // Search functionality
+  searchInput.addEventListener("input", ()=>{
+    const query = searchInput.value.toLowerCase();
+    const filtered = dictionary.filter(item=>{
+      return item.term.toLowerCase().includes(query) || item.definition.toLowerCase().includes(query);
+    });
+    displayDictionary(filtered);
+  });
+</script>
+
+<script>
+/* ===== 🕊️ BIRDS ===== */
+function spawnBirds() {
+  const birdsLayer = document.querySelector('.birds-layer');
+  const bird = document.createElement('div');
+  bird.className = 'bird';
+  bird.textContent = '🕊️';
+  bird.style.top = Math.random() * 50 + '%';
+  birdsLayer.appendChild(bird);
+  setTimeout(() => bird.remove(), 15000);
+}
+setInterval(spawnBirds, 8000);
+
+/* ===== 🌧️ RAIN ===== */
+function startRain(intensity = 80) {
+  const rainLayer = document.querySelector('.rain-layer');
+  rainLayer.innerHTML = '';
+  for (let i = 0; i < intensity; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'rain-drop';
+    drop.style.left = Math.random() * 100 + 'vw';
+    drop.style.animationDelay = Math.random() + 's';
+    rainLayer.appendChild(drop);
+  }
+}
+
+/* ===== 🍃 LEAVES ===== */
+function startLeaves(count = 20) {
+  const layer = document.querySelector('.leaves-layer');
+  layer.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.textContent = '🍃';
+    leaf.style.left = Math.random() * 100 + 'vw';
+    leaf.style.animationDelay = Math.random() * 10 + 's';
+    layer.appendChild(leaf);
+  }
+}
+
+/* ===== 🌞 DAY MODE ===== */
+function enableSunlight() {
+  document.querySelector('.sun-glow').classList.add('active');
+}
+
+/* ===== 🌙 NIGHT MODE ===== */
+function disableSunlight() {
+  document.querySelector('.sun-glow').classList.remove('active');
+}
+
+/* ===== PAGE CONTROLS ===== */
+// Example usage:
+enableSunlight();      // sunny pages
+startLeaves(25);       // forest pages
+// startRain(120);     // climate pages (enable only when needed)
+</script>
 
 </body>
 

@@ -27,6 +27,22 @@
         --text-color: #333;
         --bg-light: #f9f9f9;
         --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        --navbar-bg: linear-gradient(135deg, #1b5e20, #2e7d32);
+        --hero-bg: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        --section-bg: #f4fdf4;
+        --card-bg: white;
+      }
+
+      .dark-mode {
+        --primary-color: #4ade80;
+        --secondary-color: #22c55e;
+        --text-color: #e6e6e6;
+        --bg-light: #1a1a2e;
+        --card-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        --navbar-bg: linear-gradient(135deg, #0a1929, #1a1a2e);
+        --hero-bg: linear-gradient(135deg, #0a1929 0%, #1a1a2e 100%);
+        --section-bg: #162447;
+        --card-bg: #1f4068;
       }
 
       body {
@@ -35,17 +51,58 @@
         padding: 0;
         color: var(--text-color);
         overflow-x: hidden;
+        background-color: var(--bg-light);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+      }
+      
+      .theme-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      
+      .theme-btn:hover {
+        transform: rotate(30deg) scale(1.1);
+        background: rgba(255, 255, 255, 0.3);
+        border-color: var(--primary-color);
+      }
+      
+      .theme-btn i {
+        font-size: 1.3rem;
+        color: white;
+      }
+
+      .dark-mode .theme-btn {
+        border-color: var(--primary-color);
       }
 
       /* --- Custom Hero Section (Side-by-Side) --- */
       .plant-hero {
         padding: 120px 20px 80px;
-        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        background: var(--hero-bg);
         min-height: 80vh;
         display: flex;
         align-items: center;
         position: relative;
         overflow: hidden;
+        transition: background 0.3s ease;
       }
 
       .hero-container {
@@ -62,15 +119,16 @@
         font-size: 3.5rem;
         line-height: 1.2;
         margin-bottom: 20px;
-        color: #1b5e20;
+        color: var(--primary-color);
         font-weight: 700;
       }
 
       .hero-text p {
         font-size: 1.1rem;
-        color: #555;
+        color: var(--text-color);
         margin-bottom: 30px;
         line-height: 1.6;
+        opacity: 0.9;
       }
 
       .hero-image-box {
@@ -92,6 +150,7 @@
       /* --- Section Styling --- */
       .section-padding {
         padding: 80px 20px;
+        transition: background 0.3s ease;
       }
 
       .section-header {
@@ -102,7 +161,7 @@
       .section-tag {
         display: inline-block;
         padding: 8px 16px;
-        background: #e8f5e9;
+        background: rgba(46, 125, 50, 0.1);
         color: var(--primary-color);
         border-radius: 50px;
         font-weight: 600;
@@ -112,7 +171,7 @@
 
       .section-title {
         font-size: 2.5rem;
-        color: #333;
+        color: var(--text-color);
         margin-bottom: 15px;
       }
 
@@ -126,7 +185,7 @@
       }
 
       .info-card {
-        background: white;
+        background: var(--card-bg);
         padding: 40px 30px;
         border-radius: 20px;
         box-shadow: var(--card-shadow);
@@ -149,21 +208,23 @@
       .info-card h3 {
         font-size: 1.5rem;
         margin-bottom: 15px;
+        color: var(--text-color);
       }
 
       .info-card p {
-        color: #666;
+        color: var(--text-color);
+        opacity: 0.8;
         line-height: 1.6;
       }
 
       /* --- Split Section (Indoor/Outdoor) --- */
       .split-section {
-        background-color: #fff;
+        background-color: var(--card-bg);
         max-width: 1200px;
         margin: 0 auto;
         border-radius: 30px;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        box-shadow: var(--card-shadow);
         display: flex;
         flex-direction: column;
       }
@@ -236,6 +297,44 @@
         transform: translateY(-2px);
       }
 
+      .dark-mode .btn-custom:hover {
+        background: #4ade80;
+        color: #1a1a2e;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: var(--navbar-bg);
+        transition: background 0.3s ease;
+        padding: 20px 0;
+        position: relative;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+
+      .navbar .nav-link,
+      .navbar .logo span {
+        color: #ffffff !important;
+        font-weight: 600;
+      }
+
+      .navbar .nav-link:hover {
+        color: #c8e6c9 !important;
+      }
+
+      /* Adjust navbar padding for theme button */
+      .navbar .nav-container {
+        padding-right: 80px; /* Space for theme button */
+      }
+
       /* Responsive */
       @media (max-width: 968px) {
         .hero-container {
@@ -245,27 +344,59 @@
         .hero-image-box {
           margin-top: 40px;
         }
+        .theme-toggle {
+          top: 15px;
+          right: 15px;
+        }
+        .theme-btn {
+          width: 45px;
+          height: 45px;
+        }
+        /* Adjust navbar for mobile */
+        .navbar .nav-container {
+          padding-right: 70px;
+        }
       }
 
-      /* Fix header text contrast on Plant Care page */
-.navbar {
-  background: linear-gradient(135deg, #1b5e20, #2e7d32);
-}
+      @media (max-width: 768px) {
+        .theme-toggle {
+          right: 15px;
+          top: 15px;
+        }
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+        .section-title {
+          font-size: 2rem;
+        }
+        .navbar .nav-container {
+          padding-right: 65px;
+        }
+      }
 
-.navbar .nav-link,
-.navbar .logo span {
-  color: #ffffff !important;
-  font-weight: 600;
-}
-
-.navbar .nav-link:hover {
-  color: #c8e6c9 !important;
-}
-
+      @media (max-width: 480px) {
+        .theme-btn {
+          width: 40px;
+          height: 40px;
+        }
+        .theme-btn i {
+          font-size: 1.1rem;
+        }
+        .navbar .nav-container {
+          padding-right: 60px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <button class="theme-btn" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+
     <nav class="navbar" id="navbar">
       <div class="nav-container">
         <a href="../index.html" class="logo">
@@ -327,7 +458,7 @@
       </div>
     </section>
 
-    <section class="section-padding" style="background: #f4fdf4;">
+    <section class="section-padding" style="background: var(--section-bg);">
       <div class="section-header" data-aos="fade-up">
         <span class="section-tag"><i class="fa-solid fa-compass"></i> Plant Guide</span>
         <h2 class="section-title">Indoor vs Outdoor Plants</h2>
@@ -358,7 +489,7 @@
     <section class="section-padding" style="text-align: center;">
       <div class="hero-container" style="display: block;">
          <h2 class="section-title" data-aos="fade-up">Join Our Community Garden</h2>
-         <p style="max-width: 600px; margin: 0 auto 30px; color: #666;" data-aos="fade-up">
+         <p style="max-width: 600px; margin: 0 auto 30px; color: var(--text-color); opacity: 0.8;" data-aos="fade-up">
            Connect with fellow nature lovers, share seeds, and grow together. We organize weekly drives to plant trees and maintain urban gardens.
          </p>
          <a href="join-garden-drive.html" class="btn-custom" data-aos="fade-up"><i class="fa-solid fa-users"></i> Join Garden Drive</a>
@@ -376,6 +507,42 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();
+      
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = themeToggle.querySelector('i');
+      
+      // Check for saved theme preference
+      if (localStorage.getItem('plantCareDarkMode') === 'enabled') {
+        enableDarkMode();
+      }
+      
+      function enableDarkMode() {
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('plantCareDarkMode', 'enabled');
+      }
+      
+      function disableDarkMode() {
+        document.body.classList.remove('dark-mode');
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('plantCareDarkMode', 'disabled');
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('dark-mode')) {
+          disableDarkMode();
+        } else {
+          enableDarkMode();
+        }
+        
+        // Add click animation
+        themeToggle.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          themeToggle.style.transform = '';
+        }, 150);
+      });
+
       // Simple Mobile Navbar Toggle
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
@@ -385,6 +552,18 @@
           navToggle.classList.toggle('active');
         });
       }
+
+      // Adjust navbar container padding on load
+      document.addEventListener('DOMContentLoaded', function() {
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer) {
+          // Ensure proper spacing for theme button
+          const themeBtn = document.querySelector('.theme-toggle');
+          if (themeBtn && window.innerWidth > 768) {
+            navContainer.style.paddingRight = '80px';
+          }
+        }
+      });
     </script>
     <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();

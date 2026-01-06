@@ -4,296 +4,2472 @@
   <meta charset="UTF-8">
   <title>Climate Action Game | EcoLife</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive climate action game to learn about eco-friendly choices">
+  <link rel="icon" type="image/png" href="/envirnoment-logo.png">
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
+    /* ===== CSS VARIABLES ===== */
     :root {
-      --green:#2e7d32;
-      --light:#e8f5e9;
-      --dark:#1b5e20;
-      --shadow:0 15px 30px rgba(0,0,0,0.15);
+      /* Light Theme Colors */
+      --primary: #2e7d32;
+      --primary-light: #4caf50;
+      --primary-dark: #1b5e20;
+      --secondary: #ff9800;
+      --secondary-light: #ffb74d;
+      --secondary-dark: #f57c00;
+      --accent: #2196f3;
+      --accent-light: #64b5f6;
+      --accent-dark: #1976d2;
+      --danger: #f44336;
+      --danger-light: #ef5350;
+      --danger-dark: #d32f2f;
+      --success: #4caf50;
+      --success-light: #66bb6a;
+      --success-dark: #388e3c;
+      --warning: #ff9800;
+      --warning-light: #ffb74d;
+      --warning-dark: #f57c00;
+      
+      /* Text Colors */
+      --text-primary: #1a1a1a;
+      --text-secondary: #333;
+      --text-light: #666;
+      --text-on-primary: #ffffff;
+      --text-on-dark: #f0f0f0;
+      
+      /* Background Colors */
+      --bg-primary: #f4fbf6;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-surface: #e8f5e9;
+      --bg-dark: #1a1a2e;
+      
+      /* Shadows & Effects */
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15);
+      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
+      --shadow-green: 0 10px 30px rgba(46, 125, 50, 0.3);
+      --shadow-blue: 0 10px 30px rgba(33, 150, 243, 0.3);
+      --shadow-orange: 0 10px 30px rgba(255, 152, 0, 0.3);
+      
+      /* Borders & Radius */
+      --border-radius-sm: 8px;
+      --border-radius-md: 16px;
+      --border-radius-lg: 24px;
+      --border-radius-xl: 32px;
+      --border-radius-full: 9999px;
+      --border-color: rgba(0, 0, 0, 0.1);
+      --border-color-light: rgba(0, 0, 0, 0.05);
+      
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 80px;
+      
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+      --transition-slow: 0.5s ease;
+      --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      
+      /* Typography */
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 2rem;
+      --font-size-4xl: 2.5rem;
+      --font-size-5xl: 3rem;
+      --font-size-6xl: 3.5rem;
+      
+      /* Z-index */
+      --z-dropdown: 1000;
+      --z-sticky: 1020;
+      --z-fixed: 1030;
+      --z-modal-backdrop: 1040;
+      --z-modal: 1050;
+      --z-popover: 1060;
+      --z-tooltip: 1070;
     }
 
+    /* ===== DARK THEME ===== */
+    .dark-mode {
+      /* Text Colors */
+      --text-primary: #f0f0f0;
+      --text-secondary: #e0e0e0;
+      --text-light: #b0b0b0;
+      --text-on-primary: #ffffff;
+      --text-on-dark: #ffffff;
+      
+      /* Background Colors */
+      --bg-primary: #0a1929;
+      --bg-secondary: #1a1a2e;
+      --bg-card: #162447;
+      --bg-surface: #1f4068;
+      --bg-dark: #0c1518;
+      
+      /* Shadows & Effects */
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
+      --shadow-green: 0 10px 30px rgba(46, 125, 50, 0.4);
+      --shadow-blue: 0 10px 30px rgba(33, 150, 243, 0.4);
+      --shadow-orange: 0 10px 30px rgba(255, 152, 0, 0.4);
+      
+      /* Borders */
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-color-light: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ===== BASE STYLES ===== */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
-      background: #f4fbf6;
-      color: #1a1a1a;
-      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+      overflow-x: hidden;
     }
 
-    /* HERO */
-    .hero {
-      padding: 80px 20px 60px;
-      background: linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);
-      color: #fff;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
     }
 
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
+    h1 {
+      font-size: var(--font-size-6xl);
     }
 
-    .hero p {
+    h2 {
+      font-size: var(--font-size-5xl);
+    }
+
+    h3 {
+      font-size: var(--font-size-4xl);
+    }
+
+    h4 {
+      font-size: var(--font-size-3xl);
+    }
+
+    h5 {
+      font-size: var(--font-size-2xl);
+    }
+
+    h6 {
+      font-size: var(--font-size-xl);
+    }
+
+    p {
+      margin-bottom: var(--space-md);
+      font-weight: 400;
+    }
+
+    .text-lead {
+      font-size: var(--font-size-lg);
+      font-weight: 500;
       opacity: 0.9;
     }
 
-    /* GAME CARD */
-    .game-container {
-      max-width: 700px;
-      margin: 40px auto 60px;
-      background: #fff;
-      padding: 40px 25px;
-      border-radius: 22px;
-      box-shadow: var(--shadow);
+    .text-small {
+      font-size: var(--font-size-sm);
+      opacity: 0.8;
     }
 
-    .question {
+    /* ===== THEME TOGGLE ===== */
+    .theme-toggle {
+      position: fixed;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      z-index: var(--z-fixed);
+    }
+
+    .theme-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--border-radius-full);
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.4rem;
-      margin-bottom: 30px;
+      transition: all var(--transition-normal);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
     }
 
-    .options {
-      display: grid;
-      gap: 15px;
+    .theme-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      opacity: 0;
+      transition: opacity var(--transition-normal);
+      z-index: 1;
     }
 
-    .option-btn {
-      padding: 14px 20px;
-      border-radius: 30px;
-      border: 2px solid var(--green);
-      background: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.3s;
+    .theme-btn:hover::before {
+      opacity: 0.1;
     }
 
-    .option-btn:hover {
-      background: var(--light);
-      transform: translateY(-3px);
+    .theme-btn i {
+      position: relative;
+      z-index: 2;
+      transition: transform var(--transition-bounce);
     }
 
-    .option-btn.correct {
-      background: #c8e6c9;
-      border-color: var(--green);
+    .theme-btn:hover i {
+      transform: rotate(15deg) scale(1.1);
     }
 
-    .option-btn.wrong {
-      background: #ffcdd2;
-      border-color: #c62828;
+    /* ===== HEADER & NAVIGATION ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: var(--z-sticky);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color-light);
+      transition: all var(--transition-normal);
     }
 
-    .feedback {
-      margin-top: 20px;
-      font-weight: 600;
+    .dark-mode .header {
+      background: rgba(26, 26, 46, 0.95);
     }
 
-    .next-btn {
-      margin-top: 25px;
-      padding: 12px 30px;
-      background: var(--green);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.3s;
-      display: none;
+    .header.scrolled {
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-sm) 0;
     }
 
-    .next-btn:hover {
-      background: var(--dark);
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.5rem;
+      transition: transform var(--transition-normal);
+    }
+
+    .logo:hover {
       transform: translateY(-2px);
     }
 
-    /* RESULT */
-    .result {
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      border-radius: var(--border-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: var(--space-xl);
+    }
+
+    .nav-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--font-size-base);
+      position: relative;
+      padding: var(--space-sm) 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+      transition: width var(--transition-normal);
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
       display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+      z-index: var(--z-fixed);
     }
 
-    .eco-score {
-      font-size: 3rem;
-      color: var(--green);
-      margin: 20px 0;
+    .nav-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--text-primary);
+      border-radius: var(--border-radius-full);
+      transition: all var(--transition-normal);
     }
 
-    /* BACK */
-    .back-wrapper {
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4xl) var(--space-lg);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+      color: var(--text-on-primary);
+      margin-top: 80px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: var(--font-size-6xl);
+      margin-bottom: var(--space-lg);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to right, #ffffff, #e8f5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-xl);
+      opacity: 0.9;
+      margin-bottom: var(--space-2xl);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-stats {
       display: flex;
       justify-content: center;
-      margin-top: 40px;
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-3xl);
+      flex-wrap: wrap;
     }
 
-    .back-btn {
-      padding: 12px 30px;
-      background: var(--green);
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-width: 150px;
+      transition: transform var(--transition-normal), background var(--transition-normal);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-number {
+      font-size: var(--font-size-4xl);
+      font-weight: 800;
+      margin-bottom: var(--space-xs);
       color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+      color: white; /* FIXED: Added white color for visibility */
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-lg);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: var(--space-lg) var(--space-2xl);
+      border-radius: var(--border-radius-full);
+      font-weight: 600;
+      font-size: var(--font-size-base);
+      text-decoration: none;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all var(--transition-normal);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
 
-    .back-btn:hover {
-      background: var(--dark);
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: var(--text-on-primary);
+      box-shadow: var(--shadow-green);
+    }
+
+    .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(46,125,50,.35);
+      box-shadow: var(--shadow-lg);
     }
 
-    footer {
-      padding: 20px;
-      color: #666;
-      font-size: 0.9rem;
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      background: var(--bg-surface);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--text-on-primary);
+      transform: translateY(-3px);
+    }
+
+    .btn-icon {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: var(--border-radius-full);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== GAME SECTION ===== */
+    .game-section {
+      padding: var(--space-4xl) var(--space-lg);
+      background: var(--bg-primary);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-4xl);
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      color: white;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--border-radius-full);
+      font-weight: 600;
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-md);
+      box-shadow: var(--shadow-green);
+    }
+
+    .section-title {
+      font-size: var(--font-size-5xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+      border-radius: var(--border-radius-full);
+    }
+
+    .section-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== GAME CONTAINER ===== */
+    .game-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border-radius: var(--border-radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    .game-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      padding: var(--space-xl) var(--space-2xl);
+      color: var(--text-on-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+    }
+
+    .game-info {
+      display: flex;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .info-label {
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+    }
+
+    .info-value {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+    }
+
+    .progress-container {
+      flex: 1;
+      max-width: 300px;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius-full);
+      overflow: hidden;
+      margin-bottom: var(--space-xs);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent-light), var(--accent));
+      border-radius: var(--border-radius-full);
+      width: 0%;
+      transition: width var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-sm);
+      opacity: 0.9;
+    }
+
+    /* ===== GAME CONTENT ===== */
+    .game-content {
+      padding: var(--space-3xl);
+    }
+
+    .question-container {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .question-number {
+      display: inline-block;
+      background: var(--bg-surface);
+      color: var(--primary);
+      padding: var(--space-xs) var(--space-lg);
+      border-radius: var(--border-radius-full);
+      font-weight: 600;
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .question-text {
+      font-size: var(--font-size-3xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-xl);
+      line-height: 1.4;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .option-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+      display: block; /* FIXED: Ensure display */
+      opacity: 1; /* FIXED: Ensure visibility */
+      visibility: visible; /* FIXED: Ensure visibility */
+    }
+
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+
+    .option-card.selected {
+      border-color: var(--success);
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+      box-shadow: var(--shadow-sm);
+    }
+
+    .option-card.wrong {
+      border-color: var(--danger);
+      background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
+      animation: shake 0.5s ease;
+    }
+
+    .option-card.correct {
+      border-color: var(--success);
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+      animation: pulse 0.5s ease;
+    }
+
+    .option-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      border-radius: var(--border-radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: var(--space-lg);
+      transition: transform var(--transition-normal);
+    }
+
+    .option-card:hover .option-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .option-text {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .option-description {
+      font-size: var(--font-size-sm);
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .feedback-container {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+      border-left: 4px solid var(--primary);
+      display: none;
+      animation: slideIn 0.5s ease;
+    }
+
+    .feedback-container.show {
+      display: block;
+    }
+
+    .feedback-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .feedback-text {
+      font-size: var(--font-size-base);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .game-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .btn-control {
+      min-width: 150px;
+    }
+
+    .btn-control:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-control:disabled:hover {
+      transform: none !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    .hint-btn {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+
+    .hint-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ===== RESULT SECTION ===== */
+    .result-section {
+      display: none;
+      padding: var(--space-3xl);
+      text-align: center;
+    }
+
+    .result-container {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-xl);
+      padding: var(--space-3xl);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(to right, var(--primary-light), var(--primary-dark), var(--accent));
+    }
+
+    .result-icon {
+      font-size: 5rem;
+      margin-bottom: var(--space-lg);
+      animation: bounce 1s ease infinite alternate;
+    }
+
+    .result-icon.good {
+      color: var(--success);
+    }
+
+    .result-icon.average {
+      color: var(--warning);
+    }
+
+    .result-icon.poor {
+      color: var(--danger);
+    }
+
+    .result-title {
+      font-size: var(--font-size-4xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .result-score {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-lg);
+      position: relative;
+      display: inline-block;
+    }
+
+    .result-score::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      /* background: linear-gradient(to right, var(--primary-light), var(--accent); */
+      border-radius: var(--border-radius-full);
+    }
+
+    .result-message {
+      font-size: var(--font-size-lg);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto var(--space-2xl);
+      line-height: 1.6;
+    }
+
+    .result-details {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+      text-align: left;
+    }
+
+    .result-details-title {
+      font-size: var(--font-size-xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .result-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .breakdown-item {
+      background: var(--bg-surface);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-md);
+      border-left: 4px solid var(--primary);
+    }
+
+    .breakdown-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-light);
+      margin-bottom: var(--space-xs);
+    }
+
+    .breakdown-value {
+      font-size: var(--font-size-2xl);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .result-actions {
+      display: flex;
+      gap: var(--space-lg);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-2xl);
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats-section {
+      padding: var(--space-4xl) var(--space-lg);
+      background: var(--bg-surface);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-xl);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+    }
+
+    .stat-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      border-radius: var(--border-radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .stat-value {
+      font-size: var(--font-size-4xl);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-base);
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--text-on-primary);
+      padding: var(--space-4xl) var(--space-lg) var(--space-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      mix-blend-mode: overlay;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-3xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .footer-column h3 {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-lg);
+      color: white;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      display: block;
+      margin-bottom: var(--space-sm);
+      transition: color var(--transition-fast);
+      position: relative;
+      padding-left: var(--space-lg);
+    }
+
+    .footer-link::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .footer-link:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-link:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: var(--space-xl);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--font-size-sm);
+    }
+
+    /* ===== MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: var(--z-modal);
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+    }
+
+    .modal.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-xl);
+      padding: var(--space-3xl);
+      max-width: 500px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      color: var(--danger);
+    }
+
+    .modal-title {
+      font-size: var(--font-size-2xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .modal-body {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-2xl);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+      }
+      20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+    }
+  }
+  
+    /* ===== RESPONSIVE STYLES ===== */
+    @media (max-width: 1024px) {
+      :root {
+        --font-size-6xl: 3rem;
+        --font-size-5xl: 2.5rem;
+        --font-size-4xl: 2rem;
+        --font-size-3xl: 1.75rem;
+      }
+      
+      .hero-title {
+        font-size: var(--font-size-6xl);
+      }
+      
+      .section-title {
+        font-size: var(--font-size-5xl);
+      }
+      
+      .question-text {
+        font-size: var(--font-size-2xl);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --font-size-6xl: 2.5rem;
+        --font-size-5xl: 2rem;
+        --font-size-4xl: 1.75rem;
+        --font-size-3xl: 1.5rem;
+        --space-4xl: 60px;
+        --space-3xl: 48px;
+        --space-2xl: 32px;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--bg-card);
+        flex-direction: column;
+        padding: var(--space-3xl) var(--space-xl);
+        gap: var(--space-lg);
+        transition: right var(--transition-normal);
+        box-shadow: var(--shadow-xl);
+        z-index: var(--z-fixed);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+      
+      .theme-toggle {
+        top: var(--space-md);
+        right: var(--space-md);
+      }
+      
+      .theme-btn {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .hero-stats {
+        gap: var(--space-lg);
+      }
+      
+      .stat-item {
+        min-width: 120px;
+        padding: var(--space-md);
+      }
+      
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .game-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn-control {
+        width: 100%;
+      }
+      
+      .result-actions {
+        flex-direction: column;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --font-size-6xl: 2rem;
+        --font-size-5xl: 1.75rem;
+        --font-size-4xl: 1.5rem;
+        --space-lg: 16px;
+        --space-xl: 20px;
+      }
+      
+      .hero {
+        margin-top: 60px;
+        padding: var(--space-2xl) var(--space-md);
+      }
+      
+      .game-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-md);
+      }
+      
+      .game-info {
+        justify-content: space-between;
+      }
+      
+      .info-value {
+        font-size: var(--font-size-lg);
+      }
+      
+      .game-content {
+        padding: var(--space-xl);
+      }
+      
+      .result-container {
+        padding: var(--space-xl);
+      }
+      
+      .result-score {
+        font-size: 3rem;
+      }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- HERO -->
-  <section class="hero">
-    <h1>🌍 Climate Action Game</h1>
-    <p>Choose wisely & see how your daily actions affect the planet</p>
-  </section>
-
-  <!-- GAME -->
-  <div class="game-container">
-
-    <div id="quiz">
-      <div class="question" id="question"></div>
-      <div class="options" id="options"></div>
-      <div class="feedback" id="feedback"></div>
-      <button class="next-btn" id="nextBtn">Next</button>
-    </div>
-
-    <div class="result" id="result">
-      <h2>🎉 Game Completed!</h2>
-      <div class="eco-score" id="ecoScore"></div>
-      <p id="resultMsg"></p>
-    </div>
-
-    <div class="back-wrapper">
-      <button class="back-btn" onclick="window.location.href='kids-quiz-dashboard.html'">
-        ← Back to Dashboard
-      </button>
-    </div>
-
+  <!-- Theme Toggle -->
+  <div class="theme-toggle">
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+      <i class="fas fa-moon"></i>
+    </button>
   </div>
 
-  <footer>
-    © 2026 EcoLife • Learn Green 💚
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <span>EcoLife</span>
+      </a>
+
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../index.html#about" class="nav-link">About</a></li>
+        <li><a href="plant-care.html" class="nav-link">Plant Care</a></li>
+        <li><a href="dry-waste.html" class="nav-link">Dry Waste</a></li>
+        <li><a href="quiz.html" class="nav-link">Kids Zone</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">🌍 Climate Action Game</h1>
+      <p class="hero-subtitle">Make eco-friendly choices and learn how your daily actions impact our planet's future. Every decision counts!</p>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Challenging Questions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1000+</div>
+          <div class="stat-label">Players Worldwide</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Learning Impact</div>
+        </div>
+      </div>
+      
+      <div class="hero-buttons">
+        <button class="btn btn-primary" id="startGameBtn">
+          <i class="fas fa-play-circle"></i> Start Game
+        </button>
+        <button class="btn btn-secondary" id="learnMoreBtn">
+          <i class="fas fa-graduation-cap"></i> Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Section -->
+  <section class="game-section" id="gameSection">
+    <div class="container">
+      <div class="section-header">
+        
+        <h2 class="section-title">Test Your Eco-Knowledge</h2>
+        <p class="section-subtitle">Make the right choices and learn how small actions can create big changes for our planet.</p>
+      </div>
+
+      <div class="game-container" id="gameContainer">
+        <!-- Game Header -->
+        <div class="game-header">
+          <div class="game-info">
+            <div class="info-item">
+              <div class="info-label">Score</div>
+              <div class="info-value" id="scoreValue">0</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Questions</div>
+              <div class="info-value" id="questionCount">1/5</div>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+              <span>Progress</span>
+              <span id="progressPercentage">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Content -->
+        <div class="game-content" id="gameContent">
+          <div class="question-container" id="questionContainer">
+            <div class="question-number" id="questionNumber">Question 1 of 5</div>
+            <h3 class="question-text" id="questionText">How should you go to a nearby shop?</h3>
+            
+            <div class="options-grid" id="optionsGrid">
+              <!-- Options will be inserted here by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Feedback -->
+          <div class="feedback-container" id="feedbackContainer">
+            <div class="feedback-title">
+              <i class="fas fa-info-circle"></i>
+              <span id="feedbackTitle">Feedback</span>
+            </div>
+            <p class="feedback-text" id="feedbackText">Walking or cycling reduces carbon emissions and is better for your health.</p>
+          </div>
+
+          <!-- Game Controls -->
+          <div class="game-controls">
+            <button class="btn btn-secondary btn-control" id="hintBtn">
+              <i class="fas fa-lightbulb"></i> Get Hint
+            </button>
+            <button class="btn btn-primary btn-control" id="nextBtn" disabled>
+              Next Question <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section" id="resultSection">
+          <div class="result-container">
+            <div class="result-icon good" id="resultIcon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <h2 class="result-title" id="resultTitle">Excellent Work!</h2>
+            <div class="result-score" id="resultScore">5/5</div>
+            <p class="result-message" id="resultMessage">
+              You're a true Eco Hero! Your choices show great understanding of sustainable living.
+              Keep making planet-friendly decisions!
+            </p>
+            
+            <div class="result-details">
+              <h4 class="result-details-title">
+                <i class="fas fa-chart-bar"></i> Performance Breakdown
+              </h4>
+              <div class="result-breakdown" id="resultBreakdown">
+                <!-- Breakdown will be inserted here by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="result-actions">
+              <button class="btn btn-primary" id="playAgainBtn">
+                <i class="fas fa-redo"></i> Play Again
+              </button>
+              <button class="btn btn-secondary" id="shareBtn">
+                <i class="fas fa-share-alt"></i> Share Score
+              </button>
+              <a href="kids-quiz-dashboard.html" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section" id="statsSection">
+    <div class="container">
+      <div class="section-header">
+       
+        <h2 class="section-title">Your Actions Matter</h2>
+        <p class="section-subtitle">See the real-world impact of eco-friendly choices made by players like you.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card" data-aos="fade-up">
+          <div class="stat-icon">
+            <i class="fas fa-tree"></i>
+          </div>
+          <div class="stat-value" id="treesSaved">1,247</div>
+          <div class="stat-label">Trees Saved</div>
+        </div>
+        
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <div class="stat-value" id="co2Reduced">24.8K</div>
+          <div class="stat-label">kg CO₂ Reduced</div>
+        </div>
+        
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-icon">
+            <i class="fas fa-recycle"></i>
+          </div>
+          <div class="stat-value" id="wasteDiverted">8.5K</div>
+          <div class="stat-label">kg Waste Diverted</div>
+        </div>
+        
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="stat-value" id="energySaved">156K</div>
+          <div class="stat-label">kWh Energy Saved</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>EcoLife</h3>
+          <p>Empowering communities through environmental education and sustainable practices since 2023.</p>
+          <div class="mt-4">
+            <button class="btn btn-icon btn-outline" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+            <button class="btn btn-icon btn-outline" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </button>
+            <button class="btn btn-icon btn-outline" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </button>
+            <button class="btn btn-icon btn-outline" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html" class="footer-link">Home</a></li>
+            <li><a href="plant-care.html" class="footer-link">Plant Care Guide</a></li>
+            <li><a href="dry-waste.html" class="footer-link">Dry Waste Management</a></li>
+            <li><a href="quiz.html" class="footer-link">Kids Zone</a></li>
+            <li><a href="../index.html#contact" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Educational Games</h3>
+          <ul class="footer-links">
+            <li><a href="#gameSection" class="footer-link">Climate Action Game</a></li>
+            <li><a href="quiz.html" class="footer-link">Environmental Quiz</a></li>
+            <li><a href="#" class="footer-link">Recycling Challenge</a></li>
+            <li><a href="#" class="footer-link">Carbon Footprint Calculator</a></li>
+            <li><a href="#" class="footer-link">Wildlife Conservation</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2026 EcoLife • Learn Green, Live Green 💚 • Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for our Planet</p>
+      </div>
+    </div>
   </footer>
 
-<script>
-  const questions = [
-    {
-      q: "How should you go to a nearby shop?",
-      options: ["Go by car 🚗", "Walk or cycle 🚲"],
-      correct: 1,
-      feedback: "Walking or cycling reduces carbon emissions."
-    },
-    {
-      q: "What should you do when leaving a room?",
-      options: ["Leave lights ON 💡", "Switch lights OFF 🔌"],
-      correct: 1,
-      feedback: "Switching off lights saves electricity."
-    },
-    {
-      q: "Which bag is better?",
-      options: ["Plastic bag 🛍️", "Reusable cloth bag ♻️"],
-      correct: 1,
-      feedback: "Reusable bags reduce plastic waste."
-    },
-    {
-      q: "How should you cool your home?",
-      options: ["Overuse AC ❄️", "Use natural ventilation 🌬️"],
-      correct: 1,
-      feedback: "Natural ventilation saves energy."
-    },
-    {
-      q: "What should you do with waste?",
-      options: ["Mix all waste 🗑️", "Segregate waste ♻️"],
-      correct: 1,
-      feedback: "Waste segregation helps recycling."
-    }
-  ];
+  <!-- Hint Modal -->
+  <div class="modal" id="hintModal">
+    <div class="modal-content">
+      <button class="modal-close" id="hintModalClose">&times;</button>
+      <h3 class="modal-title" id="hintModalTitle">💡 Eco Tip</h3>
+      <div class="modal-body" id="hintModalBody">
+        Walking or cycling to nearby places reduces carbon emissions, saves money on fuel, 
+        and improves your physical health. It's a win-win for you and the planet!
+      </div>
+      <button class="btn btn-primary w-100" id="hintModalOk">Got it!</button>
+    </div>
+  </div>
 
-  let index = 0;
-  let score = 0;
+  <!-- Share Modal -->
+  <div class="modal" id="shareModal">
+    <div class="modal-content">
+      <button class="modal-close" id="shareModalClose">&times;</button>
+      <h3 class="modal-title">🎯 Share Your Score</h3>
+      <div class="modal-body">
+        <p>Share your eco-friendly achievement with friends and inspire them to take climate action too!</p>
+        <div class="mt-4">
+          <button class="btn btn-outline w-100 mb-2" id="shareTwitter">
+            <i class="fab fa-twitter"></i> Share on Twitter
+          </button>
+          <button class="btn btn-outline w-100 mb-2" id="shareFacebook">
+            <i class="fab fa-facebook-f"></i> Share on Facebook
+          </button>
+          <button class="btn btn-outline w-100" id="shareCopy">
+            <i class="fas fa-copy"></i> Copy Score Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  const questionEl = document.getElementById("question");
-  const optionsEl = document.getElementById("options");
-  const feedbackEl = document.getElementById("feedback");
-  const nextBtn = document.getElementById("nextBtn");
-  const resultEl = document.getElementById("result");
-  const ecoScoreEl = document.getElementById("ecoScore");
-  const resultMsg = document.getElementById("resultMsg");
-
-  function loadQuestion() {
-    feedbackEl.textContent = "";
-    nextBtn.style.display = "none";
-    optionsEl.innerHTML = "";
-
-    const q = questions[index];
-    questionEl.textContent = `Q${index + 1}. ${q.q}`;
-
-    q.options.forEach((opt, i) => {
-      const btn = document.createElement("button");
-      btn.className = "option-btn";
-      btn.textContent = opt;
-      btn.onclick = () => selectOption(btn, i);
-      optionsEl.appendChild(btn);
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
     });
-  }
 
-  function selectOption(btn, choice) {
-    const q = questions[index];
-    document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
-
-    if (choice === q.correct) {
-      btn.classList.add("correct");
-      score++;
-      feedbackEl.textContent = "✅ Good choice! " + q.feedback;
-    } else {
-      btn.classList.add("wrong");
-      feedbackEl.textContent = "❌ Not the best choice. " + q.feedback;
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference
+    if (localStorage.getItem('climateGameTheme') === 'dark') {
+      enableDarkMode();
     }
+    
+    function enableDarkMode() {
+      document.body.classList.add('dark-mode');
+      themeIcon.className = 'fas fa-sun';
+      localStorage.setItem('climateGameTheme', 'dark');
+    }
+    
+    function disableDarkMode() {
+      document.body.classList.remove('dark-mode');
+      themeIcon.className = 'fas fa-moon';
+      localStorage.setItem('climateGameTheme', 'light');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (document.body.classList.contains('dark-mode')) {
+        disableDarkMode();
+      } else {
+        enableDarkMode();
+      }
+      
+      // Add click animation
+      themeToggle.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        themeToggle.style.transform = '';
+      }, 150);
+    });
 
-    nextBtn.style.display = "inline-block";
-  }
+    // ===== NAVIGATION =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const header = document.getElementById('header');
+    
+    // Mobile menu toggle
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      navToggle.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
 
-  nextBtn.onclick = () => {
-    index++;
-    if (index < questions.length) {
+    // ===== GAME DATA =====
+    const gameData = {
+      questions: [
+        {
+          id: 1,
+          question: "How should you go to a nearby shop?",
+          options: [
+            {
+              text: "Go by car 🚗",
+              description: "Quick but pollutes the air with carbon emissions",
+              icon: "car",
+              isCorrect: false
+            },
+            {
+              text: "Walk or cycle 🚲",
+              description: "Zero emissions, good for health and environment",
+              icon: "bicycle",
+              isCorrect: true
+            }
+          ],
+          hint: "Walking or cycling reduces carbon emissions, saves fuel money, and improves physical health.",
+          feedback: {
+            correct: "Excellent choice! Walking or cycling produces zero emissions and keeps you healthy.",
+            incorrect: "Cars emit greenhouse gases. For short distances, walking or cycling is much better for the planet."
+          },
+          impact: {
+            co2: 2.4, // kg CO2 saved by choosing correctly
+            trees: 0.1,
+            energy: 5.2 // kWh
+          }
+        },
+        {
+          id: 2,
+          question: "What should you do when leaving a room?",
+          options: [
+            {
+              text: "Leave lights ON 💡",
+              description: "Convenient but wastes electricity",
+              icon: "lightbulb",
+              isCorrect: false
+            },
+            {
+              text: "Switch lights OFF 🔌",
+              description: "Saves energy and reduces electricity bills",
+              icon: "power-off",
+              isCorrect: true
+            }
+          ],
+          hint: "Turning off lights when not needed can save up to 10% on your electricity bill.",
+          feedback: {
+            correct: "Great! Switching off lights saves energy and reduces your carbon footprint.",
+            incorrect: "Leaving lights on wastes electricity. Remember to switch them off when leaving."
+          },
+          impact: {
+            co2: 0.5,
+            trees: 0.02,
+            energy: 1.2
+          }
+        },
+        {
+          id: 3,
+          question: "Which bag is better for shopping?",
+          options: [
+            {
+              text: "Plastic bag 🛍️",
+              description: "Convenient but takes centuries to decompose",
+              icon: "shopping-bag",
+              isCorrect: false
+            },
+            {
+              text: "Reusable cloth bag ♻️",
+              description: "Eco-friendly and can be used hundreds of times",
+              icon: "shopping-basket",
+              isCorrect: true
+            }
+          ],
+          hint: "A single plastic bag can take up to 500 years to decompose in the environment.",
+          feedback: {
+            correct: "Perfect! Reusable bags reduce plastic pollution and save resources.",
+            incorrect: "Plastic bags harm wildlife and pollute oceans. Reusable bags are much better."
+          },
+          impact: {
+            co2: 0.3,
+            trees: 0.05,
+            energy: 0.8
+          }
+        },
+        {
+          id: 4,
+          question: "How should you cool your home in summer?",
+          options: [
+            {
+              text: "Overuse AC ❄️",
+              description: "Cool but consumes massive amounts of electricity",
+              icon: "snowflake",
+              isCorrect: false
+            },
+            {
+              text: "Use natural ventilation 🌬️",
+              description: "Energy-free cooling using windows and fans",
+              icon: "wind",
+              isCorrect: true
+            }
+          ],
+          hint: "Air conditioning can account for 50% of your summer electricity bill.",
+          feedback: {
+            correct: "Smart choice! Natural ventilation saves energy and reduces strain on power grids.",
+            incorrect: "AC units consume huge amounts of electricity. Use them only when necessary."
+          },
+          impact: {
+            co2: 3.2,
+            trees: 0.15,
+            energy: 8.5
+          }
+        },
+        {
+          id: 5,
+          question: "What should you do with household waste?",
+          options: [
+            {
+              text: "Mix all waste 🗑️",
+              description: "Easy but makes recycling impossible",
+              icon: "trash",
+              isCorrect: false
+            },
+            {
+              text: "Segregate waste ♻️",
+              description: "Enables recycling and reduces landfill",
+              icon: "recycle",
+              isCorrect: true
+            }
+          ],
+          hint: "Proper waste segregation can divert up to 75% of household waste from landfills.",
+          feedback: {
+            correct: "Excellent! Waste segregation enables recycling and reduces landfill waste.",
+            incorrect: "Mixing waste makes recycling difficult. Segregation helps materials get reused."
+          },
+          impact: {
+            co2: 1.8,
+            trees: 0.08,
+            energy: 4.3
+          }
+        }
+      ],
+      stats: {
+        totalCO2: 0,
+        totalTrees: 0,
+        totalEnergy: 0,
+        correctAnswers: 0
+      }
+    };
+
+    // ===== GAME STATE =====
+    let gameState = {
+      currentQuestion: 0,
+      score: 0,
+      selectedOption: null,
+      gameCompleted: false,
+      impacts: {
+        co2: 0,
+        trees: 0,
+        energy: 0
+      }
+    };
+
+    // ===== DOM ELEMENTS =====
+    const elements = {
+      startGameBtn: document.getElementById('startGameBtn'),
+      learnMoreBtn: document.getElementById('learnMoreBtn'),
+      gameContainer: document.getElementById('gameContainer'),
+      gameContent: document.getElementById('gameContent'),
+      questionContainer: document.getElementById('questionContainer'),
+      resultSection: document.getElementById('resultSection'),
+      scoreValue: document.getElementById('scoreValue'),
+      questionCount: document.getElementById('questionCount'),
+      progressFill: document.getElementById('progressFill'),
+      progressPercentage: document.getElementById('progressPercentage'),
+      questionNumber: document.getElementById('questionNumber'),
+      questionText: document.getElementById('questionText'),
+      optionsGrid: document.getElementById('optionsGrid'),
+      feedbackContainer: document.getElementById('feedbackContainer'),
+      feedbackTitle: document.getElementById('feedbackTitle'),
+      feedbackText: document.getElementById('feedbackText'),
+      hintBtn: document.getElementById('hintBtn'),
+      nextBtn: document.getElementById('nextBtn'),
+      playAgainBtn: document.getElementById('playAgainBtn'),
+      shareBtn: document.getElementById('shareBtn'),
+      resultIcon: document.getElementById('resultIcon'),
+      resultTitle: document.getElementById('resultTitle'),
+      resultScore: document.getElementById('resultScore'),
+      resultMessage: document.getElementById('resultMessage'),
+      resultBreakdown: document.getElementById('resultBreakdown'),
+      hintModal: document.getElementById('hintModal'),
+      hintModalClose: document.getElementById('hintModalClose'),
+      hintModalTitle: document.getElementById('hintModalTitle'),
+      hintModalBody: document.getElementById('hintModalBody'),
+      hintModalOk: document.getElementById('hintModalOk'),
+      shareModal: document.getElementById('shareModal'),
+      shareModalClose: document.getElementById('shareModalClose'),
+      shareTwitter: document.getElementById('shareTwitter'),
+      shareFacebook: document.getElementById('shareFacebook'),
+      shareCopy: document.getElementById('shareCopy'),
+      treesSaved: document.getElementById('treesSaved'),
+      co2Reduced: document.getElementById('co2Reduced'),
+      wasteDiverted: document.getElementById('wasteDiverted'),
+      energySaved: document.getElementById('energySaved')
+    };
+
+    // ===== GAME FUNCTIONS =====
+    function initializeGame() {
+      gameState = {
+        currentQuestion: 0,
+        score: 0,
+        selectedOption: null,
+        gameCompleted: false,
+        impacts: {
+          co2: 0,
+          trees: 0,
+          energy: 0
+        }
+      };
+      
+      elements.scoreValue.textContent = '0';
+      updateProgress();
       loadQuestion();
-    } else {
-      showResult();
+      showGame();
+      
+      // Animate game container
+      elements.gameContainer.style.transform = 'translateY(20px)';
+      elements.gameContainer.style.opacity = '0';
+      
+      setTimeout(() => {
+        elements.gameContainer.style.transition = 'all 0.5s ease';
+        elements.gameContainer.style.transform = 'translateY(0)';
+        elements.gameContainer.style.opacity = '1';
+      }, 100);
     }
-  };
 
-  function showResult() {
-    document.getElementById("quiz").style.display = "none";
-    resultEl.style.display = "block";
+    function showGame() {
+      elements.gameContent.style.display = 'block';
+      elements.resultSection.style.display = 'none';
+      elements.questionContainer.style.display = 'block';
+      elements.feedbackContainer.classList.remove('show');
+      elements.nextBtn.disabled = true;
+    }
 
-    ecoScoreEl.textContent = `${score} / ${questions.length}`;
-    resultMsg.textContent =
-      score >= 4 ? "🌟 Eco Hero! You make planet-friendly choices!"
-      : score >= 2 ? "👍 Good effort! Try to improve more."
-      : "🌱 Learn more & try again!";
-  }
+    function loadQuestion() {
+      const question = gameData.questions[gameState.currentQuestion];
+      
+      // Update question info
+      elements.questionNumber.textContent = `Question ${gameState.currentQuestion + 1} of ${gameData.questions.length}`;
+      elements.questionText.textContent = question.question;
+      elements.questionCount.textContent = `${gameState.currentQuestion + 1}/${gameData.questions.length}`;
+      
+      // Clear options
+      elements.optionsGrid.innerHTML = '';
+      
+      // Create option cards
+      question.options.forEach((option, index) => {
+        const optionCard = document.createElement('div');
+        optionCard.className = 'option-card';
+        optionCard.dataset.index = index;
+        
+        optionCard.innerHTML = `
+          <div class="option-icon">
+            <i class="fas fa-${option.icon}"></i>
+          </div>
+          <h4 class="option-text">${option.text}</h4>
+          <p class="option-description">${option.description}</p>
+        `;
+        
+        optionCard.addEventListener('click', () => selectOption(index));
+        elements.optionsGrid.appendChild(optionCard);
+      });
+      
+      // Reset selection
+      gameState.selectedOption = null;
+      elements.feedbackContainer.classList.remove('show');
+      elements.nextBtn.disabled = true;
+      
+      // Update progress
+      updateProgress();
+    }
 
-  loadQuestion();
-</script>
+    function selectOption(optionIndex) {
+      if (gameState.selectedOption !== null) return;
+      
+      gameState.selectedOption = optionIndex;
+      const question = gameData.questions[gameState.currentQuestion];
+      const optionCards = document.querySelectorAll('.option-card');
+      const selectedCard = optionCards[optionIndex];
+      const isCorrect = question.options[optionIndex].isCorrect;
+      
+      // Disable all options
+      optionCards.forEach(card => {
+        card.style.pointerEvents = 'none';
+      });
+      
+      // Mark selected option
+      if (isCorrect) {
+        selectedCard.classList.add('correct');
+        gameState.score++;
+        elements.scoreValue.textContent = gameState.score;
+        
+        // Add impacts
+        gameState.impacts.co2 += question.impact.co2;
+        gameState.impacts.trees += question.impact.trees;
+        gameState.impacts.energy += question.impact.energy;
+        
+        // Show feedback
+        elements.feedbackTitle.textContent = '✅ Correct!';
+        elements.feedbackText.textContent = question.feedback.correct;
+      } else {
+        selectedCard.classList.add('wrong');
+        
+        // Find and mark correct option
+        const correctIndex = question.options.findIndex(opt => opt.isCorrect);
+        if (correctIndex !== -1) {
+          optionCards[correctIndex].classList.add('correct');
+        }
+        
+        // Show feedback
+        elements.feedbackTitle.textContent = '❌ Not Quite';
+        elements.feedbackText.textContent = question.feedback.incorrect;
+      }
+      
+      // Show feedback
+      elements.feedbackContainer.classList.add('show');
+      
+      // Enable next button
+      elements.nextBtn.disabled = false;
+      
+      // Scroll to feedback
+      setTimeout(() => {
+        elements.feedbackContainer.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 500);
+    }
 
+    function nextQuestion() {
+      if (gameState.currentQuestion < gameData.questions.length - 1) {
+        gameState.currentQuestion++;
+        loadQuestion();
+      } else {
+        endGame();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((gameState.currentQuestion + 1) / gameData.questions.length) * 100;
+      elements.progressFill.style.width = `${progress}%`;
+      elements.progressPercentage.textContent = `${Math.round(progress)}%`;
+    }
+
+    function endGame() {
+      gameState.gameCompleted = true;
+      
+      // Calculate final score
+      const percentage = Math.round((gameState.score / gameData.questions.length) * 100);
+      
+      // Update result display
+      elements.resultScore.textContent = `${gameState.score}/${gameData.questions.length}`;
+      
+      // Set result based on score
+      if (percentage >= 80) {
+        elements.resultIcon.className = 'result-icon good';
+        elements.resultIcon.innerHTML = '<i class="fas fa-trophy"></i>';
+        elements.resultTitle.textContent = '🌿 Eco Champion!';
+        elements.resultMessage.textContent = 'Outstanding! Your eco-knowledge is impressive. You truly understand sustainable living!';
+      } else if (percentage >= 60) {
+        elements.resultIcon.className = 'result-icon average';
+        elements.resultIcon.innerHTML = '<i class="fas fa-star"></i>';
+        elements.resultTitle.textContent = '👍 Great Effort!';
+        elements.resultMessage.textContent = 'Good job! You have solid eco-knowledge. Keep learning and improving!';
+      } else {
+        elements.resultIcon.className = 'result-icon poor';
+        elements.resultIcon.innerHTML = '<i class="fas fa-seedling"></i>';
+        elements.resultTitle.textContent = '🌱 Keep Learning!';
+        elements.resultMessage.textContent = 'You\'re getting started! Review the questions and try again to improve your score.';
+      }
+      
+      // Update breakdown
+      updateBreakdown();
+      
+      // Update global stats
+      updateGlobalStats();
+      
+      // Show result section
+      elements.gameContent.style.display = 'none';
+      elements.resultSection.style.display = 'block';
+      
+      // Animate result
+      elements.resultSection.style.opacity = '0';
+      elements.resultSection.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        elements.resultSection.style.transition = 'all 0.5s ease';
+        elements.resultSection.style.opacity = '1';
+        elements.resultSection.style.transform = 'translateY(0)';
+      }, 100);
+      
+      // Scroll to result
+      setTimeout(() => {
+        elements.resultSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 600);
+    }
+
+    function updateBreakdown() {
+      const breakdownHTML = `
+        <div class="breakdown-item">
+          <div class="breakdown-label">Carbon Reduced</div>
+          <div class="breakdown-value">${gameState.impacts.co2.toFixed(1)} kg</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label">Trees Equivalent</div>
+          <div class="breakdown-value">${gameState.impacts.trees.toFixed(2)}</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label">Energy Saved</div>
+          <div class="breakdown-value">${gameState.impacts.energy.toFixed(1)} kWh</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label">Correct Answers</div>
+          <div class="breakdown-value">${gameState.score}/${gameData.questions.length}</div>
+        </div>
+      `;
+      
+      elements.resultBreakdown.innerHTML = breakdownHTML;
+    }
+
+    function updateGlobalStats() {
+      // Animate stats counters
+      animateCounter(elements.treesSaved, 1247);
+      animateCounter(elements.co2Reduced, 24800);
+      animateCounter(elements.wasteDiverted, 8500);
+      animateCounter(elements.energySaved, 156000);
+    }
+
+    function animateCounter(element, target) {
+      const current = parseInt(element.textContent.replace(/,/g, ''));
+      const increment = target > current ? 1 : -1;
+      const duration = 2000;
+      const steps = Math.abs(target - current);
+      const stepTime = duration / steps;
+      
+      let currentValue = current;
+      const timer = setInterval(() => {
+        currentValue += increment;
+        element.textContent = currentValue.toLocaleString();
+        
+        if (currentValue === target) {
+          clearInterval(timer);
+        }
+      }, stepTime);
+    }
+
+    function showHint() {
+      const question = gameData.questions[gameState.currentQuestion];
+      elements.hintModalTitle.textContent = '💡 Eco Tip';
+      elements.hintModalBody.textContent = question.hint;
+      elements.hintModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ===== EVENT LISTENERS =====
+    // Start game button
+    elements.startGameBtn.addEventListener('click', () => {
+      initializeGame();
+      elements.gameSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+
+    // Learn more button
+    elements.learnMoreBtn.addEventListener('click', () => {
+      elements.statsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+
+    // Next question button
+    elements.nextBtn.addEventListener('click', nextQuestion);
+
+    // Hint button
+    elements.hintBtn.addEventListener('click', showHint);
+
+    // Play again button
+    elements.playAgainBtn.addEventListener('click', initializeGame);
+
+    // Share button
+    elements.shareBtn.addEventListener('click', () => {
+      elements.shareModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Modal close buttons
+    elements.hintModalClose.addEventListener('click', () => {
+      elements.hintModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+
+    elements.hintModalOk.addEventListener('click', () => {
+      elements.hintModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+
+    elements.shareModalClose.addEventListener('click', () => {
+      elements.shareModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+
+    // Share buttons
+    elements.shareTwitter.addEventListener('click', () => {
+      const text = `I scored ${gameState.score}/${gameData.questions.length} on the EcoLife Climate Action Game! 🌍 Can you beat my score?`;
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank');
+    });
+
+    elements.shareFacebook.addEventListener('click', () => {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    });
+
+    elements.shareCopy.addEventListener('click', () => {
+      const text = `I scored ${gameState.score}/${gameData.questions.length} on the EcoLife Climate Action Game! Try it here: ${window.location.href}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Score copied to clipboard!');
+      });
+    });
+
+    // Close modals on outside click
+    window.addEventListener('click', (e) => {
+      if (e.target === elements.hintModal) {
+        elements.hintModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+      if (e.target === elements.shareModal) {
+        elements.shareModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        elements.hintModal.classList.remove('show');
+        elements.shareModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ===== INITIALIZATION =====
+    // Initialize global stats with random values
+    function initializeStats() {
+      elements.treesSaved.textContent = '1,247';
+      elements.co2Reduced.textContent = '24.8K';
+      elements.wasteDiverted.textContent = '8.5K';
+      elements.energySaved.textContent = '156K';
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeStats();
+      initializeGame(); // Start game automatically
+      
+      // Add scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all cards for animation
+      document.querySelectorAll('.stat-card, .option-card').forEach(card => {
+        observer.observe(card);
+      });
+      
+      // Add confetti effect for perfect score
+      function createConfetti() {
+        const colors = ['#2e7d32', '#4caf50', '#81c784', '#c8e6c9', '#2196f3', '#ff9800'];
+        const confettiCount = 150;
+        
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.width = '10px';
+          confetti.style.height = '10px';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.borderRadius = '50%';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '-20px';
+          confetti.style.opacity = '0.8';
+          confetti.style.zIndex = '9999';
+          confetti.style.pointerEvents = 'none';
+          
+          document.body.appendChild(confetti);
+          
+          // Animate confetti
+          const animation = confetti.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+          ], {
+            duration: 2000 + Math.random() * 2000,
+            easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+          });
+          
+          animation.onfinish = () => confetti.remove();
+        }
+      }
+      
+      // Attach confetti to perfect score
+      elements.playAgainBtn.addEventListener('click', () => {
+        if (gameState.score === gameData.questions.length) {
+          createConfetti();
+        }
+      });
+    });
+
+    // ===== KEYBOARD SHORTCUTS =====
+    document.addEventListener('keydown', (e) => {
+      // Number keys 1-2 for selecting options
+      if (e.key >= '1' && e.key <= '2' && !gameState.gameCompleted) {
+        const optionIndex = parseInt(e.key) - 1;
+        const optionCards = document.querySelectorAll('.option-card');
+        if (optionIndex < optionCards.length) {
+          selectOption(optionIndex);
+        }
+      }
+      
+      // Space or Enter for next question
+      if ((e.key === ' ' || e.key === 'Enter') && !elements.nextBtn.disabled) {
+        e.preventDefault();
+        nextQuestion();
+      }
+      
+      // H for hint
+      if (e.key === 'h' || e.key === 'H') {
+        showHint();
+      }
+      
+      // R to restart game
+      if (e.key === 'r' || e.key === 'R') {
+        initializeGame();
+      }
+    });
+  </script>
 </body>
 </html>
