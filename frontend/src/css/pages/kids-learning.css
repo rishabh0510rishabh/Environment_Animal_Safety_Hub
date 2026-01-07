@@ -196,6 +196,11 @@ body {
   font-weight: 600;
 }
 
+.module-badge a{
+  text-decoration: none;
+  color:white;
+}
+
 /* ========== FLIP CARDS SECTION ========== */
 .flip-cards-section {
   padding: 50px 20px;
