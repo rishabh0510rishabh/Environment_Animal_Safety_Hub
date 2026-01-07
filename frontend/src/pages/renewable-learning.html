@@ -467,15 +467,6 @@ function closeBadge() {
   document.getElementById("badgeModal").classList.remove("show");
 }
 
-function calculateImpact() {
-  const energy = document.getElementById("energy").value || 0;
-  const transport = document.getElementById("transport").value;
-  const impact = energy * transport;
-
-  document.getElementById("calcResult").innerHTML =
-    "🌍 Estimated Climate Impact Score: <b>" + impact + "</b>";
-}
-
   AOS.init({
     duration: 1000,
     once: true,
