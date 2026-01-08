@@ -24,7 +24,7 @@
   height: 70vh;
   width:100%;
   border-radius: 30px;
-  background: url("../../assets/report1.webp")
+  background: url("../../../assets/report1.webp")
     center / cover no-repeat;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .form-bg {
-  background: url("../../assets/report2.jpg")
+  background: url("../../../assets/report2.jpg")
     center / cover fixed no-repeat;
   padding: 100px 0;
 }
