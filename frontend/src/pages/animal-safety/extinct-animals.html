@@ -10,11 +10,11 @@
       content="Join EcoLife to protect animals, save the environment, and create a greener future for all." />
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../css/global/variables.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/components/navbar.css" />
-    <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/pages/extinct-animals.css" />
+    <link rel="stylesheet" href="../../css/global/variables.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/components/navbar.css" />
+    <link rel="stylesheet" href="../../css/components/footer.css" />
+    <link rel="stylesheet" href="../../css/pages/animal-safety/extinct-animals.css" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,19 +44,19 @@
         </div>
 
         <ul class="nav-links" id="navLinks">
-          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="../../index.html" class="nav-link">Home</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#animal" class="nav-link">Animals</a></li>
           <li><a href="#" class="nav-link active">☠️ Extinct Animals</a></li>
-          <li><a href="./endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
-          <li><a href="./sos.html" class="nav-link">🆘 SOS Emergency</a></li>
-          <li><a href="./environment.html" class="nav-link">Environment</a></li>
-          <li><a href="./kids-zone.html" class="nav-link">Kids Zone</a></li>
-          <li><a href="./report.html" class="nav-link">Report</a></li>
-          <li><a href="./contact.html" class="nav-link">Contact</a></li>
+          <li><a href="../../pages/animal-safety/endangered-animals.html" class="nav-link">🐾 Endangered Animals</a></li>
+          <li><a href="../../sos.html" class="nav-link">🆘 SOS Emergency</a></li>
+          <li><a href="../../environment.html" class="nav-link">Environment</a></li>
+          <li><a href="../../kids-zone.html" class="nav-link">Kids Zone</a></li>
+          <li><a href="../../report.html" class="nav-link">Report</a></li>
+          <li><a href="../../contact.html" class="nav-link">Contact</a></li>
           <li class="nav-auth">
-            <a href="./Login.html" class="btn-login">Login</a>
-            <a href="./Signup.html" class="btn-signup">Sign Up</a>
+            <a href="../../Login.html" class="btn-login">Login</a>
+            <a href="../../Signup.html" class="btn-signup">Sign Up</a>
             <div class="theme-toggle" id="themeToggle" title="Toggle Dark Mode"></div>
           </li>
         </ul>
@@ -299,9 +299,9 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/global/theme-toggle.js"></script>
-    <script src="../js/pages/extinct-animals.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/global/theme-toggle.js"></script>
+    <script src="../../js/pages/animal-safety/extinct-animals.js"></script>
 
     <script>
       (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
