@@ -1,0 +1,153 @@
+  <link rel="stylesheet" href="../../css/pages/games/MatchIssueSolutionGame.css">
+  <link rel="stylesheet" href="../../css/components/footer.css" />
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+footer {
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+  color: var(--eco-primary);
+}
+
+.result {
+  display: none;
+  text-align: center;
+  padding: 30px;
+}
+
+@media (max-width: 768px) {
+  .game {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  <link rel="stylesheet" href="../../css/components/footer.css" />
+  <link rel="stylesheet" href="../../css/components/navbar.css" />
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+<div id="startScreen">
+  <div class="hero" style="
+    padding:60px 20px;
+    text-align:center;
+    background:linear-gradient(135deg,#2e7d32,#66bb6a,#81c784);
+    color:white;
+    border-radius:0 0 40px 40px;
+    animation: fadeScale 1s ease forwards;
+  ">
+    <h1>🌱 ECO CARD QUEST 🌿</h1>
+    <p>Match environmental issues with their correct solutions and learn eco-friendly habits!</p>
+  </div>
+
+  <div class="card" style="
+    max-width:800px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.12);
+    text-align:center;
+    animation: fadeScale 1.2s ease forwards;
+  ">
+    <h2>🎮 How to Play</h2>
+    <p>
+      🌍 Select an environmental issue<br>
+      💡 Then click the correct solution<br>
+      ⭐ +1 point for each correct match<br>
+      ❌ Wrong match triggers an animation
+    </p>
+
+    <h3>👉 Choose Number of Issues</h3>
+    <div class="start-options">
+      <button onclick="selectCount(5)">5</button>
+      <button onclick="selectCount(10)">10</button>
+      <button onclick="selectCount(15)">15</button>
+      <button onclick="selectCount(20)">20</button>
+    </div>
+
+    <div style="margin-top:30px;">
+      <button class="start-btn" onclick="beginGame()">▶ Start Game</button>
+    </div>
+  </div>
+</div>
+
+<div id="gameScreen" style="display:none;">
+  <header>
+    <h2>🌍 Match the Following</h2>
+  </header>
+
+  <div id="game" class="game"></div>
+
+  <!-- Footer placeholder -->
+  <div id="footer-placeholder"></div>
+</div>
+
+<script>
+const data = [
+  ["Plastic Pollution", "Reduce single-use plastics"],
+  ["Deforestation", "Plant more trees"],
+  ["Water Wastage", "Practice water conservation"],
+  ["Air Pollution", "Use public transport"],
+  ["Climate Change", "Reduce carbon emissions"],
+  ["E-Waste", "Recycle electronics"],
+  ["Poaching", "Protect wildlife laws"],
+  ["Global Warming", "Adopt renewable energy"],
+  ["Food Waste", "Compost leftovers"],
+  ["Biodiversity Loss", "Protect natural habitats"],
+  ["Water Pollution", "Treat industrial waste"],
+  ["Overfishing", "Sustainable fishing"],
+  ["Noise Pollution", "Limit loud activities"],
+  ["Urban Heat", "Increase green spaces"],
+  ["Plastic Bags", "Use cloth bags"],
+  ["Carbon Footprint", "Eco-friendly transport"],
+  ["Wildfires", "Prevent deforestation"],
+  ["Ocean Pollution", "Avoid dumping waste"],
+  ["Energy Crisis", "Improve efficiency"],
+  ["Soil Degradation", "Organic farming"]
+];
+
+let selectedCount = 5;
+let selectedIssue = null;
+let score = 0;
+
+function selectCount(count) {
+  selectedCount = count;
+}
+
+function beginGame() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+  startGame();
+}
+
+function startGame() {
+  const game = document.getElementById("game");
+  game.innerHTML = "";
+  score = 0;
+  document.getElementById("score").textContent = score;
+
+  const set = shuffle([...data]).slice(0, selectedCount);
+  const issues = set.map(d => d[0]);
+  const solutions = shuffle(set.map(d => d[1]));
+
+  const left = document.createElement("div");
+  left.className = "column";
+  left.innerHTML = "<h2>🌍 Issues</h2>";
+
+  const right = document.createElement("div");
+  right.className = "column";

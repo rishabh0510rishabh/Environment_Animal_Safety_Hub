@@ -43,6 +43,7 @@ body {
 }
 
 /* ===== Hero Section (Side-by-Side Layout) ===== */
+/* --- Custom Hero Section (Side-by-Side) --- */
 .plant-hero {
   padding: 120px 20px 80px;
   background: var(--hero-bg);
@@ -97,6 +98,7 @@ body {
 }
 
 /* ===== Section Styling ===== */
+/* --- Section Styling --- */
 .section-padding {
   padding: 80px 20px;
   transition: background 0.3s ease;
@@ -125,6 +127,7 @@ body {
 }
 
 /* ===== Cards Grid ===== */
+/* --- Cards Grid --- */
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -167,6 +170,7 @@ body {
 }
 
 /* ===== Split Section (Indoor/Outdoor) ===== */
+/* --- Split Section (Indoor/Outdoor) --- */
 .split-section {
   background-color: var(--card-bg);
   max-width: 1200px;
@@ -229,6 +233,7 @@ body {
 }
 
 /* ===== Button Styles ===== */
+/* --- Button --- */
 .btn-custom {
   display: inline-block;
   background: var(--primary-color);
@@ -252,6 +257,7 @@ body {
 }
 
 /* ===== Responsive Design ===== */
+/* Responsive */
 @media (max-width: 968px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -262,6 +268,9 @@ body {
     margin-top: 40px;
   }
   
+  .hero-image-box {
+    margin-top: 40px;
+  }
   .theme-toggle {
     top: 15px;
     right: 15px;
@@ -283,6 +292,9 @@ body {
     font-size: 2.5rem;
   }
   
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
   .section-title {
     font-size: 2rem;
   }
