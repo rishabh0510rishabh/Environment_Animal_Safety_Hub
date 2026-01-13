@@ -13,7 +13,7 @@
 .eco-footer {
   background: var(--footer-bg-solid);
   color: #ffffff;
-  padding: 100px 0 40px; /* Increased top padding */
+  padding: 60px 0 0; /* Reduced top padding to eliminate extra space */
   font-family: inherit;
   position: relative;
   overflow: hidden;
@@ -31,7 +31,7 @@
 }
 
 .footer-top {
-  padding-bottom: 80px; /* Increased spacing between top and bottom */
+  padding-bottom: 40px; /* Reduced spacing to normal amount */
 }
 
 .footer-container {
