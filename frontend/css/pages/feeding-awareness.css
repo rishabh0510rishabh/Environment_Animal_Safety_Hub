@@ -23,47 +23,87 @@ body {
   line-height: 1.6;
 }
 
-/* ---------- NAVBAR ---------- */
+/* ---------- NAVBAR (UPDATED TO MATCH SCREENSHOT) ---------- */
 .navbar-placeholder {
   height: 70px;
-  background: var(--card-bg);
+  background: #1f4f43;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border-bottom: 2px solid var(--primary-green);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 700;
-  color: var(--primary-green);
+  color: #ffffff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
 }
 
 .nav-links a {
-  color: var(--text-dark);
+  color: #e8f5f0;
   text-decoration: none;
-  margin-left: 1.5rem;
+  margin-left: 1.2rem;
   font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  padding: 8px 14px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
 }
 
 .nav-links a:hover {
-  background: var(--secondary-green);
-  color: var(--text-light);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 
 .nav-links a.active {
-  background: var(--primary-green);
-  color: var(--text-light);
-  border: 1px solid var(--accent-green);
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* ---------- DROPDOWN ---------- */
+.nav-group {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 130%;
+  left: 0;
+  background: #1a443a;
+  border-radius: 14px;
+  min-width: 230px;
+  padding: 10px 0;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.nav-group:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown a {
+  display: block;
+  padding: 12px 18px;
+  color: #eafaf4;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.dropdown a:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* ---------- HERO ---------- */
@@ -197,60 +237,6 @@ body {
   color: var(--primary-green);
 }
 
-.notes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.note-item {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
-  border-left: 5px solid var(--secondary-green);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.note-item h3 {
-  color: var(--secondary-green);
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.note-item p {
-  font-size: 1rem;
-  color: var(--text-dark);
-}
-
-/* ---------- BACK HOME ---------- */
-.back-home-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 60px;
-}
-
-.back-home-btn {
-  padding: 14px 40px;
-  background: var(--primary-green);
-  color: var(--text-light);
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
-}
-
-.back-home-btn:hover {
-  background: var(--secondary-green);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(42, 157, 143, 0.5);
-}
-
 /* ---------- FOOTER ---------- */
 footer {
   text-align: center;
@@ -261,31 +247,90 @@ footer {
   border-top: 2px solid var(--primary-green);
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
 
-  .hero p {
-    font-size: 1rem;
-  }
-
-  .card h2 {
-    font-size: 1.4rem;
-  }
-
-  .note-item h3 {
-    font-size: 1.1rem;
-  }
+#navbar-container .navbar {
+  background: #1f4f43 !important; /* match other sections */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .card li {
-    font-size: 0.95rem;
-  }
+#navbar-container .nav-container {
+  background: #1f4f43 !important;
 }
+
+.hero {
+  margin-top: 80px; /* same as navbar height */
+}
+
+
+.nav-links .dropdown {
+  background: #1f4f43 !important;   /* SAME as navbar */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+#navbar-container .nav-links .dropdown {
+  background: #1f4f43;          /* same solid navbar color */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+
+/* ===== FIX DROPDOWN ITEM HIGHLIGHT ISSUE ===== */
+
+/* Remove main nav hover style from dropdown items */
+.nav-links .dropdown .nav-link {
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Clean, consistent hover for dropdown only */
+.nav-links .dropdown .nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+}
+
+/* Prevent active state from looking like a pill */
+.nav-links .dropdown .nav-link.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+}
+
+
+
+/* ===== FIX CUSTOM CURSOR NOT WORKING ===== */
+#cursor-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;   /* allow clicks through */
+  z-index: 9999;          /* above everything */
+}
+
+body, 
+.hero, 
+.overlay, 
+.section, 
+.card {
+  cursor: none !important;
+}
+
+
+
+
+/* ===== RESTORE CURSOR HOVER EFFECT ===== */
+a, button, .nav-link, .btn, .card {
+  cursor: pointer;
+}
+
+
+.hero,
+.overlay {
+  pointer-events: none;
+}
+
+/* but allow interaction inside content */
+.hero * {
+  pointer-events: auto;
+}
+
