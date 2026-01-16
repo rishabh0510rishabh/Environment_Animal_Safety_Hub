@@ -1735,3 +1735,181 @@ body.dark-mode .modal-meta {
 body.dark-mode .modal-box hr {
   border-color: rgba(255, 255, 255, 0.15);
 }
+
+/* =========================
+   MODERATION PANEL STYLES
+   ========================= */
+
+.moderation-btn {
+  background: #ff9800 !important;
+  margin-right: 8px;
+}
+
+.moderation-btn:hover {
+  background: #f57c00 !important;
+}
+
+.flag-btn.flagged {
+  color: #ff9800 !important;
+}
+
+.moderation-panel {
+  max-width: 800px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.moderation-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.moderation-post-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.moderation-post-card .post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.moderation-post-card .username {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.moderation-post-card .timestamp {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.moderation-post-card .post-image {
+  margin: 12px 0;
+}
+
+.moderation-post-card .post-image img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.moderation-post-card .post-desc {
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.moderation-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.moderation-actions .btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  width: auto;
+}
+
+.approve-btn {
+  background: #4caf50 !important;
+}
+
+.approve-btn:hover {
+  background: #45a049 !important;
+}
+
+.reject-btn {
+  background: #f44336 !important;
+}
+
+.reject-btn:hover {
+  background: #da190b !important;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-badge.approved {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.rejected {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.flagged {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.no-posts {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 40px;
+}
+
+/* Dark mode support for moderation */
+body.dark-mode .moderation-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .tab-btn {
+  color: #ccc;
+}
+
+body.dark-mode .tab-btn.active {
+  color: var(--primary-color);
+}
+
+body.dark-mode .status-badge.approved {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+}
+
+body.dark-mode .status-badge.rejected {
+  background: rgba(244, 67, 54, 0.2);
+  color: #ef5350;
+}
+
+body.dark-mode .status-badge.flagged {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
+}
