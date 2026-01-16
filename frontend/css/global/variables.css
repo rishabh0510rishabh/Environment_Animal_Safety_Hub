@@ -37,6 +37,8 @@
     --input-border: #cccccc;
     --input-text: #333333;
 
+    --border-color: #e0e0e0;
+
     --report-btn-bg: #ff4500;
     --report-btn-hover: #ff6347;
     --report-list-text: #333333;
@@ -102,6 +104,8 @@
     --input-bg: #2a2a2a;
     --input-border: #444444;
     --input-text: #e0e0e0;
+
+    --border-color: #444444;
 
     --report-btn-bg: #dc2626;
     --report-btn-hover: #ef4444;
