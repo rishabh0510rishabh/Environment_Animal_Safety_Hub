@@ -46,65 +46,131 @@
 
 // ===== QUIZ QUESTION DATABASE =====
 /**
- * Database of 10 environmental quiz questions with emoji-enhanced options
- * Each question contains the question text, multiple choice options with emojis, and correct answer index
- * @typedef {Object} QuizQuestion
- * @property {string} q - Question text
- * @property {string[]} o - Array of four multiple choice options with emojis
- * @property {number} a - Index of correct answer (0-3)
+ * Load quiz questions from JSON data file
  */
-const questions = [
-  {
-    q: "What helps reduce pollution?",
-    o: ["Planting trees 🌳", "Burning waste 🔥", "Cutting forests 🪓", "Throwing trash 🗑️"],
-    a: 0
-  },
-  {
-    q: "Which energy is renewable?",
-    o: ["Coal ⛽", "Solar ☀️", "Oil 🚢", "Gas 💨"],
-    a: 1
-  },
-  {
-    q: "Why recycle waste?",
-    o: ["Increase trash 🚯", "Save resources ♻️", "Pollute water 💧", "Waste money 💸"],
-    a: 1
-  },
-  {
-    q: "Which animal is endangered?",
-    o: ["Dog 🐕", "Cat 🐈", "Tiger 🐅", "Cow 🐄"],
-    a: 2
-  },
-  {
-    q: "Best way to save water?",
-    o: ["Leave taps open 🚰", "Fix leaks 🔧", "Waste water 🚿", "Ignore 🙄"],
-    a: 1
-  },
-  {
-    q: "What gas causes global warming?",
-    o: ["Oxygen 🌬️", "Carbon dioxide 🌫️", "Nitrogen ✗", "Hydrogen 🎈"],
-    a: 1
-  },
-  {
-    q: "What protects wildlife?",
-    o: ["Deforestation 🪵", "Conservation 🏞️", "Hunting 🔫", "Pollution 🏭"],
-    a: 1
-  },
-  {
-    q: "Which bin for plastic?",
-    o: ["Green 🟢", "Blue 🔵", "Red 🔴", "Black ⛑️"],
-    a: 1
-  },
-  {
-    q: "What harms oceans?",
-    o: ["Clean water 🌊", "Plastic waste 🗃️", "Fish 🐟", "Coral 🪸"],
-    a: 1
-  },
-  {
-    q: "Best transport to reduce pollution?",
-    o: ["Car 🚗", "Bus 🚌", "Cycle 🚲", "Plane ✈️"],
-    a: 2
+let questions = [];
+
+/**
+ * Load questions from the quiz data JSON file
+ */
+async function loadQuizData() {
+  try {
+    const response = await fetch('../../assets/data/quiz-data.json');
+    const data = await response.json();
+    if (data.quizzes && data.quizzes.length > 0) {
+      questions = data.quizzes[0].questions; // Load questions from first quiz
+    } else {
+      // Fallback to hardcoded questions if JSON fails
+      questions = [
+        {
+          q: "What helps reduce pollution?",
+          o: ["Planting trees 🌳", "Burning waste 🔥", "Cutting forests 🪓", "Throwing trash 🗑️"],
+          a: 0
+        },
+        {
+          q: "Which energy is renewable?",
+          o: ["Coal ⛽", "Solar ☀️", "Oil 🚢", "Gas 💨"],
+          a: 1
+        },
+        {
+          q: "Why recycle waste?",
+          o: ["Increase trash 🚯", "Save resources ♻️", "Pollute water 💧", "Waste money 💸"],
+          a: 1
+        },
+        {
+          q: "Which animal is endangered?",
+          o: ["Dog 🐕", "Cat 🐈", "Tiger 🐅", "Cow 🐄"],
+          a: 2
+        },
+        {
+          q: "Best way to save water?",
+          o: ["Leave taps open 🚰", "Fix leaks 🔧", "Waste water 🚿", "Ignore 🙄"],
+          a: 1
+        },
+        {
+          q: "What gas causes global warming?",
+          o: ["Oxygen 🌬️", "Carbon dioxide 🌫️", "Nitrogen ✗", "Hydrogen 🎈"],
+          a: 1
+        },
+        {
+          q: "What protects wildlife?",
+          o: ["Deforestation 🪵", "Conservation 🏞️", "Hunting 🔫", "Pollution 🏭"],
+          a: 1
+        },
+        {
+          q: "Which bin for plastic?",
+          o: ["Green 🟢", "Blue 🔵", "Red 🔴", "Black ⛑️"],
+          a: 1
+        },
+        {
+          q: "What harms oceans?",
+          o: ["Clean water 🌊", "Plastic waste 🗃️", "Fish 🐟", "Coral 🪸"],
+          a: 1
+        },
+        {
+          q: "Best transport to reduce pollution?",
+          o: ["Car 🚗", "Bus 🚌", "Cycle 🚲", "Plane ✈️"],
+          a: 2
+        }
+      ];
+    }
+  } catch (error) {
+    console.error('Failed to load quiz data:', error);
+    // Fallback to hardcoded questions
+    questions = [
+      {
+        q: "What helps reduce pollution?",
+        o: ["Planting trees 🌳", "Burning waste 🔥", "Cutting forests 🪓", "Throwing trash 🗑️"],
+        a: 0
+      },
+      {
+        q: "Which energy is renewable?",
+        o: ["Coal ⛽", "Solar ☀️", "Oil 🚢", "Gas 💨"],
+        a: 1
+      },
+      {
+        q: "Why recycle waste?",
+        o: ["Increase trash 🚯", "Save resources ♻️", "Pollute water 💧", "Waste money 💸"],
+        a: 1
+      },
+      {
+        q: "Which animal is endangered?",
+        o: ["Dog 🐕", "Cat 🐈", "Tiger 🐅", "Cow 🐄"],
+        a: 2
+      },
+      {
+        q: "Best way to save water?",
+        o: ["Leave taps open 🚰", "Fix leaks 🔧", "Waste water 🚿", "Ignore 🙄"],
+        a: 1
+      },
+      {
+        q: "What gas causes global warming?",
+        o: ["Oxygen 🌬️", "Carbon dioxide 🌫️", "Nitrogen ✗", "Hydrogen 🎈"],
+        a: 1
+      },
+      {
+        q: "What protects wildlife?",
+        o: ["Deforestation 🪵", "Conservation 🏞️", "Hunting 🔫", "Pollution 🏭"],
+        a: 1
+      },
+      {
+        q: "Which bin for plastic?",
+        o: ["Green 🟢", "Blue 🔵", "Red 🔴", "Black ⛑️"],
+        a: 1
+      },
+      {
+        q: "What harms oceans?",
+        o: ["Clean water 🌊", "Plastic waste 🗃️", "Fish 🐟", "Coral 🪸"],
+        a: 1
+      },
+      {
+        q: "Best transport to reduce pollution?",
+        o: ["Car 🚗", "Bus 🚌", "Cycle 🚲", "Plane ✈️"],
+        a: 2
+      }
+    ];
   }
-];
+}
 
 // ===== FLOATING BACKGROUND SYSTEM =====
 /**
@@ -171,7 +237,9 @@ function saveProgress() {
     answers: answers,
     score: score,
     remainingTime: seconds,
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    quizQuestions: quiz, // Store the current quiz questions
+    quizId: 'kids-eco-quiz'
   };
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
 }
@@ -188,6 +256,7 @@ function loadProgress() {
     answers = progress.answers || [];
     score = progress.score || 0;
     seconds = progress.remainingTime || 0;
+    quiz = progress.quizQuestions || []; // Load saved quiz questions
     return true;
   }
   return false;
@@ -218,7 +287,21 @@ const optionsEl = document.getElementById('options');
 /**
  * Initialize the quiz application on page load
  */
-createFloatingElements();
+async function initializeQuiz() {
+  createFloatingElements();
+  await loadQuizData();
+
+  // Check for existing progress on page load
+  if (loadProgress()) {
+    const resumeSection = document.getElementById('resumeSection');
+    if (resumeSection) {
+      resumeSection.style.display = 'block';
+    }
+  }
+}
+
+// Call initialization
+initializeQuiz();
 
 // ===== QUIZ INITIALIZATION =====
 /**
@@ -226,6 +309,9 @@ createFloatingElements();
  */
 function startQuiz() {
   const timeSelect = document.getElementById('timeSelect');
+
+  // Clear any existing progress when starting new quiz
+  clearProgress();
 
   // Select 10 random questions
   quiz = [...questions].sort(() => 0.5 - Math.random()).slice(0, 10);
@@ -252,8 +338,7 @@ function startQuiz() {
  */
 function resumeQuiz() {
   if (loadProgress()) {
-    // Restore quiz state with same questions (simplified)
-    quiz = [...questions].sort(() => 0.5 - Math.random()).slice(0, 10);
+    // Questions are already loaded from saved progress
 
     // Transition to quiz screen
     startScreen.style.display = "none";
@@ -311,6 +396,7 @@ function loadQuestion() {
   const progressBar = document.getElementById('progressBar');
   if (progressBar) {
     const progressFill = progressBar.querySelector('.progress-fill');
+    // Show progress based on current question (index + 1 to show current progress)
     const progressPercent = ((index + 1) / quiz.length) * 100;
     progressFill.style.width = `${progressPercent}%`;
   }
@@ -365,6 +451,9 @@ function selectOption(element, optionIndex) {
 
   // Store user's answer
   answers[index] = optionIndex;
+
+  // Save progress after each answer selection
+  saveProgress();
 }
 
 // ===== QUESTION NAVIGATION =====

@@ -172,12 +172,19 @@
             </div>
             <br>
             <button class="btn-primary pulse-btn" onclick="startQuiz()" aria-label="Start the eco quiz adventure">Start Adventure! 🚀</button>
+            <div id="resumeSection" style="display: none; margin-top: 20px;">
+                <p style="color: #666; font-size: 0.9rem;">📚 Previous progress found!</p>
+                <button class="btn-secondary" onclick="resumeQuiz()" aria-label="Resume your previous quiz">Resume Quiz 🔄</button>
+            </div>
         </div>
 
         <div id="quizScreen">
             <div class="quiz-header">
                 <div class="timer-badge">⏳ <span id="time">00:00</span></div>
                 <div class="progress-text" id="progressText">Question 1/10</div>
+            </div>
+            <div id="progressBar" class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
             <div class="question-box">
                 <h3 class="question" id="question">Loading...</h3>

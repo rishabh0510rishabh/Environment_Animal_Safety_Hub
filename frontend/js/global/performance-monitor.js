@@ -1,11 +1,19 @@
 ﻿/**
- * Performance Monitoring for EcoLife
- * Tracks Core Web Vitals and loading performance
+ * Enhanced Performance Monitoring for EcoLife
+ * Tracks Core Web Vitals, resource loading, and provides detailed analytics
  */
 
 class PerformanceMonitor {
   constructor() {
-    this.metrics = {};
+    this.metrics = {
+      coreWebVitals: {},
+      resourceTiming: [],
+      navigationTiming: {},
+      longTasks: [],
+      memoryUsage: {},
+      cacheStats: {}
+    };
+    this.slowResourceThreshold = 1000; // 1 second
     this.init();
   }
 
@@ -13,63 +21,175 @@ class PerformanceMonitor {
     this.trackCoreWebVitals();
     this.trackResourceLoading();
     this.trackNavigationTiming();
+    this.trackLongTasks();
+    this.trackMemoryUsage();
     this.setupPerformanceObserver();
+    this.setupVisibilityChangeTracking();
   }
 
   /**
-   * Track Core Web Vitals
+   * Enhanced Core Web Vitals tracking with detailed metrics
    */
   trackCoreWebVitals() {
-    // Largest Contentful Paint (LCP)
     if ('PerformanceObserver' in window) {
       try {
+        // Largest Contentful Paint (LCP) - Enhanced
         const lcpObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           const lastEntry = entries[entries.length - 1];
-          this.metrics.lcp = lastEntry.startTime;
-          this.reportMetric('LCP', lastEntry.startTime);
+
+          this.metrics.coreWebVitals.lcp = {
+            value: lastEntry.startTime,
+            element: lastEntry.element?.tagName || 'unknown',
+            url: lastEntry.url || 'unknown',
+            timestamp: Date.now()
+          };
+
+          this.reportMetric('LCP', lastEntry.startTime, {
+            element: lastEntry.element?.tagName,
+            rating: this.getVitalsRating('lcp', lastEntry.startTime)
+          });
         });
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
 
-        // First Input Delay (FID)
+        // First Input Delay (FID) - Enhanced
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           entries.forEach((entry) => {
-            this.metrics.fid = entry.processingStart - entry.startTime;
-            this.reportMetric('FID', this.metrics.fid);
+            const fidValue = entry.processingStart - entry.startTime;
+
+            this.metrics.coreWebVitals.fid = {
+              value: fidValue,
+              eventType: entry.name,
+              timestamp: Date.now()
+            };
+
+            this.reportMetric('FID', fidValue, {
+              eventType: entry.name,
+              rating: this.getVitalsRating('fid', fidValue)
+            });
           });
         });
         fidObserver.observe({ entryTypes: ['first-input'] });
 
-        // Cumulative Layout Shift (CLS)
+        // Cumulative Layout Shift (CLS) - Enhanced
         let clsValue = 0;
+        let clsEntries = [];
         const clsObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           entries.forEach((entry) => {
             if (!entry.hadRecentInput) {
               clsValue += entry.value;
+              clsEntries.push({
+                value: entry.value,
+                timestamp: entry.startTime,
+                sources: entry.sources || []
+              });
             }
           });
-          this.metrics.cls = clsValue;
-          this.reportMetric('CLS', clsValue);
+
+          this.metrics.coreWebVitals.cls = {
+            value: clsValue,
+            entries: clsEntries,
+            timestamp: Date.now()
+          };
+
+          this.reportMetric('CLS', clsValue, {
+            rating: this.getVitalsRating('cls', clsValue),
+            shifts: clsEntries.length
+          });
         });
         clsObserver.observe({ entryTypes: ['layout-shift'] });
+
+        // First Contentful Paint (FCP)
+        const fcpObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+
+          this.metrics.coreWebVitals.fcp = {
+            value: lastEntry.startTime,
+            timestamp: Date.now()
+          };
+
+          this.reportMetric('FCP', lastEntry.startTime, {
+            rating: this.getVitalsRating('fcp', lastEntry.startTime)
+          });
+        });
+        fcpObserver.observe({ entryTypes: ['paint'] });
+
+        // Time to First Byte (TTFB)
+        const navigationObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach((entry) => {
+            if (entry.entryType === 'navigation') {
+              const ttfb = entry.responseStart - entry.requestStart;
+
+              this.metrics.coreWebVitals.ttfb = {
+                value: ttfb,
+                timestamp: Date.now()
+              };
+
+              this.reportMetric('TTFB', ttfb, {
+                rating: this.getVitalsRating('ttfb', ttfb)
+              });
+            }
+          });
+        });
+        navigationObserver.observe({ entryTypes: ['navigation'] });
+
       } catch (error) {
-        console.warn('Performance Observer not supported:', error);
+        console.warn('Performance Observer not fully supported:', error);
       }
     }
   }
 
   /**
-   * Track resource loading times
+   * Get Core Web Vitals rating based on thresholds
+   */
+  getVitalsRating(metric, value) {
+    const thresholds = {
+      lcp: { good: 2500, poor: 4000 },
+      fid: { good: 100, poor: 300 },
+      cls: { good: 0.1, poor: 0.25 },
+      fcp: { good: 1800, poor: 3000 },
+      ttfb: { good: 800, poor: 1800 }
+    };
+
+    const threshold = thresholds[metric];
+    if (!threshold) return 'unknown';
+
+    if (value <= threshold.good) return 'good';
+    if (value <= threshold.poor) return 'needs-improvement';
+    return 'poor';
+  }
+
+  /**
+   * Enhanced resource loading tracking with detailed analysis
    */
   trackResourceLoading() {
     if ('PerformanceObserver' in window) {
       const resourceObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry) => {
-          if (entry.duration > 1000) { // Log slow resources (>1s)
-            console.warn(`Slow resource: ${entry.name} (${entry.duration.toFixed(2)}ms)`);
+          const resourceData = {
+            name: entry.name,
+            duration: entry.duration,
+            size: entry.transferSize || 0,
+            type: this.getResourceType(entry.name),
+            timestamp: Date.now(),
+            initiatorType: entry.initiatorType || 'unknown'
+          };
+
+          this.metrics.resourceTiming.push(resourceData);
+
+          // Log slow resources with more detail
+          if (entry.duration > this.slowResourceThreshold) {
+            console.warn(`🐌 Slow resource (${entry.duration.toFixed(2)}ms):`, {
+              url: entry.name,
+              size: this.formatBytes(entry.transferSize),
+              type: resourceData.type,
+              initiator: entry.initiatorType
+            });
           }
         });
       });
@@ -78,36 +198,75 @@ class PerformanceMonitor {
   }
 
   /**
-   * Track navigation timing
+   * Get resource type from URL
+   */
+  getResourceType(url) {
+    if (url.includes('.css')) return 'stylesheet';
+    if (url.includes('.js')) return 'script';
+    if (/\.(png|jpg|jpeg|gif|webp|avif|svg)/.test(url)) return 'image';
+    if (/\.(woff2?|ttf|eot)/.test(url)) return 'font';
+    if (url.includes('/api/')) return 'api';
+    return 'other';
+  }
+
+  /**
+   * Format bytes for display
+   */
+  formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  /**
+   * Enhanced navigation timing with more metrics
    */
   trackNavigationTiming() {
     window.addEventListener('load', () => {
       setTimeout(() => {
         const navigation = performance.getEntriesByType('navigation')[0];
         if (navigation) {
-          this.metrics.domContentLoaded = navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart;
-          this.metrics.loadComplete = navigation.loadEventEnd - navigation.loadEventStart;
-          this.metrics.totalTime = navigation.loadEventEnd - navigation.fetchStart;
+          this.metrics.navigationTiming = {
+            domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+            loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
+            totalTime: navigation.loadEventEnd - navigation.fetchStart,
+            dnsLookup: navigation.domainLookupEnd - navigation.domainLookupStart,
+            tcpConnect: navigation.connectEnd - navigation.connectStart,
+            serverResponse: navigation.responseEnd - navigation.requestStart,
+            domInteractive: navigation.domInteractive - navigation.fetchStart,
+            domComplete: navigation.domComplete - navigation.fetchStart,
+            timestamp: Date.now()
+          };
 
-          this.reportMetric('DOM Content Loaded', this.metrics.domContentLoaded);
-          this.reportMetric('Load Complete', this.metrics.loadComplete);
-          this.reportMetric('Total Load Time', this.metrics.totalTime);
+          this.reportMetric('Total Load Time', this.metrics.navigationTiming.totalTime);
+          this.reportMetric('DNS Lookup', this.metrics.navigationTiming.dnsLookup);
+          this.reportMetric('TCP Connect', this.metrics.navigationTiming.tcpConnect);
+          this.reportMetric('Server Response', this.metrics.navigationTiming.serverResponse);
         }
       }, 0);
     });
   }
 
   /**
-   * Setup general performance observer
+   * Track long tasks that block the main thread
    */
-  setupPerformanceObserver() {
+  trackLongTasks() {
     if ('PerformanceObserver' in window) {
-      // Monitor long tasks
       const longTaskObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry) => {
-          if (entry.duration > 50) { // Tasks longer than 50ms
-            console.warn(`Long task: ${entry.duration.toFixed(2)}ms`);
+          const taskData = {
+            duration: entry.duration,
+            startTime: entry.startTime,
+            timestamp: Date.now()
+          };
+
+          this.metrics.longTasks.push(taskData);
+
+          if (entry.duration > 50) {
+            console.warn(`⏰ Long task blocked main thread: ${entry.duration.toFixed(2)}ms`);
           }
         });
       });
@@ -116,49 +275,140 @@ class PerformanceMonitor {
   }
 
   /**
-   * Report metric to console and potentially to analytics
-   * @param {string} name - Metric name
-   * @param {number} value - Metric value
+   * Track memory usage if available
    */
-  reportMetric(name, value) {
+  trackMemoryUsage() {
+    if ('memory' in performance) {
+      setInterval(() => {
+        const memory = performance.memory;
+        this.metrics.memoryUsage = {
+          used: memory.usedJSHeapSize,
+          total: memory.totalJSHeapSize,
+          limit: memory.jsHeapSizeLimit,
+          timestamp: Date.now()
+        };
+      }, 5000); // Update every 5 seconds
+    }
+  }
+
+  /**
+   * Track visibility changes for background/foreground performance
+   */
+  setupVisibilityChangeTracking() {
+    document.addEventListener('visibilitychange', () => {
+      const state = document.visibilityState;
+      const timestamp = Date.now();
+
+      console.log(`👁️ Page visibility changed to: ${state} at ${new Date(timestamp).toLocaleTimeString()}`);
+
+      // Could track performance differences between background/foreground
+      if (state === 'visible') {
+        // Page became visible again
+        this.reportMetric('Page Visible', 0, { timestamp });
+      }
+    });
+  }
+
+  /**
+   * Setup general performance observer
+   */
+  setupPerformanceObserver() {
+    // Additional observers can be added here
+  }
+
+  /**
+   * Enhanced metric reporting with more details
+   */
+  reportMetric(name, value, details = {}) {
     const formattedValue = typeof value === 'number' ? value.toFixed(2) : value;
-    console.log(`📊 ${name}: ${formattedValue}ms`);
+    const rating = details.rating || 'unknown';
+
+    console.log(`📊 ${name}: ${formattedValue}ms`, {
+      rating,
+      ...details,
+      timestamp: new Date().toISOString()
+    });
 
     // Send to analytics if available
     if (window.gtag) {
       window.gtag('event', 'performance_metric', {
         metric_name: name,
-        metric_value: value
+        metric_value: value,
+        metric_rating: rating,
+        ...details
       });
     }
   }
 
   /**
    * Get current performance metrics
-   * @returns {Object} - Performance metrics
    */
   getMetrics() {
     return { ...this.metrics };
   }
 
   /**
-   * Check if performance meets targets
-   * @returns {Object} - Performance assessment
+   * Enhanced performance assessment with detailed analysis
    */
   assessPerformance() {
+    const vitals = this.metrics.coreWebVitals;
     const assessment = {
-      lcp: this.metrics.lcp < 2500 ? 'good' : this.metrics.lcp < 4000 ? 'needs-improvement' : 'poor',
-      fid: this.metrics.fid < 100 ? 'good' : this.metrics.fid < 300 ? 'needs-improvement' : 'poor',
-      cls: this.metrics.cls < 0.1 ? 'good' : this.metrics.cls < 0.25 ? 'needs-improvement' : 'poor',
-      totalLoadTime: this.metrics.totalTime < 3000 ? 'good' : this.metrics.totalTime < 5000 ? 'needs-improvement' : 'poor'
+      lcp: this.getVitalsRating('lcp', vitals.lcp?.value),
+      fid: this.getVitalsRating('fid', vitals.fid?.value),
+      cls: this.getVitalsRating('cls', vitals.cls?.value),
+      fcp: this.getVitalsRating('fcp', vitals.fcp?.value),
+      ttfb: this.getVitalsRating('ttfb', vitals.ttfb?.value),
+      totalLoadTime: this.getVitalsRating('totalLoadTime', this.metrics.navigationTiming.totalTime),
+      slowResources: this.metrics.resourceTiming.filter(r => r.duration > this.slowResourceThreshold).length,
+      longTasks: this.metrics.longTasks.filter(t => t.duration > 50).length
     };
 
     console.table(assessment);
+
+    // Provide recommendations
+    this.provideRecommendations(assessment);
+
     return assessment;
+  }
+
+  /**
+   * Provide performance recommendations based on assessment
+   */
+  provideRecommendations(assessment) {
+    const recommendations = [];
+
+    if (assessment.lcp === 'poor') recommendations.push('Optimize Largest Contentful Paint - consider lazy loading images above the fold');
+    if (assessment.fid === 'poor') recommendations.push('Reduce First Input Delay - minimize long tasks and JavaScript execution');
+    if (assessment.cls === 'poor') recommendations.push('Fix Cumulative Layout Shift - reserve space for dynamic content');
+    if (assessment.ttfb === 'poor') recommendations.push('Improve Time to First Byte - optimize server response time');
+    if (assessment.slowResources > 5) recommendations.push(`Optimize ${assessment.slowResources} slow-loading resources`);
+    if (assessment.longTasks > 3) recommendations.push(`Reduce ${assessment.longTasks} long tasks blocking the main thread`);
+
+    if (recommendations.length > 0) {
+      console.log('💡 Performance Recommendations:');
+      recommendations.forEach((rec, index) => console.log(`  ${index + 1}. ${rec}`));
+    } else {
+      console.log('✅ Performance looks good! All metrics are within acceptable ranges.');
+    }
+  }
+
+  /**
+   * Export performance data for analysis
+   */
+  exportMetrics() {
+    const exportData = {
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      ...this.metrics
+    };
+
+    console.log('📤 Performance Data Export:', exportData);
+    return exportData;
   }
 }
 
-// Initialize performance monitoring
+// Initialize enhanced performance monitoring
 const performanceMonitor = new PerformanceMonitor();
 
 // Make available globally

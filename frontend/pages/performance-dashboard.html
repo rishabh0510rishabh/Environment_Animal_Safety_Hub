@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard | EcoLife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/global/utilities.css" />
+    <link rel="stylesheet" href="../css/components/navbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <style>
+        :root {
+            --dashboard-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --metric-good: #4caf50;
+            --metric-needs-improvement: #ff9800;
+            --metric-poor: #f44336;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .dashboard-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .metric-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .metric-rating {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .rating-good { background: var(--metric-good); color: white; }
+        .rating-needs-improvement { background: var(--metric-needs-improvement); color: white; }
+        .rating-poor { background: var(--metric-poor); color: white; }
+        .rating-unknown { background: var(--text-secondary); color: white; }
+
+        .metric-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .chart-header {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .resource-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .resource-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+
+        .resource-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
+            margin-right: 10px;
+            word-break: break-all;
+        }
+
+        .resource-time {
+            font-weight: 600;
+            color: var(--metric-poor);
+        }
+
+        .resource-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .actions-section {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .action-btn i {
+            font-size: 1.2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="cursor-container"></div>
+    <script src="../js/components/loadComponents.js"></script>
+
+    <div id="navbar-container"></div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-chart-line"></i> Performance Dashboard</h1>
+            <p>Monitor Core Web Vitals and optimize your site's performance</p>
+        </div>
+
+        <div id="loading-state" class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading performance metrics...</p>
+        </div>
+
+        <div id="dashboard-content" style="display: none;">
+            <div class="metrics-grid" id="metrics-grid">
+                <!-- Core Web Vitals will be populated here -->
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <i class="fas fa-clock"></i> Slow Loading Resources
+                    </div>
+                    <div class="resource-list" id="slow-resources">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 20px;">
+                            No slow resources detected yet. Resources taking longer than 1 second will appear here.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <i class="fas fa-tasks"></i> Long Tasks (>50ms)
+                    </div>
+                    <div id="long-tasks-info">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 20px;">
+                            Monitoring for long tasks that block the main thread...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-section">
+                <div class="chart-header">
+                    <i class="fas fa-tools"></i> Performance Actions
+                </div>
+                <div class="actions-grid">
+                    <button class="action-btn" onclick="runPerformanceAssessment()">
+                        <i class="fas fa-clipboard-check"></i>
+                        Run Assessment
+                    </button>
+                    <button class="action-btn" onclick="exportMetrics()">
+                        <i class="fas fa-download"></i>
+                        Export Data
+                    </button>
+                    <button class="action-btn" onclick="clearCache()">
+                        <i class="fas fa-trash"></i>
+                        Clear Cache
+                    </button>
+                    <button class="action-btn" onclick="runLighthouse()">
+                        <i class="fas fa-search"></i>
+                        Lighthouse Audit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Performance Dashboard JavaScript
+        class PerformanceDashboard {
+            constructor() {
+                this.metrics = {};
+                this.init();
+            }
+
+            init() {
+                this.checkPerformanceMonitor();
+                this.setupEventListeners();
+                this.loadInitialData();
+            }
+
+            checkPerformanceMonitor() {
+                if (typeof performanceMonitor !== 'undefined') {
+                    this.updateDashboard();
+                    document.getElementById('loading-state').style.display = 'none';
+                    document.getElementById('dashboard-content').style.display = 'block';
+                } else {
+                    // Wait for performance monitor to load
+                    setTimeout(() => this.checkPerformanceMonitor(), 1000);
+                }
+            }
+
+            updateDashboard() {
+                if (typeof performanceMonitor !== 'undefined') {
+                    this.metrics = performanceMonitor.getMetrics();
+                    this.renderCoreWebVitals();
+                    this.renderSlowResources();
+                    this.renderLongTasks();
+                }
+            }
+
+            renderCoreWebVitals() {
+                const vitals = this.metrics.coreWebVitals || {};
+                const container = document.getElementById('metrics-grid');
+
+                const metrics = [
+                    {
+                        name: 'LCP',
+                        title: 'Largest Contentful Paint',
+                        value: vitals.lcp?.value,
+                        unit: 'ms',
+                        rating: performanceMonitor ? performanceMonitor.getVitalsRating('lcp', vitals.lcp?.value) : 'unknown',
+                        description: 'Time for largest content element to render'
+                    },
+                    {
+                        name: 'FID',
+                        title: 'First Input Delay',
+                        value: vitals.fid?.value,
+                        unit: 'ms',
+                        rating: performanceMonitor ? performanceMonitor.getVitalsRating('fid', vitals.fid?.value) : 'unknown',
+                        description: 'Time from user interaction to response'
+                    },
+                    {
+                        name: 'CLS',
+                        title: 'Cumulative Layout Shift',
+                        value: vitals.cls?.value,
+                        unit: '',
+                        rating: performanceMonitor ? performanceMonitor.getVitalsRating('cls', vitals.cls?.value) : 'unknown',
+                        description: 'Unexpected layout shifts during load'
+                    },
+                    {
+                        name: 'FCP',
+                        title: 'First Contentful Paint',
+                        value: vitals.fcp?.value,
+                        unit: 'ms',
+                        rating: performanceMonitor ? performanceMonitor.getVitalsRating('fcp', vitals.fcp?.value) : 'unknown',
+                        description: 'Time for first content to appear'
+                    },
+                    {
+                        name: 'TTFB',
+                        title: 'Time to First Byte',
+                        value: vitals.ttfb?.value,
+                        unit: 'ms',
+                        rating: performanceMonitor ? performanceMonitor.getVitalsRating('ttfb', vitals.ttfb?.value) : 'unknown',
+                        description: 'Time for server to respond'
+                    },
+                    {
+                        name: 'Load Time',
+                        title: 'Total Load Time',
+                        value: this.metrics.navigationTiming?.totalTime,
+                        unit: 'ms',
+                        rating: this.getLoadTimeRating(this.metrics.navigationTiming?.totalTime),
+                        description: 'Complete page load time'
+                    }
+                ];
+
+                container.innerHTML = metrics.map(metric => this.createMetricCard(metric)).join('');
+            }
+
+            createMetricCard(metric) {
+                const value = metric.value ? `${metric.value.toFixed(2)}${metric.unit}` : 'Not measured';
+                const ratingClass = `rating-${metric.rating}`;
+
+                return `
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-title">${metric.title}</div>
+                            <span class="metric-rating ${ratingClass}">${metric.rating.replace('-', ' ')}</span>
+                        </div>
+                        <div class="metric-value">${value}</div>
+                        <div class="metric-details">${metric.description}</div>
+                    </div>
+                `;
+            }
+
+            renderSlowResources() {
+                const resources = this.metrics.resourceTiming || [];
+                const slowResources = resources.filter(r => r.duration > 1000);
+                const container = document.getElementById('slow-resources');
+
+                if (slowResources.length === 0) {
+                    container.innerHTML = `
+                        <p style="color: var(--text-secondary); text-align: center; padding: 20px;">
+                            <i class="fas fa-check-circle" style="color: var(--metric-good); font-size: 2rem;"></i><br>
+                            No slow resources detected! All resources loaded within 1 second.
+                        </p>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = slowResources
+                    .sort((a, b) => b.duration - a.duration)
+                    .slice(0, 10) // Show top 10
+                    .map(resource => `
+                        <div class="resource-item">
+                            <div class="resource-name">${resource.name.split('/').pop()}</div>
+                            <div class="resource-time">${resource.duration.toFixed(0)}ms</div>
+                            <span class="resource-type">${resource.type}</span>
+                        </div>
+                    `).join('');
+            }
+
+            renderLongTasks() {
+                const longTasks = this.metrics.longTasks || [];
+                const significantTasks = longTasks.filter(t => t.duration > 50);
+                const container = document.getElementById('long-tasks-info');
+
+                if (significantTasks.length === 0) {
+                    container.innerHTML = `
+                        <p style="color: var(--text-secondary); text-align: center; padding: 20px;">
+                            <i class="fas fa-check-circle" style="color: var(--metric-good); font-size: 2rem;"></i><br>
+                            No long tasks detected! Main thread is running smoothly.
+                        </p>
+                    `;
+                    return;
+                }
+
+                const totalBlockingTime = significantTasks.reduce((sum, task) => sum + task.duration, 0);
+
+                container.innerHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--metric-poor);">
+                            ${significantTasks.length} long tasks
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            Total blocking time: ${totalBlockingTime.toFixed(0)}ms
+                        </div>
+                    </div>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        ${significantTasks.slice(0, 5).map(task => `
+                            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee;">
+                                <span>Task at ${task.startTime.toFixed(0)}ms</span>
+                                <span style="color: var(--metric-poor); font-weight: 600;">${task.duration.toFixed(0)}ms</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            getLoadTimeRating(time) {
+                if (!time) return 'unknown';
+                if (time < 3000) return 'good';
+                if (time < 5000) return 'needs-improvement';
+                return 'poor';
+            }
+
+            setupEventListeners() {
+                // Auto-refresh dashboard every 30 seconds
+                setInterval(() => {
+                    this.updateDashboard();
+                }, 30000);
+            }
+
+            loadInitialData() {
+                // Wait a bit for performance data to collect
+                setTimeout(() => {
+                    this.updateDashboard();
+                }, 2000);
+            }
+        }
+
+        // Global functions for action buttons
+        function runPerformanceAssessment() {
+            if (typeof performanceMonitor !== 'undefined') {
+                console.log('🔍 Running performance assessment...');
+                performanceMonitor.assessPerformance();
+                alert('Performance assessment completed! Check the console for detailed results.');
+            } else {
+                alert('Performance monitor not loaded yet. Please wait.');
+            }
+        }
+
+        function exportMetrics() {
+            if (typeof performanceMonitor !== 'undefined') {
+                const data = performanceMonitor.exportMetrics();
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `performance-metrics-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } else {
+                alert('Performance monitor not loaded yet. Please wait.');
+            }
+        }
+
+        async function clearCache() {
+            try {
+                if ('serviceWorker' in navigator && 'controller' in navigator.serviceWorker) {
+                    const registration = await navigator.serviceWorker.ready;
+                    const messageChannel = new MessageChannel();
+
+                    registration.active.postMessage({ type: 'CLEAR_CACHE' }, [messageChannel.port2]);
+
+                    messageChannel.port1.onmessage = (event) => {
+                        if (event.data.success) {
+                            alert('Cache cleared successfully! Page will reload.');
+                            window.location.reload();
+                        }
+                    };
+                } else {
+                    // Fallback: clear localStorage and reload
+                    localStorage.clear();
+                    alert('Local storage cleared! Page will reload.');
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error clearing cache:', error);
+                alert('Error clearing cache. Check console for details.');
+            }
+        }
+
+        function runLighthouse() {
+            alert('Lighthouse audit requires browser DevTools.\n\n1. Open DevTools (F12)\n2. Go to Lighthouse tab\n3. Run Performance audit\n4. Check the results for detailed metrics.');
+        }
+
+        // Initialize dashboard when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.performanceDashboard = new PerformanceDashboard();
+        });
+    </script>
+
+    <script src="../js/components/footer-loader.js"></script>
+    <script src="../js/components/component-loader.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
+    <script src="../js/global/performance-monitor.js"></script>
+</body>
+</html>
