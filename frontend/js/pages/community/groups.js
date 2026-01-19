@@ -28,12 +28,6 @@ function initializeGroupsPage() {
 
     // Modal functionality
     initializeModals();
-
-    // Create group functionality
-    const createGroupBtn = document.getElementById('create-group-btn');
-    if (createGroupBtn) {
-        createGroupBtn.addEventListener('click', openCreateGroupModal);
-    }
 }
 
 function initializeModals() {
@@ -146,7 +140,11 @@ function loadFeaturedGroups() {
         }
     ];
 
-    groupsGrid.innerHTML = featuredGroups.map(group => createGroupCard(group)).join('');
+    // Load custom groups from localStorage
+    const customGroups = JSON.parse(localStorage.getItem('community_groups') || '[]');
+    const allGroups = [...customGroups, ...featuredGroups];
+
+    groupsGrid.innerHTML = allGroups.map(group => createGroupCard(group)).join('');
 }
 
 function createGroupCard(group) {
@@ -358,8 +356,7 @@ document.addEventListener('click', function(e) {
     // View details buttons
     if (e.target.closest('.view-btn')) {
         const groupId = e.target.closest('.view-btn').dataset.groupId;
-        // In a real app, this would navigate to group details page
-        showNotification('Group details page coming soon!', 'info');
+        window.location.href = `group-details.html?id=${groupId}`;
     }
 });
 
