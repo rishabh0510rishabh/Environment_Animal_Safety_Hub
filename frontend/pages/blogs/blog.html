@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>EcoLife Blog | Awareness & Sustainability</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Read our latest articles on environmental awareness, sustainability, and animal safety.">
+  <meta name="description"
+    content="Read our latest articles on environmental awareness, sustainability, and animal safety.">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,9 +15,28 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="../../css/pages/blogs/blog.css" />
-
+  <link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../../css/components/footer.css" />
   <link rel="stylesheet" href="../../css/components/navbar.css" />
+  <style>
+    .sort-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px auto;
+      justify-content: flex-end;
+      max-width: 1200px;
+      padding: 0 16px;
+    }
+    .sort-control select {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d0d7de;
+      background: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -36,7 +57,7 @@
     <div class="hero-content">
       <h1>📰 EcoLife Blog</h1>
       <p>Awareness, sustainability & animal safety articles. Stay informed and make a difference 🌍</p>
-      
+
       <div class="stats">
         <div class="stat-item">
           <span class="stat-number">50+</span>
@@ -64,6 +85,8 @@
     <button class="filter-btn" data-category="tips">Eco Tips</button>
   </div>
 
+  <div class="sort-control" id="articles-sorter"></div>
+
   <!-- FEATURED POST -->
   <section class="featured-post">
     <h2 class="featured-title">Featured Article</h2>
@@ -74,9 +97,15 @@
       <div class="featured-content">
         <div class="featured-category">Environment</div>
         <h2>The Future of Urban Green Spaces</h2>
-        <p>Discover how cities around the world are integrating nature into urban planning to combat climate change and improve residents' wellbeing. Learn about innovative approaches like vertical forests, green roofs, and community gardens.</p>
+        <p>Discover how cities around the world are integrating nature into urban planning to combat climate change and
+          improve residents' wellbeing. Learn about innovative approaches like vertical forests, green roofs, and
+          community gardens.</p>
         <div class="card-footer">
-          <a href="#" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+            <a href="#" class="read-more">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.85rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 8 min read</div>
         </div>
       </div>
@@ -86,80 +115,121 @@
   <!-- MAIN CONTENT -->
   <main id="main-content" class="container">
     <!-- Blog Card 1 -->
-    <div class="blog-card" data-category="environment">
+    <div class="blog-card" data-category="environment"
+      data-sort-title="Why Trees Are the Lungs of Our Planet"
+      data-sort-date="2026-01-15"
+      data-sort-popularity="95">
       <div class="blog-header">
         <i class="fa-solid fa-leaf"></i>
         <div class="category">Environment</div>
       </div>
       <div class="blog-content">
         <h3>Why Trees Are the Lungs of Our Planet</h3>
-        <p>Learn how trees help fight climate change, improve air quality, and support biodiversity. Discover the science behind photosynthesis and carbon sequestration.</p>
+        <p>Learn how trees help fight climate change, improve air quality, and support biodiversity. Discover the
+          science behind photosynthesis and carbon sequestration.</p>
         <div class="card-footer">
-          <a href="./trees-blog-1.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./trees-blog-1.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 5 min read</div>
         </div>
       </div>
     </div>
 
     <!-- Blog Card 2 -->
-    <div class="blog-card" data-category="animal">
+    <div class="blog-card" data-category="animal"
+      data-sort-title="How to Help Stray Animals Safely"
+      data-sort-date="2026-01-12"
+      data-sort-popularity="88">
       <div class="blog-header">
         <i class="fa-solid fa-paw"></i>
         <div class="category">Animal Safety</div>
       </div>
       <div class="blog-content">
         <h3>How to Help Stray Animals Safely</h3>
-        <p>Simple and responsible ways to feed, care, and protect stray animals in your area. Learn about local shelters, vaccination programs, and responsible feeding practices.</p>
+        <p>Simple and responsible ways to feed, care, and protect stray animals in your area. Learn about local
+          shelters, vaccination programs, and responsible feeding practices.</p>
         <div class="card-footer">
-          <a href="./stray-animals-blog2.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./stray-animals-blog2.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 6 min read</div>
         </div>
       </div>
     </div>
 
     <!-- Blog Card 3 -->
-    <div class="blog-card" data-category="sustainability">
+    <div class="blog-card" data-category="sustainability"
+      data-sort-title="Waste Segregation: A Small Step, Big Impact"
+      data-sort-date="2026-01-10"
+      data-sort-popularity="82">
       <div class="blog-header">
         <i class="fa-solid fa-recycle"></i>
         <div class="category">Sustainability</div>
       </div>
       <div class="blog-content">
         <h3>Waste Segregation: A Small Step, Big Impact</h3>
-        <p>Understand how proper waste segregation can reduce pollution and protect the environment. A practical guide to recycling at home and in your community.</p>
+        <p>Understand how proper waste segregation can reduce pollution and protect the environment. A practical guide
+          to recycling at home and in your community.</p>
         <div class="card-footer">
-          <a href="./waste-segregationBLOG3.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./waste-segregationBLOG3.html" class="read-more">Read More <i
+                class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 7 min read</div>
         </div>
       </div>
     </div>
 
     <!-- Blog Card 4 -->
-    <div class="blog-card" data-category="climate">
+    <div class="blog-card" data-category="climate"
+      data-sort-title="Climate Change Explained for Everyone"
+      data-sort-date="2026-01-08"
+      data-sort-popularity="76">
       <div class="blog-header">
         <i class="fa-solid fa-earth-americas"></i>
         <div class="category">Climate</div>
       </div>
       <div class="blog-content">
         <h3>Climate Change Explained for Everyone</h3>
-        <p>An easy-to-understand guide to climate change, its causes, and how we can help. Breaking down complex science into actionable knowledge.</p>
+        <p>An easy-to-understand guide to climate change, its causes, and how we can help. Breaking down complex science
+          into actionable knowledge.</p>
         <div class="card-footer">
-          <a href="./climatechange-blog3.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./climatechange-blog3.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 10 min read</div>
         </div>
       </div>
     </div>
 
     <!-- Blog Card 5 -->
-    <div class="blog-card" data-category="tips">
+    <div class="blog-card" data-category="tips"
+      data-sort-title="10 Zero-Waste Swaps for Your Home"
+      data-sort-date="2026-01-06"
+      data-sort-popularity="70">
       <div class="blog-header">
         <i class="fa-solid fa-lightbulb"></i>
         <div class="category">Eco Tips</div>
       </div>
       <div class="blog-content">
         <h3>10 Zero-Waste Swaps for Your Home</h3>
-        <p>Simple swaps to reduce your household waste. From kitchen to bathroom, discover sustainable alternatives that are both eco-friendly and economical.</p>
+        <p>Simple swaps to reduce your household waste. From kitchen to bathroom, discover sustainable alternatives that
+          are both eco-friendly and economical.</p>
         <div class="card-footer">
-          <a href="./Zero-WasteBLOG5.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./Zero-WasteBLOG5.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 4 min read</div>
         </div>
       </div>
@@ -173,9 +243,14 @@
       </div>
       <div class="blog-content">
         <h3>Saving Our Oceans: The Microplastic Problem</h3>
-        <p>Learn about the impact of microplastics on marine ecosystems and what we can do to reduce plastic pollution in our oceans.</p>
+        <p>Learn about the impact of microplastics on marine ecosystems and what we can do to reduce plastic pollution
+          in our oceans.</p>
         <div class="card-footer">
-          <a href="./savingOceans-BLOG6.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+          <div style="display: flex; flex-direction: column; gap: 0.3rem; flex: 1;">
+            <a href="./savingOceans-BLOG6.html" class="read-more">Read More <i class="fa-solid fa-arrow-right"></i></a>
+            <span style="font-size: 0.8rem; color: var(--text-muted, #999); font-style: italic;"><i
+                class="fa-solid fa-calendar-check"></i> Last updated: January 2026</span>
+          </div>
           <div class="read-time"><i class="fa-regular fa-clock"></i> 9 min read</div>
         </div>
       </div>
@@ -202,7 +277,9 @@
   <!-- Footer placeholder -->
   <div id="footer-placeholder"></div>
 
+  <script src="../../js/global/sort-control.js"></script>
   <script src="../../js/pages/blogs/blog.js"></script>
   <script src="../../js/components/component-loader.js"></script>
 </body>
+
 </html>

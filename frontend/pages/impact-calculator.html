@@ -7,24 +7,45 @@
     <title>Environmental Impact Calculator | EcoLife</title>
     <link rel="icon" type="image/png" href="../assets/images/others/FAVICON.png">
     <link rel="icon" type="image/png" href="/envirnoment-logo.png">
-    
+    <meta name="description" content="Calculate your environmental impact and discover actionable steps to reduce your carbon footprint. Track your sustainability journey with our interactive calculator.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ecolife-app.com/pages/impact-calculator.html">
+    <meta property="og:title" content="Environmental Impact Calculator | EcoLife">
+    <meta property="og:description" content="Calculate your environmental impact and discover actionable steps to reduce your carbon footprint. Track your sustainability journey with our interactive calculator.">
+    <meta property="og:image" content="https://ecolife-app.com/assets/images/others/impact-calculator-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ecolife-app.com/pages/impact-calculator.html">
+    <meta property="twitter:title" content="Environmental Impact Calculator | EcoLife">
+    <meta property="twitter:description" content="Calculate your environmental impact and discover actionable steps to reduce your carbon footprint. Track your sustainability journey with our interactive calculator.">
+    <meta property="twitter:image" content="https://ecolife-app.com/assets/images/others/impact-calculator-preview.png">
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/components/navbar.css">
     <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/components/share-modal.css">
     <link rel="stylesheet" href="../css/pages/impact-calculator.css">
-
+    <link rel="stylesheet" href="../../css/global/utilities.css" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
+    <!-- jsPDF for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <!-- Theme Variables -->
     <style>
         :root {
@@ -38,7 +59,7 @@
             --border-color: #dee2e6;
             --shadow-color: rgba(0, 0, 0, 0.1);
         }
-        
+
         .dark-theme {
             --bg-primary: #121212;
             --bg-secondary: #1e1e1e;
@@ -50,7 +71,7 @@
             --border-color: #404040;
             --shadow-color: rgba(0, 0, 0, 0.3);
         }
-        
+
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
@@ -59,7 +80,7 @@
             padding: 0;
             overflow-x: hidden;
         }
-        
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -67,7 +88,7 @@
             right: 20px;
             z-index: 1000;
         }
-        
+
         .theme-btn {
             width: 50px;
             height: 50px;
@@ -83,19 +104,19 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .theme-btn:hover {
             transform: rotate(30deg) scale(1.1);
             box-shadow: 0 8px 25px var(--shadow-color);
         }
-        
+
         /* Fix for navbar blurry issue */
         #navbar-container {
             position: relative;
             z-index: 100;
             backdrop-filter: none !important;
         }
-        
+
         #navbar-container * {
             backdrop-filter: none !important;
         }
@@ -114,7 +135,7 @@
     <script src="../../js/components/loadComponents.js"></script>
 
     <div id="navbar-container"></div>
-    
+
 
     <!-- Hero Section -->
     <section class="calculator-hero">
@@ -136,10 +157,13 @@
                     <button class="btn btn-primary btn-xl pulse" id="startCalculatorBtn">
                         <i class="fa-solid fa-play"></i> Calculate Now
                     </button>
+                    <button class="share-button" onclick="sharePage()">
+                        <i class="fas fa-share-alt"></i> Share Calculator
+                    </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Floating Eco Elements -->
         <div class="eco-float leaf-1">🍃</div>
         <div class="eco-float leaf-2">🌱</div>
@@ -185,7 +209,7 @@
                             </div>
                             <span class="progress-text">Step <span id="currentStep">1</span> of 5</span>
                         </div>
-                        
+
                         <h2><i class="fa-solid fa-leaf"></i> Lifestyle Assessment</h2>
                         <p>Answer these questions to calculate your environmental impact</p>
                     </div>
@@ -195,7 +219,8 @@
                         <div class="question-group active-step" data-step="1">
                             <div class="question-header">
                                 <h3><i class="fa-solid fa-car"></i> Transportation</h3>
-                                <span class="question-help" data-tooltip="How you travel affects your carbon footprint significantly">?</span>
+                                <span class="question-help"
+                                    data-tooltip="How you travel affects your carbon footprint significantly">?</span>
                             </div>
 
                             <div class="form-row">
@@ -228,9 +253,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-tips">
-                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Consider carpooling or using public transport to reduce your impact</p>
+                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Consider carpooling or using
+                                    public transport to reduce your impact</p>
                             </div>
                         </div>
 
@@ -238,7 +264,8 @@
                         <div class="question-group" data-step="2" style="display: none;">
                             <div class="question-header">
                                 <h3><i class="fa-solid fa-bolt"></i> Energy Usage</h3>
-                                <span class="question-help" data-tooltip="Energy consumption is a major contributor to carbon emissions">?</span>
+                                <span class="question-help"
+                                    data-tooltip="Energy consumption is a major contributor to carbon emissions">?</span>
                             </div>
 
                             <div class="form-row">
@@ -270,9 +297,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-tips">
-                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Switch to LED bulbs and unplug devices when not in use</p>
+                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Switch to LED bulbs and unplug
+                                    devices when not in use</p>
                             </div>
                         </div>
 
@@ -280,7 +308,8 @@
                         <div class="question-group" data-step="3" style="display: none;">
                             <div class="question-header">
                                 <h3><i class="fa-solid fa-utensils"></i> Diet & Food</h3>
-                                <span class="question-help" data-tooltip="Food production accounts for 26% of global emissions">?</span>
+                                <span class="question-help"
+                                    data-tooltip="Food production accounts for 26% of global emissions">?</span>
                             </div>
 
                             <div class="form-row">
@@ -313,9 +342,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-tips">
-                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Plan meals to reduce food waste and choose local produce</p>
+                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Plan meals to reduce food
+                                    waste and choose local produce</p>
                             </div>
                         </div>
 
@@ -323,7 +353,8 @@
                         <div class="question-group" data-step="4" style="display: none;">
                             <div class="question-header">
                                 <h3><i class="fa-solid fa-droplet"></i> Water Usage</h3>
-                                <span class="question-help" data-tooltip="Water conservation helps preserve this vital resource">?</span>
+                                <span class="question-help"
+                                    data-tooltip="Water conservation helps preserve this vital resource">?</span>
                             </div>
 
                             <div class="form-row">
@@ -346,7 +377,8 @@
                                     <div class="select-wrapper">
                                         <select name="water-conservation" required>
                                             <option value="">Select practices</option>
-                                            <option value="excellent">💧 Rainwater harvesting, low-flow fixtures</option>
+                                            <option value="excellent">💧 Rainwater harvesting, low-flow fixtures
+                                            </option>
                                             <option value="good">💧 Turn off taps, fix leaks promptly</option>
                                             <option value="average">💧 Basic conservation</option>
                                             <option value="poor">💧 No specific practices</option>
@@ -355,9 +387,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-tips">
-                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Install low-flow showerheads and fix leaks promptly</p>
+                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Install low-flow showerheads
+                                    and fix leaks promptly</p>
                             </div>
                         </div>
 
@@ -365,7 +398,8 @@
                         <div class="question-group" data-step="5" style="display: none;">
                             <div class="question-header">
                                 <h3><i class="fa-solid fa-recycle"></i> Waste & Consumption</h3>
-                                <span class="question-help" data-tooltip="Reducing waste helps minimize landfill impact">?</span>
+                                <span class="question-help"
+                                    data-tooltip="Reducing waste helps minimize landfill impact">?</span>
                             </div>
 
                             <div class="form-row">
@@ -397,9 +431,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-tips">
-                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Use reusable bags and containers to reduce plastic waste</p>
+                                <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Use reusable bags and
+                                    containers to reduce plastic waste</p>
                             </div>
                         </div>
 
@@ -428,16 +463,16 @@
                         <!-- Overall Score -->
                         <div class="result-card main-score">
                             <div class="score-circle" id="scoreCircle">
-                                <span class="score-number" id="totalScore">0</span>
+                                <span class="score-number" id="totalScore">68</span>
                                 <span class="score-label">Impact Score</span>
                                 <div class="score-ring"></div>
                             </div>
                             <div class="score-description">
-                                <h3 id="scoreLevel">Calculating...</h3>
-                                <p id="scoreMessage">Please wait while we analyze your data</p>
+                                <h3 id="scoreLevel">Above Average!</h3>
+                                <p id="scoreMessage">Your carbon footprint is lower than the average person. Keep up the good work!</p>
                                 <div class="score-badges">
-                                    <span class="badge" id="impactBadge">🌍 Eco Impact</span>
-                                    <span class="badge" id="categoryBadge">📊 Analysis</span>
+                                    <span class="badge" id="impactBadge" style="background: #4CAF50;">🌍 Eco Conscious</span>
+                                    <span class="badge" id="categoryBadge" style="background: #2196F3;">📊 Better than Average</span>
                                 </div>
                             </div>
                         </div>
@@ -448,6 +483,28 @@
                             <div class="chart-container">
                                 <canvas id="breakdownChart"></canvas>
                             </div>
+                            <div class="category-breakdown">
+                                <div class="category-item">
+                                    <span class="category-label">🚗 Transport</span>
+                                    <span class="category-value">45%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-label">⚡ Energy</span>
+                                    <span class="category-value">25%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-label">🍽️ Diet</span>
+                                    <span class="category-value">15%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-label">💧 Water</span>
+                                    <span class="category-value">10%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-label">🗑️ Waste</span>
+                                    <span class="category-value">5%</span>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Comparison -->
@@ -457,23 +514,35 @@
                                 <div class="comparison-item">
                                     <span>Your Impact:</span>
                                     <div class="comparison-bar">
-                                        <div class="bar-fill user-bar" id="userBar"></div>
+                                        <div class="bar-fill user-bar" id="userBar" style="width: 53%;"></div>
                                     </div>
-                                    <span id="userImpact" class="impact-value">0 kg CO₂/year</span>
+                                    <span id="userImpact" class="impact-value">1325 kg CO₂/year</span>
                                 </div>
                                 <div class="comparison-item">
                                     <span>Average Person:</span>
                                     <div class="comparison-bar">
-                                        <div class="bar-fill average-bar"></div>
+                                        <div class="bar-fill average-bar" style="width: 100%;"></div>
                                     </div>
                                     <span class="impact-value">2,500 kg CO₂/year</span>
                                 </div>
                                 <div class="comparison-item">
                                     <span>Eco Warrior:</span>
                                     <div class="comparison-bar">
-                                        <div class="bar-fill eco-bar"></div>
+                                        <div class="bar-fill eco-bar" style="width: 32%;"></div>
                                     </div>
                                     <span class="impact-value">800 kg CO₂/year</span>
+                                </div>
+                            </div>
+                            <div class="comparison-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">You save</span>
+                                    <span class="stat-value" style="color: #4CAF50;">47%</span>
+                                    <span class="stat-desc">vs Average</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">You need</span>
+                                    <span class="stat-value" style="color: #FF9800;">40%</span>
+                                    <span class="stat-desc">improvement vs Eco Warrior</span>
                                 </div>
                             </div>
                         </div>
@@ -482,14 +551,63 @@
                         <div class="result-card recommendations">
                             <h3><i class="fa-solid fa-lightbulb"></i> Personalized Tips</h3>
                             <div class="recommendations-list" id="recommendationsList">
-                                <!-- Recommendations will be populated here -->
+                                <div class="recommendation">
+                                    <span class="rec-icon">🚗</span>
+                                    <div class="rec-content">
+                                        <h4>Reduce Car Usage</h4>
+                                        <p>Try carpooling or public transport 2 days a week to reduce transport emissions by 20%</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation">
+                                    <span class="rec-icon">💡</span>
+                                    <div class="rec-content">
+                                        <h4>Switch to LED Lights</h4>
+                                        <p>Replace 5 incandescent bulbs with LEDs to save ₹500/month on electricity</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation">
+                                    <span class="rec-icon">🛒</span>
+                                    <div class="rec-content">
+                                        <h4>Reduce Plastic Waste</h4>
+                                        <p>Use reusable bags and containers to eliminate 3 kg of plastic waste monthly</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation">
+                                    <span class="rec-icon">🥦</span>
+                                    <div class="rec-content">
+                                        <h4>Plant-Based Meals</h4>
+                                        <p>Try 2 meatless days per week to reduce your dietary carbon footprint by 15%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comparison Chart -->
+                        <div class="result-card">
+                            <h3><i class="fa-solid fa-chart-line"></i> Trend Analysis</h3>
+                            <div class="chart-container">
+                                <canvas id="comparisonChart"></canvas>
+                            </div>
+                            <div class="trend-analysis">
+                                <div class="trend-item positive">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <span>Your impact is 47% lower than average</span>
+                                </div>
+                                <div class="trend-item neutral">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Transportation is your largest impact area (45%)</span>
+                                </div>
+                                <div class="trend-item positive">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Great job on waste management (only 5% impact)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="action-buttons">
                         <button class="btn btn-primary" id="saveResultsBtn">
-                            <i class="fa-solid fa-save"></i> Save Results
+                            <i class="fa-solid fa-file-pdf"></i> Export PDF
                         </button>
                         <button class="btn btn-secondary" id="shareResultsBtn">
                             <i class="fa-solid fa-share"></i> Share Results
@@ -503,44 +621,286 @@
         </div>
     </section>
 
-    <!-- Progress Tracking Section -->
-    <section class="tracking-section" id="trackingSection" style="display: none;">
-        <div class="section-container">
-            <div class="section-header">
-                <h2><i class="fa-solid fa-chart-line"></i> Track Your Progress</h2>
-                <p>Monitor your environmental impact over time</p>
-            </div>
-
-            <div class="tracking-grid">
-                <div class="tracking-card">
-                    <h3>Previous Results</h3>
-                    <div id="historyList">
-                        <p>No previous results found. Take the quiz to start tracking!</p>
-                    </div>
-                </div>
-
-                <div class="tracking-card">
-                    <h3>Progress Chart</h3>
-                    <canvas id="progressChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer placeholder -->
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
     <script src="../js/pages/impact-calculator.js"></script>
-    
+
+    <!-- Inline JavaScript for Results and Progress Tracking -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize breakdown chart
+            const breakdownChartCanvas = document.getElementById('breakdownChart');
+            if (breakdownChartCanvas) {
+                const ctx = breakdownChartCanvas.getContext('2d');
+                
+                const breakdownChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Transport', 'Energy', 'Diet', 'Water', 'Waste'],
+                        datasets: [{
+                            data: [45, 25, 15, 10, 5],
+                            backgroundColor: [
+                                '#FF6B6B',
+                                '#4ECDC4',
+                                '#FFD166',
+                                '#06D6A0',
+                                '#118AB2'
+                            ],
+                            borderWidth: 2,
+                            borderColor: 'var(--bg-secondary)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            }
+                        },
+                        cutout: '65%'
+                    }
+                });
+            }
+
+            // Initialize comparison chart
+            const comparisonChartCanvas = document.getElementById('comparisonChart');
+            if (comparisonChartCanvas) {
+                const ctx = comparisonChartCanvas.getContext('2d');
+                
+                const comparisonChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Transport', 'Energy', 'Diet', 'Water', 'Waste'],
+                        datasets: [{
+                            label: 'Your Impact',
+                            data: [600, 330, 200, 130, 65],
+                            borderColor: '#4CAF50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        }, {
+                            label: 'Average Impact',
+                            data: [1125, 625, 400, 250, 100],
+                            borderColor: '#FF9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.05)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    padding: 15
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'kg CO₂/year'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initialize progress chart
+            const progressChartCanvas = document.getElementById('progressChart');
+            if (progressChartCanvas) {
+                const ctx = progressChartCanvas.getContext('2d');
+                
+                const progressChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Your Impact Score',
+                            data: [null, null, null, null, null, 1325],
+                            borderColor: '#4CAF50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#4CAF50',
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }, {
+                            label: 'Average (2,500 kg)',
+                            data: [2500, 2500, 2500, 2500, 2500, 2500],
+                            borderColor: '#FF9800',
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            fill: false
+                        }, {
+                            label: 'Eco Goal (800 kg)',
+                            data: [800, 800, 800, 800, 800, 800],
+                            borderColor: '#9C27B0',
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            if (context.datasetIndex === 0) {
+                                                label += context.parsed.y + ' kg CO₂/year';
+                                            } else {
+                                                label += context.parsed.y + ' kg';
+                                            }
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: 'Carbon Footprint (kg CO₂/year)'
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 3000,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + ' kg';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Update progress circles
+            const progressCircles = document.querySelectorAll('.progress-circle');
+            progressCircles.forEach(circle => {
+                const value = circle.getAttribute('data-value');
+                circle.style.setProperty('--progress', `${value}%`);
+            });
+
+            // Take quiz button functionality
+            const takeQuizBtn = document.getElementById('takeQuizBtn');
+            if (takeQuizBtn) {
+                takeQuizBtn.addEventListener('click', function() {
+                    const startCalculatorBtn = document.getElementById('startCalculatorBtn');
+                    if (startCalculatorBtn) {
+                        startCalculatorBtn.click();
+                    }
+                });
+            }
+
+            // Retake quiz button functionality
+            const retakeQuizBtn = document.getElementById('retakeQuizBtn');
+            if (retakeQuizBtn) {
+                retakeQuizBtn.addEventListener('click', function() {
+                    document.getElementById('resultsSection').style.display = 'none';
+                    document.getElementById('calculatorForm').style.display = 'block';
+                    
+                    // Reset form
+                    document.getElementById('impactForm').reset();
+                    
+                    // Reset progress steps
+                    const steps = document.querySelectorAll('.progress-steps .step');
+                    steps.forEach(step => {
+                        step.classList.remove('active');
+                        step.classList.remove('completed');
+                    });
+                    steps[0].classList.add('active');
+                    
+                    // Reset current step
+                    document.getElementById('currentStep').textContent = '1';
+                    document.getElementById('formProgress').style.width = '20%';
+                    
+                    // Reset navigation buttons
+                    document.getElementById('prevBtn').disabled = true;
+                    document.getElementById('nextBtn').style.display = 'block';
+                    document.getElementById('submitBtn').style.display = 'none';
+                    
+                    // Show first question
+                    document.querySelectorAll('.question-group').forEach(group => {
+                        group.style.display = 'none';
+                    });
+                    document.querySelector('[data-step="1"]').style.display = 'block';
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // Update theme for tracking section
+            const updateTheme = () => {
+                const isDark = document.body.classList.contains('dark-theme');
+                const cards = document.querySelectorAll('.tracking-card, .result-card');
+                cards.forEach(card => {
+                    if (isDark) {
+                        card.style.backgroundColor = 'var(--card-bg)';
+                        card.style.borderColor = 'var(--border-color)';
+                    } else {
+                        card.style.backgroundColor = 'var(--bg-secondary)';
+                        card.style.borderColor = 'var(--border-color)';
+                    }
+                });
+            };
+
+            // Listen for theme changes
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', updateTheme);
+            }
+
+            // Initial theme update
+            updateTheme();
+        });
+    </script>
+
     <!-- Inline Theme Toggle JavaScript -->
     <script>
         // Theme Toggle Functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
-            
+
             // Load saved theme
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
@@ -550,7 +910,7 @@
                 body.classList.remove('dark-theme');
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
-            
+
             themeToggle.addEventListener('click', () => {
                 if (body.classList.contains('dark-theme')) {
                     body.classList.remove('dark-theme');
@@ -564,14 +924,239 @@
             });
         });
     </script>
-    
+
+    <!-- Additional CSS for Results Section -->
+    <style>
+        .category-breakdown {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+        }
+
+        .category-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .category-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .comparison-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .trend-analysis {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .trend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .trend-item.positive {
+            border-left-color: #4CAF50;
+        }
+
+        .trend-item.positive i {
+            color: #4CAF50;
+        }
+
+        .trend-item.neutral {
+            border-left-color: #FF9800;
+        }
+
+        .trend-item.neutral i {
+            color: #FF9800;
+        }
+
+        .trend-item span {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .history-date {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-day {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .date-time {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .history-score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .history-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .history-impact {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .history-status {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .achievement-status.completed {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .achievement-status.in-progress {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-color) var(--progress, 0%), var(--bg-primary) 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+        }
+
+        .progress-circle::after {
+            content: attr(data-value);
+            position: absolute;
+            z-index: 2;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+
     <script>
         // Chatbase initialization
-        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
     </script>
 
     <script src="/frontend/js/components/footer-loader.js"></script>
     <script src="../js/components/navbar-loader.js"></script>
+    <script src="../js/components/component-loader.js"></script>
+
+    <!-- Social Share Modal -->
+    <div id="shareModalContainer"></div>
+
+    <!-- Social Share Scripts -->
+    <script src="../js/components/social-share.js"></script>
+    <script>
+      // Load share modal
+      fetch('../components/share-modal.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('shareModalContainer').innerHTML = html;
+        })
+        .catch(error => console.error('Failed to load share modal:', error));
+
+      // Share page function
+      function sharePage() {
+        if (window.socialShare) {
+          window.socialShare.openShareModal({
+            title: 'Environmental Impact Calculator | EcoLife',
+            description: 'Calculate your environmental impact and discover actionable steps to reduce your carbon footprint. Track your sustainability journey with our interactive calculator.',
+            image: 'https://ecolife-app.com/assets/images/others/impact-calculator-preview.png'
+          });
+        }
+      }
+    </script>
 </body>
 
 </html>

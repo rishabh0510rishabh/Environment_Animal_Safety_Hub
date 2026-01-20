@@ -1,4 +1,4 @@
-/* ===== HERO SECTION ===== */
+﻿/* ===== HERO SECTION ===== */
 .hero-section {
   min-height: 100vh;
   background: var(--gradient-hero);
@@ -126,6 +126,28 @@
 
 .hero-badge i {
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* Page View Counter Badge (Issue #691) */
+.hero-badge.page-view-counter {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.3) 0%, rgba(139, 195, 74, 0.3) 100%);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  margin-left: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-badge.page-view-counter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.hero-badge.page-view-counter i {
+  color: #8bc34a;
+}
+
+#page-view-count {
+  font-weight: 700;
+  color: #cddc39;
 }
 
 .hero-title {
@@ -293,11 +315,13 @@
 }
 
 @keyframes scroll {
+
   0%,
   100% {
     opacity: 1;
     top: 8px;
   }
+
   50% {
     opacity: 0.5;
     top: 18px;

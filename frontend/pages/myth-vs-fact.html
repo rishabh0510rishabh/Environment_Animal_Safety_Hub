@@ -5,8 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Myth vs Fact | EcoLife</title>
 
+<!-- Add CSS links from the other file -->
+<link rel="stylesheet" href="../css/global/variables.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/components/navbar.css" />
+<link rel="stylesheet" href="../css/components/footer.css" />
+
+<link rel="stylesheet" href="../css/global/utilities.css" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Add AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
 <style>
     /* ===== VARIABLES ===== */
@@ -422,6 +432,13 @@
 
 <body>
 
+<!-- Add this cursor container and loadComponents script -->
+<div id="cursor-container"></div>
+<script src="../../js/components/loadComponents.js"></script>
+
+<!-- Add navbar container -->
+<div id="navbar-container"></div>
+
 <!-- Theme Toggle -->
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
     <i class="fas fa-moon"></i>
@@ -434,7 +451,7 @@
     <span class="score-number" id="revealedCount">0</span>
 </div>
 
-<section class="hero">
+<section class="hero" style="padding-top: 200px;">
   <h1>🌱 Myth vs Fact</h1>
   <p>Break environmental myths • Learn the real truth</p>
 </section>
@@ -644,6 +661,11 @@
 
 <!-- Footer placeholder (Your original footer will load here) -->
 <div id="footer-placeholder"></div>
+
+<!-- Add Back to Top button -->
+<button class="back-to-top" id="backToTop" aria-label="Back to Top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
 
 <script>
     // ===== THEME MANAGEMENT =====
@@ -875,9 +897,19 @@
     });
 </script>
 
-<!-- Your original footer loader scripts -->
-<script src="/frontend/js/components/footer-loader.js"></script>
+<!-- Add these scripts from the extinct-animals.html file -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/global/theme-toggle.js"></script>
+<script src="../js/components/component-loader.js"></script>
 <script src="../js/components/navbar-loader.js"></script>
 
+<!-- Add this chatbase script from the other file -->
+<script>
+    (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+</script>
+
+<!-- Your original footer loader scripts -->
+<script src="/frontend/js/components/footer-loader.js"></script>
 </body>
 </html>

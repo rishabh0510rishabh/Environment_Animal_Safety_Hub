@@ -1,3 +1,4 @@
+<!-- report-dumping.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
   <link rel="stylesheet" href="../../css/components/navbar.css" />
   <link rel="stylesheet" href="../../css/components/footer.css" />
   <link rel="stylesheet" href="../../css/pages/report/report.css" />
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -94,6 +95,9 @@
 </style>
 
 <div class="circle-container" id="cursor-container"></div>
+
+<!-- ADD THIS LINE: loadComponents.js script -->
+<script src="../../js/components/loadComponents.js"></script>
 
 <script>
   (function() {
@@ -351,6 +355,10 @@
     <script src="../../js/main.js"></script>
     <script src="../../js/global/theme-toggle.js"></script>
     <script src="../../js/pages/report/report.js"></script>
+    
+    <!-- ADD THIS LINE: component-loader.js script -->
+    <script src="../../js/components/component-loader.js"></script>
+    
 <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="ws110ZzXAkEnbVsIy9g8d";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>

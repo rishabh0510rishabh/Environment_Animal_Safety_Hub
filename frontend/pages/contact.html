@@ -10,7 +10,7 @@
       name="description"
       content="Join EcoLife to protect animals, save the environment, and create a greener future for all."
     />
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/global/variables.css" />
     <link rel="stylesheet" href="../css/style.css" />
@@ -42,6 +42,25 @@
 <script src="../../js/components/loadComponents.js"></script>
 
     <div id="navbar-container"></div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="breadcrumb-container">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="../index.html" class="breadcrumb-link">
+                        <i class="fa-solid fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <span class="breadcrumb-separator">></span>
+                </li>
+                <li class="breadcrumb-item active">
+                    <span class="breadcrumb-current">Contact</span>
+                </li>
+            </ol>
+        </div>
+    </nav>
 
     <!-- Contact Section -->
     <section class="container">
@@ -76,8 +95,76 @@
                     <input type="text" placeholder="Full Name" required>
                     <input type="email" placeholder="Email" required>
                     <textarea placeholder="Comment or Message" required></textarea>
+                    <div class="form-disclaimer">
+                        <p><i class="fa-solid fa-info-circle"></i> Data stored locally only</p>
+                    </div>
                     <button type="submit">Submit</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">
+                    <i class="fa-solid fa-circle-question"></i> FAQ
+                </span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">
+                    Got questions about contacting us? Find answers to common inquiries below.
+                </p>
+            </div>
+
+            <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How can I contact EcoLife?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            You can contact us through our contact form above, by phone at +91 98765 43210, or by visiting our office at 123 Green Street, EcoCity during business hours.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What are your business hours?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Our office is open Monday through Friday from 9:00 AM to 6:00 PM. We are closed on weekends and public holidays.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How quickly do you respond to inquiries?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please call us directly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you offer virtual consultations?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Yes, we offer virtual consultations for certain services. Please contact us to discuss your specific needs and arrange a suitable time.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -98,8 +185,35 @@
 </script>
 
  <script src="/frontend/js/components/footer-loader.js"></script>
-
+<script src="../js/components/component-loader.js"></script>
 
   <script src="../js/components/navbar-loader.js"></script>
-</body>
+  <script>
+    // FAQ Accordion functionality
+    function initFAQ() {
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      faqItems.forEach((item) => {
+        const question = item.querySelector(".faq-question");
+
+        question?.addEventListener("click", function () {
+          // Check if this item is already active
+          const isActive = item.classList.contains("active");
+
+          // Close all items
+          faqItems.forEach((i) => i.classList.remove("active"));
+
+          // Open clicked item if it wasn't active
+          if (!isActive) {
+            item.classList.add("active");
+          }
+        });
+      });
+    }
+
+    // Initialize FAQ when DOM is loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      initFAQ();
+    });
+  </script></body>
 </html>

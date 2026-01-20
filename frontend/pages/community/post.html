@@ -5,13 +5,13 @@
   <title>EcoSphere Post | EcoLife</title>
   <link rel="stylesheet" href="../../css/pages/community.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+<link rel="stylesheet" href="../../css/global/utilities.css" />
   <link rel="stylesheet" href="../../css/components/navbar.css" />
 </head>
 <body class="page">
 
   <div id="cursor-container"></div>
-<script src="../../js/components/loadComponents.js"></script>
+<script src="../../js/components/component-loader.js"></script>
 
 
   <div id="navbar-container"></div>
@@ -40,6 +40,12 @@
         <a href="#" class="sidebar-icon active" data-tooltip="Posts">
             <i class="fa-solid fa-newspaper"></i>
         </a>
+        <a href="forums.html" class="sidebar-icon" data-tooltip="Forums">
+          <i class="fa-solid fa-comments"></i>
+        </a>
+        <a href="dashboard.html" class="sidebar-icon" data-tooltip="Dashboard">
+          <i class="fa-solid fa-chart-line"></i>
+        </a>
         <a href="../../index.html" class="sidebar-icon" data-tooltip="Logout">
             <i class="fa-solid fa-door-open"></i>
         </a>
@@ -53,6 +59,7 @@
     <input type="text" class="search-box" placeholder="Search posts...">
     <div class="top-actions">
       <i class="fa-regular fa-bell notification-icon" title="Notifications"></i>
+      <button class="btn moderation-btn" title="Moderation Panel">⚖️</button>
       <button class="btn create-post-btn" title="Create Post">+</button>
     </div>
   </div>
@@ -74,6 +81,30 @@
   </div>
 </div>
 
+<!-- Moderation Panel Modal -->
+<div class="modal" id="moderationModal">
+  <div class="modal-content column moderation-panel">
+    <h3 class="heading">Moderation Panel</h3>
+    <div class="moderation-tabs">
+      <button class="tab-btn active" data-tab="flagged">Flagged Posts</button>
+      <button class="tab-btn" data-tab="approved">Approved Posts</button>
+      <button class="tab-btn" data-tab="rejected">Rejected Posts</button>
+    </div>
+    <div class="moderation-content">
+      <div id="flagged-posts" class="tab-content active">
+        <!-- Flagged posts will be loaded here -->
+      </div>
+      <div id="approved-posts" class="tab-content">
+        <!-- Approved posts will be loaded here -->
+      </div>
+      <div id="rejected-posts" class="tab-content">
+        <!-- Rejected posts will be loaded here -->
+      </div>
+    </div>
+    <span class="close-modal">&times;</span>
+  </div>
+</div>
+
 
   <aside class="right-panel column">
     <div class="panel-section">
@@ -86,12 +117,12 @@
     <div class="panel-section">
         <h3 class="heading">Suggested Friends</h3>
         <div class="suggested-user">
-        <img src="https://picsum.photos/seed/avatar1/50" alt="">
+        <img src="https://picsum.photos/seed/avatar1/50" alt="User12's profile picture">
         <span>User12</span>
         <button class="btn">Follow</button>
         </div>
         <div class="suggested-user">
-        <img src="https://picsum.photos/seed/avatar2/50" alt="">
+        <img src="https://picsum.photos/seed/avatar2/50" alt="User34's profile picture">
         <span>User34</span>
         <button class="btn">Follow</button>
         </div>

@@ -1,4 +1,4 @@
-/* ===== KIDS QUIZ SECTION ===== */
+﻿/* ===== KIDS QUIZ SECTION ===== */
 .kids-quiz-section {
   padding: var(--section-padding);
   background: var(--quiz-bg);
@@ -155,6 +155,16 @@
 .quiz-btn i {
   font-size: 1rem;
   animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Quiz Buttons Container */
+.quiz-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 /* Quiz Image */

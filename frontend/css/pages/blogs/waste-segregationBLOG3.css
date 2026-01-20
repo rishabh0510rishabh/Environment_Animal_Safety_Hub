@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     /* Light Blue-Green Theme */
     --primary-blue: #00897B;
     --secondary-blue: #00695C;
@@ -844,4 +844,64 @@ body::before {
         grid-template-columns: 1fr;
         gap: 40px;
     }
+}
+
+/* Like Button Styles */
+.like-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 40px auto;
+    max-width: 300px;
+    transition: var(--transition);
+}
+
+.like-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 137, 123, 0.3);
+}
+
+.like-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 137, 123, 0.4);
+}
+
+.like-button.liked {
+    background: var(--gradient-secondary);
+    color: var(--text-dark);
+}
+
+.like-button.liked:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.like-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.like-button.liked .like-icon {
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
+.like-counter {
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
 }

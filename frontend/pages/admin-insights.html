@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Insights | EcoLife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/components/navbar.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+        }
+        .insights {
+            margin-top: 20px;
+        }
+        .insight-item {
+            background: #f1f8e9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 5px solid #66bb6a;
+        }
+        .insight-item h3 {
+            margin: 0 0 10px 0;
+            color: #2e7d32;
+        }
+        .insight-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <div class="container">
+        <h1>📊 Admin Insights</h1>
+        <div class="insights" id="insightsContainer">
+            <!-- Insights will be populated by JS -->
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/components/loadComponents.js"></script>
+    <script src="../js/components/navbar-loader.js"></script>
+    <script src="/frontend/js/components/footer-loader.js"></script>
+
+    <script>
+        function loadInsights() {
+            const container = document.getElementById('insightsContainer');
+            const quizzes = ['quizProgress', 'wasteManagementQuizProgress'];
+
+            quizzes.forEach(quizKey => {
+                const saved = localStorage.getItem(quizKey);
+                if (saved) {
+                    const progress = JSON.parse(saved);
+                    const timeSpent = Math.floor((progress.timestamp - progress.startTime) / 1000);
+                    const accuracy = progress.score / progress.quizData.length * 100;
+
+                    const div = document.createElement('div');
+                    div.className = 'insight-item';
+                    div.innerHTML = `
+                        <h3>${quizKey.replace('QuizProgress', ' Quiz')}</h3>
+                        <p>Score: ${progress.score}/${progress.quizData.length} (${accuracy.toFixed(1)}%)</p>
+                        <p>Time Spent: ${timeSpent}s</p>
+                        <p>Questions Completed: ${progress.currentIndex}</p>
+                        <p>Last Updated: ${new Date(progress.timestamp).toLocaleString()}</p>
+                    `;
+                    container.appendChild(div);
+                }
+            });
+
+            if (container.children.length === 0) {
+                container.innerHTML = '<p>No quiz data available.</p>';
+            }
+        }
+
+        loadInsights();
+    </script>
+</body>
+</html>
