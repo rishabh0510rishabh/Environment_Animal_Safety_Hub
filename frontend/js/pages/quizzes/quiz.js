@@ -1,21 +1,5 @@
 // Load quiz data from JSON
 let quizData = null;
-let questions = [];
-
-async function loadQuizData() {
-    try {
-        const response = await fetch('../../assets/data/quiz-data.json');
-        quizData = await response.json();
-        const quiz = quizData.quizzes.find(q => q.quizName === quizName);
-        if (quiz) {
-            questions = quiz.questions.map(q => ({ q: q.question, o: q.options, a: q.answer }));
-        } else {
-            console.error('Quiz not found in data');
-        }
-    } catch (error) {
-        console.error('Error loading quiz data:', error);
-    }
-}
 
 // ===== QUIZ QUESTION DATABASE =====
 /**
