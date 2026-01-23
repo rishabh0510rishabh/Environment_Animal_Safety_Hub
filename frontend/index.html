@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 
-
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="assets/images/others/FAVICON.png">
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/global/theme.css" />
   <title>EcoLife | Protect Our Planet & Animals</title>
   <meta name="description"
     content="Join EcoLife to protect animals, save the environment, and create a greener future for all." />
@@ -102,6 +101,16 @@
   <div class="scroll-progress" id="scrollProgress"></div>
   <!-- Navbar -->
   <div id="navbar-container"></div>
+  <!-- 🌗 Dark / Light Mode Toggle -->
+<button 
+  id="themeToggle" 
+  class="theme-toggle" 
+  aria-label="Toggle dark and light mode"
+  title="Toggle Dark / Light Mode"
+>
+  <i class="fa-solid fa-moon"></i>
+</button>
+
 
   <!-- Main Content -->
   <main id="main-content" role="main">
@@ -1565,13 +1574,23 @@
   <!-- Scripts (optimized loading) -->
   <!-- Performance monitoring (load first) -->
   <script src="js/global/performance-monitor.js"></script>
-  <script src="js/global/optimized-image-loader.js"></script>
+<script src="js/global/optimized-image-loader.js"></script>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/pages/animal-safety/adoption.js"></script>
-  <script src="js/components/component-loader.js"></script>
-  <script src="js/global/font-size-changer.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- MAIN APP -->
+<script src="js/main.js"></script>
+
+<!-- PAGE / COMPONENT SCRIPTS -->
+<script src="js/pages/animal-safety/adoption.js"></script>
+<script src="js/components/component-loader.js"></script>
+<script src="js/global/font-size-changer.js"></script>
+<script src="js/pages/home.js"></script>
+
+<!-- 🌗 THEME TOGGLE (LOAD LAST) -->
+<script src="./theme-toggle.js"></script>
+
+
 
   <!-- Chatbase Script -->
   <script>
@@ -1844,12 +1863,6 @@
       });
     }
   </script>
-
-  <!-- Global JavaScript for Live Clock -->
-  <script src="js/global/main.js"></script>
-
-  <!-- Home Page Parallax Script -->
-  <script src="js/pages/home.js"></script>
 </body>
 
 </html>
