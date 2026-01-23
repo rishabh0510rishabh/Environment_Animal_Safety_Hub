@@ -2,6 +2,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+// Middleware to log all requests
+app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    next();
+});
+
 // Serve static files from frontend directory
 app.use(express.static(path.join(__dirname, 'frontend')));
 
@@ -29,6 +36,14 @@ app.get('/quality-control', (req, res) => {
     res.sendFile(filePath);
 });
 
+// Contributor Recognition route
+app.get('/contributor-recognition', (req, res) => {
+    console.log('Contributor recognition requested');
+    const filePath = path.join(__dirname, 'frontend/pages/admin/contributor-recognition.html');
+    console.log('File path:', filePath);
+    res.sendFile(filePath);
+});
+
 // Main site route - force index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/index.html'));
@@ -36,7 +51,15 @@ app.get('/', (req, res) => {
 
 const PORT = 8000;
 app.listen(PORT, () => {
+    console.log('\n' + '='.repeat(60));
     console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log('='.repeat(60));
+    console.log('📋 Available APIs:');
     console.log(`📁 Category Management: http://localhost:${PORT}/category-management`);
     console.log(`🔍 Quality Control: http://localhost:${PORT}/quality-control`);
+    console.log(`🏆 Contributor Recognition: http://localhost:${PORT}/contributor-recognition`);
+    console.log(`🏠 Main Site: http://localhost:${PORT}`);
+    console.log('='.repeat(60));
+    console.log('📊 Request Logs:');
+    console.log('='.repeat(60));
 });
