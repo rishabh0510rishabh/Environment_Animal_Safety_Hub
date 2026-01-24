@@ -1,28 +1,20 @@
-- [ ] Extract hardcoded configs from individual quiz JS files
-- [ ] Move questions, time limits, icons to `quiz-config.json`
-- [ ] Update the following quiz files:
-  - [ ] `environment-awareness-quiz.js`
-  - [ ] `animal-first-aid-quiz.js`
-  - [ ] `waste-management-quiz.js`
-  - [ ] `climate-change-quiz.js`
-  - [ ] `sustainable-gardening-quiz.js`
-  - [ ] `water-conservation-quiz.js`
-  - [ ] `plant-care-quiz.js`
-  - [ ] `animal-communication-quiz.js`
-  - [ ] `pet-travel-quiz.js`
-  - [ ] `soil-land-protection-quiz.js`
-=======
-### 5. Migrate Existing Quiz Configurations
-- [x] Extract hardcoded configs from individual quiz JS files
-- [x] Move questions, time limits, icons to `quiz-config.json`
-- [x] Update the following quiz files:
-  - [x] `environment-awareness-quiz.js`
-  - [ ] `animal-first-aid-quiz.js`
-  - [ ] `waste-management-quiz.js`
-  - [ ] `climate-change-quiz.js`
-  - [ ] `sustainable-gardening-quiz.js`
-  - [ ] `water-conservation-quiz.js`
-  - [ ] `plant-care-quiz.js`
-  - [ ] `animal-communication-quiz.js`
-  - [ ] `pet-travel-quiz.js`
-  - [ ] `soil-land-protection-quiz.js`
+# Pollution Awareness Quiz Implementation
+
+## Current Status
+ 
+- [x] Update quiz-config.json with pollution awareness quiz
+- [x] Create pollution-awareness-quiz.html
+- [x] Create pollution-awareness-quiz.js
+- [x] Create pollution-awareness-quiz.css
+- [x] Update quiz-dashboard.html to include new quiz
+- [x] Test quiz functionality
+- [x] Verify mobile responsiveness
+
+## Files to Create
+- frontend/pages/quizzes/pollution-awareness-quiz.html
+- frontend/js/pages/quizzes/pollution-awareness-quiz.js
+- frontend/css/pages/quizzes/pollution-awareness-quiz.css
+
+## Files to Edit
+- frontend/assets/data/quiz-config.json
+- frontend/pages/quiz-dashboard.html
