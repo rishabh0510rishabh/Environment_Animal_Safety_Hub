@@ -52,6 +52,7 @@
   <link rel="stylesheet" href="css/components/scrollBar.css" />
   <link rel="stylesheet" href="css/components/modal.css" />
   <link rel="stylesheet" href="css/components/responsive-images.css" />
+  <link rel="stylesheet" href="css/components/image-loading.css" />
   <!-- Accessibility Styles -->
   <link rel="stylesheet" href="css/global/accessibility.css" />
   <!-- Google Fonts -->
@@ -213,14 +214,14 @@
         </div>
 
         <div class="hero-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-          <div class="hero-image-wrapper">
+          <div class="hero-image-wrapper image-container aspect-16-9">
             <img src="https://i.pinimg.com/736x/90/8e/da/908eda2e439e958f8a276a25d1a9cc6c.jpg" 
                  srcset="https://i.pinimg.com/474x/90/8e/da/908eda2e439e958f8a276a25d1a9cc6c.jpg 474w,
                          https://i.pinimg.com/736x/90/8e/da/908eda2e439e958f8a276a25d1a9cc6c.jpg 736w,
                          https://i.pinimg.com/1200x/90/8e/da/908eda2e439e958f8a276a25d1a9cc6c.jpg 1200w"
                  sizes="(max-width: 480px) 100vw, (max-width: 768px) 80vw, 50vw"
-                 alt="Rescued animals in natural habitat showing conservation success" 
-                 loading="lazy" />
+                 alt="Rescued animals thriving in their natural habitat, showcasing successful conservation efforts and wildlife protection" 
+                 loading="eager" />
             <div class="hero-image-badge">
               <i class="fa-solid fa-heart"></i>
               <span>10K+ Animals Saved</span>
@@ -1595,6 +1596,7 @@
   <script src="js/utils/performance-fixes.js"></script>
   <script src="js/utils/responsive-images.js"></script>
   <script src="js/utils/accessibility-manager.js"></script>
+  <script src="js/utils/image-loader.js"></script>
   
   <!-- Performance monitoring (load first) -->
   <script src="js/global/performance-monitor.js"></script>
