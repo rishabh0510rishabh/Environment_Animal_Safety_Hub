@@ -79,7 +79,15 @@ body {
   gap: 2rem;
   flex-wrap: wrap;
 }
-
+.intro-visual{
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.intro-visual:hover {
+  transform: scale(1.02);
+  transition: transform 0.5s ease-in-out;
+}
 .fact {
   background: rgba(255, 255, 255, 0.2);
   padding: 1rem;
