@@ -31,6 +31,8 @@ activities through education and quizzes.
 ### 🐾 Animal Protection & Adoption
 - Adopt and support stray animals
 - Learn how to protect endangered wildlife
+- **Animal First Aid Guide** - Essential first aid techniques for common animal injuries and emergencies
+- **Wildlife Incidents Reporting** - How and when to report wildlife sightings, injuries, and illegal activities
 
 ### 🗑 Waste Segregation
 - Reduce, reuse & recycle with simple guidance
@@ -109,3 +111,33 @@ This project is created for education & awareness purposes only.
 If you like this project, please give it a ⭐ on GitHub!
 
 Together we can make Earth a better place! 🌏💚
+
+
+## 🛠️ Setup Instructions
+
+### Prerequisites
+- Git
+- A modern web browser
+- VS Code (recommended)
+
+### Installation
+```bash
+git clone https://github.com/Jagrati3/Environment_Animal_Safety_Hub.git
+cd Environment_Animal_Safety_Hub
+
+
+## 🚀 Usage
+
+- Open the project in a browser using `index.html`
+- Navigate through different sections such as Home, About, and Action Hub
+- Explore animal protection and environmental awareness features
+
+
+## 📁 Project Structure
+
+```text
+Environment_Animal_Safety_Hub/
+├── frontend/        # Frontend source code
+├── assets/          # Static assets
+├── .github/         # GitHub templates and workflows
+├── README.md        # Project documentation

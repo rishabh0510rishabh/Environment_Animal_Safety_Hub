@@ -1,0 +1,392 @@
+/* ===========================================
+   SPECIES DE-EXTINCTION - STYLES
+   =========================================== */
+
+/* ===========================================
+   HERO SECTION
+   =========================================== */
+.hero {
+  background: linear-gradient(135deg, #312e81 0%, #4338ca 50%, #6366f1 100%);
+  color: white;
+  padding: 120px 20px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.hero-icon {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+  font-size: 14rem;
+  opacity: 0.08;
+  z-index: 1;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(-55%); }
+}
+
+/* ===========================================
+   INTRO SECTION
+   =========================================== */
+.intro-section {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+.intro-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 20px;
+}
+
+.intro-section p {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-secondary, #666);
+}
+
+/* ===========================================
+   METHODS SECTION
+   =========================================== */
+.methods-section {
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #eef2ff, #ffffff);
+}
+
+.methods-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 60px;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.method-card {
+  background: white;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.method-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(99,102,241,0.25);
+}
+
+.method-card i {
+  font-size: 3rem;
+  color: #4f46e5;
+  margin-bottom: 20px;
+}
+
+.method-card h3 {
+  font-size: 1.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 15px;
+}
+
+.method-card p {
+  color: var(--text-secondary, #666);
+  line-height: 1.7;
+}
+
+/* ===========================================
+   EXAMPLES SECTION
+   =========================================== */
+.examples-section {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+.examples-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 60px;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.example-card {
+  background: linear-gradient(to bottom, #f8fafc, #ffffff);
+  padding: 30px;
+  border-radius: 15px;
+  border-left: 5px solid #6366f1;
+  transition: all 0.3s ease;
+}
+
+.example-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.example-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.example-card p {
+  color: var(--text-secondary, #666);
+  line-height: 1.6;
+}
+
+/* ===========================================
+   ETHICS SECTION
+   =========================================== */
+.ethics-section {
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #f1f5f9, #ffffff);
+}
+
+.ethics-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 60px;
+}
+
+.ethics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ethics-card {
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.ethics-card.positive {
+  background: #f0fdf4;
+  border-left: 5px solid #10b981;
+}
+
+.ethics-card.negative {
+  background: #fef2f2;
+  border-left: 5px solid #ef4444;
+}
+
+.ethics-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.ethics-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ethics-card ul li {
+  padding: 10px 0;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.ethics-card ul li::before {
+  content: '•';
+  position: absolute;
+  left: 8px;
+  font-size: 1.5rem;
+}
+
+/* ===========================================
+   CONSERVATION SECTION
+   =========================================== */
+.conservation-section {
+  padding: 80px 20px;
+  background: #ffffff;
+}
+
+.conservation-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 20px;
+}
+
+.conservation-section p {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-secondary, #666);
+}
+
+/* ===========================================
+   GUIDELINES SECTION
+   =========================================== */
+.guidelines-section {
+  padding: 80px 20px;
+  background: linear-gradient(to bottom, #eef2ff, #ffffff);
+}
+
+.guidelines-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color, #2e7d32);
+  margin-bottom: 40px;
+}
+
+.guidelines-list {
+  max-width: 800px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+}
+
+.guidelines-list li {
+  background: white;
+  padding: 18px 25px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #4f46e5;
+  font-size: 1.05rem;
+}
+
+/* ===========================================
+   PLEDGE SECTION
+   =========================================== */
+.pledge-section {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #312e81, #4f46e5);
+  color: white;
+  text-align: center;
+}
+
+.pledge-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pledge-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+}
+
+.pledge-content p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+}
+
+.pledge-button {
+  background: white;
+  color: #312e81;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pledge-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+/* ===========================================
+   CONTAINER
+   =========================================== */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .hero-icon {
+    font-size: 8rem;
+    right: 5%;
+  }
+
+  section h2 {
+    font-size: 2rem;
+  }
+
+  .ethics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-icon {
+    display: none;
+  }
+
+  .pledge-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
