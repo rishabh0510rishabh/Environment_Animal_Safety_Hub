@@ -69,11 +69,7 @@
   <link rel="stylesheet" href="css/components/sections.css" />
   <link rel="stylesheet" href="css/components/scrollBar.css" />
   <link rel="stylesheet" href="css/components/modal.css" />
-  <link rel="stylesheet" href="css/components/responsive-images.css" />
-  <link rel="stylesheet" href="css/components/image-loading.css" />
-  <link rel="stylesheet" href="css/components/form-validation.css" />
-  <!-- Interactive Elements -->
-  <link rel="stylesheet" href="css/components/interactive-elements.css" />
+  <link rel="stylesheet" href="css/components/donation.css" />
   <!-- Accessibility Styles -->
   <link rel="stylesheet" href="css/global/accessibility.css" />
   <!-- Google Fonts - Optimized -->
@@ -510,6 +506,67 @@
   </div>
 </section>
 
+
+    <!-- Donation Section -->
+    <section class="donation-section" id="donation">
+        <div class="donation-container">
+            <div class="donation-header">
+                <span class="section-tag">
+                    <i class="fa-solid fa-heart"></i> Eco-Fund
+                </span>
+                <h2>Support Environmental Causes</h2>
+                <p>Help verified environmental NGOs, local shelters, and community-led green initiatives through our secure donation platform.</p>
+            </div>
+            
+            <div class="campaigns-grid" id="campaigns-container">
+                <!-- Campaigns will be rendered dynamically -->
+            </div>
+            
+            <div class="donation-form" id="donation-form-container">
+                <h3>Make a Donation</h3>
+                <form id="donation-form">
+                    <div class="form-group">
+                        <label for="donation-campaign">Select Campaign</label>
+                        <select id="donation-campaign" required>
+                            <option value="">Choose a campaign...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donation-amount">Donation Amount ($)</label>
+                        <div class="amount-buttons">
+                            <button type="button" class="amount-button" data-amount="10">$10</button>
+                            <button type="button" class="amount-button" data-amount="25">$25</button>
+                            <button type="button" class="amount-button" data-amount="50">$50</button>
+                            <button type="button" class="amount-button" data-amount="100">$100</button>
+                        </div>
+                        <input type="number" id="donation-amount" placeholder="Enter custom amount" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donor-name">Your Name (optional)</label>
+                        <input type="text" id="donor-name" placeholder="Enter your name for donor wall">
+                    </div>
+                    
+                    <button type="submit" class="donation-btn">
+                        <i class="fa-solid fa-heart"></i> Donate Securely
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="modal" id="donation-modal">
+            <div class="modal-content">
+                <span class="close-modal" id="close-donation-modal">&times;</span>
+                <div class="donation-success">
+                    <i class="fa-solid fa-check-circle"></i>
+                </div>
+                <h3>Thank You for Your Donation!</h3>
+                <p class="donation-thanks" id="donation-thanks">Your contribution makes a real difference!</p>
+                <p>Your donation helps protect our environment and support important causes.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- AI Chatbot
   <div class="chatbot-container">
@@ -1996,9 +2053,9 @@
 
   <!-- Home Page Parallax Script -->
   <script src="js/pages/home.js"></script>
-
-  <!-- PWA Script -->
-  <script src="js/pwa.js"></script>
+  
+  <!-- Donation Feature Script -->
+  <script src="js/donation.js"></script>
 </body>
 
 </html>
