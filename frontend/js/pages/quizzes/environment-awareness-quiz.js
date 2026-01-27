@@ -1,78 +1,110 @@
+﻿/**
+ * Environment Awareness Quiz
+ *
+ * A comprehensive quiz designed to test and educate users about basic
+ * environmental concepts, conservation practices, and ecological awareness.
+ * Features 10 carefully crafted questions covering key environmental topics.
+ *
+ * Now extends BaseQuiz for unified progress tracking.
+ *
+ * @author Environment Animal Safety Hub Team
+ * @version 2.0.0
+ * @since 2024
+ */
 
-const questions=[
-  {q:"Why should we plant trees?",o:["Decoration","More oxygen","Noise","Waste"],a:1},
-  {q:"Which gas causes global warming?",o:["Oxygen","Carbon dioxide","Nitrogen","Helium"],a:1},
-  {q:"Best way to save water?",o:["Leave taps open","Fix leaks","Waste water","Ignore"],a:1},
-  {q:"Which helps reduce pollution?",o:["Burning waste","Planting trees","Cutting forests","Throwing trash"],a:1},
-  {q:"Which is eco-friendly transport?",o:["Car","Bike","Cycle","Plane"],a:2},
-  {q:"Why recycle waste?",o:["Increase trash","Save resources","Pollute air","Waste money"],a:1},
-  {q:"Which energy is renewable?",o:["Coal","Solar","Oil","Gas"],a:1},
-  {q:"What harms oceans the most?",o:["Clean water","Plastic waste","Fish","Sand"],a:1},
-  {q:"What should we do with lights?",o:["Keep on","Switch off","Break","Ignore"],a:1},
-  {q:"Clean environment means?",o:["Healthy life","More disease","Dirty water","Less oxygen"],a:0}
-];
+// DOM elements
+const elements = {
+  startScreen: document.getElementById('startScreen'),
+  quizScreen: document.getElementById('quizScreen'),
+  resultScreen: document.getElementById('resultScreen'),
+  questionEl: document.getElementById('question'),
+  optionsEl: document.getElementById('options'),
+  timeEl: document.getElementById('time'),
+  scoreEl: document.getElementById('score'),
+  remarkEl: document.getElementById('remark'),
+  progressText: document.querySelector('.progress-metrics span:first-child'),
+  progressFill: document.getElementById('progressFill')
+};
 
-let index=0,score=0,seconds=120,timer;
+// Load quiz data and create instance
+let environmentAwarenessQuiz = null;
 
-function startQuiz(){
-  startScreen.style.display="none";
-  quizScreen.style.display="block";
-  loadQuestion();
-  startTimer();
-}
-
-function startTimer(){
-  updateTime();
-  timer=setInterval(()=>{
-    seconds--;
-    updateTime();
-    if(seconds<=0){
-      clearInterval(timer);
-      showResult();
+async function loadEnvironmentAwarenessQuiz() {
+  try {
+    const response = await fetch('../../assets/data/quiz-data.json');
+    if (!response.ok) {
+      throw new Error('Failed to load quiz data');
     }
-  },1000);
+    const data = await response.json();
+    const quizData = data.quizzes.find(q => q.id === 'environment-awareness');
+    if (!quizData) {
+      throw new Error('Environment awareness quiz data not found');
+    }
+
+    const quizConfig = {
+      questions: quizData.questions,
+      timeLimit: quizData.timeLimit,
+      progressKey: quizData.progressKey,
+      iconClass: quizData.iconClass,
+      elements: elements
+    };
+
+    environmentAwarenessQuiz = new BaseQuiz(quizConfig);
+
+    // Override loadQuestion to include custom progress metrics
+    environmentAwarenessQuiz.loadQuestion = function() {
+      // Call parent method
+      BaseQuiz.prototype.loadQuestion.call(this);
+
+      // Update custom progress metrics
+      if (this.config.elements.progressText) {
+        const timeSpent = this.config.timeLimit - this.time;
+        this.config.elements.progressText.textContent = `Time Spent: ${timeSpent}s`;
+      }
+
+      const questionsCompleted = document.querySelector('.progress-metrics span:last-child');
+      if (questionsCompleted) {
+        questionsCompleted.textContent = `Completed: ${this.index + 1}/${this.questions.length}`;
+      }
+    };
+
+    // Override showResult for custom remarks
+    environmentAwarenessQuiz.showResult = function() {
+      // Call parent method
+      BaseQuiz.prototype.showResult.call(this);
+
+      // Custom remarks for environment awareness
+      let remark = "";
+      if (this.score >= 8) {
+        remark = "🌟 Eco Champion!";
+      } else if (this.score >= 5) {
+        remark = "👍 Good effort!";
+      } else {
+        remark = "🌱 Keep learning!";
+      }
+
+      if (this.config.elements.remarkEl) {
+        this.config.elements.remarkEl.textContent = remark;
+      }
+    };
+
+    environmentAwarenessQuiz.initializeQuiz();
+  } catch (error) {
+    console.error('Error loading environment awareness quiz:', error);
+    alert('Failed to load quiz data. Please try again later.');
+  }
 }
 
-function updateTime(){
-  let m=Math.floor(seconds/60);
-  let s=seconds%60;
-  time.textContent=`${m}:${s<10?'0':''}${s}`;
-}
+// Global functions for HTML onclick handlers
+window.startQuiz = () => {
+  if (environmentAwarenessQuiz) environmentAwarenessQuiz.startQuiz();
+};
+window.resumeQuiz = () => {
+  if (environmentAwarenessQuiz) environmentAwarenessQuiz.resumeQuiz();
+};
+window.nextQuestion = () => {
+  if (environmentAwarenessQuiz) environmentAwarenessQuiz.nextQuestion();
+};
 
-function loadQuestion(){
-  let q=questions[index];
-  question.textContent=`Q${index+1}. ${q.q}`;
-  options.innerHTML="";
-  q.o.forEach((opt,i)=>{
-    let div=document.createElement("div");
-    div.className="option";
-    div.textContent=opt;
-    div.onclick=()=>selectOption(div,i);
-    options.appendChild(div);
-  });
-}
-
-function selectOption(el,i){
-  document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
-  el.classList.add("selected");
-  el.dataset.correct=i===questions[index].a;
-}
-
-function nextQuestion(){
-  let selected=document.querySelector(".option.selected");
-  if(!selected) return alert("Please select an option 😊");
-  if(selected.dataset.correct==="true") score++;
-  index++;
-  if(index<questions.length) loadQuestion();
-  else showResult();
-}
-
-function showResult(){
-  clearInterval(timer);
-  quizScreen.style.display="none";
-  resultScreen.style.display="block";
-  scoreEl.textContent=`${score} / ${questions.length}`;
-  remark.textContent= score>=8 ? "🌟 Eco Champion!" : score>=5 ? "👍 Good effort!" : "🌱 Keep learning!";
-}
-
-const scoreEl=document.getElementById("score");
+// Load quiz on page load
+document.addEventListener('DOMContentLoaded', loadEnvironmentAwarenessQuiz);

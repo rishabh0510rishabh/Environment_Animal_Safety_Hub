@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Chef: Sustainable Meal Planner | EcoLife</title>
+    <link rel="icon" type="image/png" href="../assets/images/others/FAVICON.png">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/components/footer.css">
+    <link rel="stylesheet" href="../css/pages/eco-chef.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme Style Block -->
+    <style>
+        :root {
+            --bg-primary: #f8f9fa;
+            --text-primary: #212529;
+            --primary-color: #2e7d32;
+        }
+
+        .dark-theme {
+            --bg-primary: #121212;
+            --text-primary: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #4caf50);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Mouse Trail Container -->
+    <div id="cursor-container"></div>
+    <script src="../../js/components/loadComponents.js"></script>
+
+    <!-- Navbar Placeholder -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <header class="eco-chef-hero">
+        <div class="section-container">
+            <h1>Eco-Chef</h1>
+            <p>Your sustainable kitchen companion. Cook delicious meals, slash your carbon footprint, and reduce food
+                waste.</p>
+        </div>
+    </header>
+
+    <main class="section-container">
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card" data-target="fridgeAudit">
+                <i class="fa-solid fa-carrot"></i>
+                <h3>Fridge Audit</h3>
+                <p>Cook with what you have.</p>
+            </div>
+            <div class="feature-card" data-target="seasonal">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>Seasonal</h3>
+                <p>Eat fresh & local.</p>
+            </div>
+            <div class="feature-card" data-target="shoppingList">
+                <i class="fa-solid fa-list-check"></i>
+                <h3>Shopping List</h3>
+                <p>Smart aisle organization.</p>
+            </div>
+        </div>
+
+        <!-- Tool: Fridge Audit (Recipe Finder) -->
+        <section id="fridgeAudit" class="tool-section active">
+            <h2>Recipe Finder & Fridge Audit</h2>
+            <p>Enter up to 3 ingredients you have on hand to find low-impact recipes.</p>
+
+            <div class="input-group">
+                <label for="fridgeIngredients">Ingredients (comma separated)</label>
+                <input type="text" id="fridgeIngredients" placeholder="e.g. Tomato, Spinach, Rice">
+            </div>
+
+            <button class="btn btn-primary" id="findRecipesBtn">Find Recipes <i class="fa-solid fa-search"></i></button>
+
+            <div id="recipeResults" class="recipe-results">
+                <!-- Results populate here -->
+            </div>
+        </section>
+
+        <!-- Tool: Seasonal Eating -->
+        <section id="seasonal" class="tool-section">
+            <h2>What's in Season?</h2>
+            <p>Consuming seasonal local produce reduces transport emissions.</p>
+
+            <div class="seasonal-wheel">
+                <span class="seasonal-item">Apples</span>
+                <span class="seasonal-item">Pumpkins</span>
+                <span class="seasonal-item">Squash</span>
+                <span class="seasonal-item">Kale</span>
+                <span class="seasonal-item">Brussels Sprouts</span>
+                <span class="seasonal-item">Pears</span>
+                <span class="seasonal-item">Cranberries</span>
+            </div>
+        </section>
+
+        <!-- Tool: Shopping List -->
+        <section id="shoppingList" class="tool-section">
+            <h2>Your Eco Shopping List</h2>
+            <p>Organized by store aisle for efficiency.</p>
+
+            <div id="shoppingListItems" class="shopping-list-container">
+                <!-- Shopping list items populate here -->
+                <p class="text-secondary text-center">Your list is empty. Add recipes to generate a list.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/pages/eco-chef.js"></script>
+
+    <!-- Copying Theme Logic from template -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const savedTheme = localStorage.getItem('theme') || 'light';
+
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                if (body.classList.contains('dark-theme')) {
+                    body.classList.remove('dark-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.add('dark-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        });
+    </script>
+
+    <!-- Loaders -->
+    <script src="../js/components/navbar-loader.js"></script>
+    <script src="../js/components/footer-loader.js"></script>
+</body>
+
+</html>
