@@ -37,6 +37,7 @@ body {
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
+  margin-top:3rem;
 }
 
 .hero::before {
@@ -114,6 +115,7 @@ body {
   text-align: center;
   transition: var(--transition);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  cursor: default;
 }
 
 .stat-card:hover {
@@ -136,6 +138,7 @@ body {
 .stat-card p {
   font-size: 0.9rem;
   opacity: 0.9;
+  color: #fff ;
 }
 
 /* Sources Section */
@@ -168,6 +171,7 @@ body {
   padding: 25px;
   transition: var(--transition);
   border: 1px solid #e1f5fe;
+  padding:40px 30px;
 }
 
 .pathway-card:hover {
@@ -193,6 +197,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 10px 0;
 }
 
 .pathway-stats span {
@@ -226,6 +231,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
+  padding:20px;
 }
 
 .pharma-card {
@@ -233,6 +239,8 @@ body {
   border-radius: var(--border-radius);
   padding: 25px;
   border: 1px solid #dee2e6;
+  transition: var(--transition);
+
 }
 
 .pharma-card h3 {
@@ -240,6 +248,11 @@ body {
   margin-bottom: 20px;
   text-align: center;
   font-size: 1.3rem;
+}
+.pharma-card :hover {
+  cursor: default;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .pharma-list {

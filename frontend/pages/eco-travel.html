@@ -89,7 +89,19 @@
 
     <!-- Footer -->
     <div id="footer-container"></div>
-
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/navbar.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('navbar-container').innerHTML = data)
+                .catch(error => console.log('Navbar loading failed'));
+            
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('footer-container').innerHTML = data)
+                .catch(error => console.log('Footer loading failed'));
+        });
+</script>
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>

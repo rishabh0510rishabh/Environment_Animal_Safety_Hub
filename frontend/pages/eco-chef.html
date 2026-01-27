@@ -158,7 +158,7 @@
     </main>
 
     <!-- Footer Placeholder -->
-    <div id="footer-placeholder"></div>
+    <div id="footer-container"></div>
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
@@ -187,6 +187,17 @@
                     localStorage.setItem('theme', 'dark');
                 }
             });
+        });
+         document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/navbar.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('navbar-container').innerHTML = data)
+                .catch(error => console.log('Navbar loading failed'));
+            
+            fetch('../components/footer.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('footer-container').innerHTML = data)
+                .catch(error => console.log('Footer loading failed'));
         });
     </script>
 
