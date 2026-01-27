@@ -64,9 +64,12 @@ body {
   transition: var(--transition);
   min-height: 100vh;
 }
+html, body {
+    overflow-x: hidden;
+}
 
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -184,6 +187,15 @@ h1 {
   max-width: 600px;
   margin: 0 auto;
 }
+/* Fix navbar overlapping content */
+.terms-section {
+    scroll-margin-top: 100px;
+}
+.container {
+    width: 100vw;
+}
+
+
 
 /* ===== QUICK NAV - STICKY ===== */
 .quick-nav {
