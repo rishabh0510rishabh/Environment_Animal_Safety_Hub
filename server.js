@@ -34,6 +34,7 @@ app.use('/api/auth', rateLimits.auth, require('./backend/routes/auth'));
 app.use('/api/events', require('./backend/routes/events'));
 app.use('/api/medical-records', require('./backend/routes/medical-records'));
 app.use('/api/foster', require('./backend/routes/foster'));
+app.use('/api/volunteers', require('./backend/routes/volunteers'));
 
 // Middleware to log all requests
 app.use((req, res, next) => {
@@ -123,6 +124,7 @@ app.listen(PORT, () => {
     console.log(`📅 Events: http://localhost:${PORT}/api/events`);
     console.log(`🏠 Foster Management: http://localhost:${PORT}/api/foster`);
     console.log(`💊 Medical Records: http://localhost:${PORT}/api/medical-records`);
+    console.log(`👥 Volunteer Management: http://localhost:${PORT}/api/volunteers`);
     console.log('='.repeat(60));
     console.log('📊 Request Logs:');
     console.log('='.repeat(60));
