@@ -36,6 +36,7 @@ app.use('/api/medical-records', require('./backend/routes/medical-records'));
 app.use('/api/foster', require('./backend/routes/foster'));
 app.use('/api/volunteers', require('./backend/routes/volunteers'));
 app.use('/api/donations', require('./backend/routes/donations'));
+app.use('/api/payments', require('./backend/routes/payments'));
 
 // Middleware to log all requests
 app.use((req, res, next) => {

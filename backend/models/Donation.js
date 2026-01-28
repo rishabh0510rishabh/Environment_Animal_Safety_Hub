@@ -32,8 +32,16 @@ const DonationSchema = new mongoose.Schema({
     // Payment Method
     paymentMethod: {
         type: String,
-        enum: ['credit-card', 'paypal', 'check', 'wire', 'ach', 'in-kind'],
+        enum: ['credit-card', 'paypal', 'check', 'wire', 'ach', 'in-kind', 'stripe', 'paypal-checkout'],
         required: true
+    },
+    
+    // Payment Gateway Info
+    paymentGateway: {
+        gateway: { type: String, enum: ['stripe', 'paypal', 'manual'] },
+        customerId: String,
+        paymentMethodId: String,
+        subscriptionId: String
     },
     
     // Card Details (if credit card)
@@ -41,7 +49,8 @@ const DonationSchema = new mongoose.Schema({
         last4: String,
         brand: String,
         expiryMonth: Number,
-        expiryYear: Number
+        expiryYear: Number,
+        fingerprint: String
     },
     
     // Check Details (if check)
@@ -98,6 +107,14 @@ const DonationSchema = new mongoose.Schema({
     transactionId: String,
     receiptSent: { type: Boolean, default: false },
     receiptSentDate: Date,
+    
+    // Refund Information
+    refundDetails: {
+        refundId: String,
+        refundAmount: Number,
+        refundDate: Date,
+        reason: String
+    },
     
     // Pledge Tracking
     pledgeDetails: {
