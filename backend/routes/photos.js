@@ -2,11 +2,18 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
+// Ensure upload directory exists
+const uploadDir = path.join(__dirname, '../../frontend/assets/uploads/photos');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Multer configuration for photo uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../../frontend/assets/uploads/photos'));
+        cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`);
@@ -34,7 +41,7 @@ const upload = multer({
  * @desc    Analyze photo with AI for species identification
  * @access  Public
  */
-router.post('/analyze', upload.single('photo'), async (req, file, res) => {
+router.post('/analyze', upload.single('photo'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ message: 'No photo provided' });
@@ -113,22 +120,24 @@ router.post('/analyze', upload.single('photo'), async (req, file, res) => {
             }
         };
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Photo analyzed successfully',
-            data: mockAnalysis,
+            species: mockAnalysis.species,
+            behavior: mockAnalysis.behavior,
+            environment: mockAnalysis.environment,
+            conservation: mockAnalysis.conservation,
             photoPath: `/assets/uploads/photos/${req.file.filename}`
         });
 
     } catch (error) {
         console.error('Photo analysis error:', error);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: 'Error analyzing photo',
             error: error.message
         });
     }
-});
 
 /**
  * @route   GET /api/photos/gallery

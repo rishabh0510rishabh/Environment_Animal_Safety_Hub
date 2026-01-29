@@ -136,25 +136,30 @@ async function performAnalysis() {
         const formData = new FormData();
         formData.append('photo', currentPhoto);
         
-        // Call backend API (adjust endpoint as needed)
-        const response = await fetch('/api/analyze-photo', {
+        // Call backend API
+        const response = await fetch('/api/photos/analyze', {
             method: 'POST',
             body: formData
         });
         
         if (!response.ok) {
-            throw new Error('Analysis failed');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Analysis failed');
         }
         
         const result = await response.json();
-        displayAnalysisResults(result);
         
-        // Save to gallery
-        saveToGallery(previewImage.src);
+        if (result.success) {
+            displayAnalysisResults(result);
+            // Save to gallery
+            saveToGallery(previewImage.src);
+        } else {
+            showError(result.message || 'Failed to analyze photo');
+        }
         
     } catch (error) {
         console.error('Error:', error);
-        showError('Failed to analyze photo. Please try again.');
+        showError(error.message || 'Failed to analyze photo. Please try again.');
     }
 }
 
