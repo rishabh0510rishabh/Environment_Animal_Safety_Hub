@@ -1,14 +1,11 @@
-# Quiz Data Extraction Task
+# TODO: Refactor quiz.js to use unified ProgressManager
 
-## Overview
-Extract hardcoded quiz data from JavaScript files to external JSON files for better maintainability.
+## Steps to Complete
 
-## Steps
-- [x] Update quiz-data.json with missing quiz data (waste-management, animal-first-aid, climate-change, sustainable-gardening, etc.)
-- [x] Modify pollution-awareness-quiz.js to load data asynchronously
-- [x] Modify waste-management-quiz.js to load data asynchronously
-- [ ] Modify animal-first-aid-quiz.js to load data asynchronously
-- [ ] Modify climate-change-quiz.js to load data asynchronously
-- [ ] Modify sustainable-gardening-quiz.js to load data asynchronously
-- [ ] Check and update other quiz JS files if needed
-- [ ] Test that quizzes load data correctly and handle errors
+- [x] Remove custom progress functions (saveProgress, loadProgress, clearProgress) from quiz.js
+- [x] Import ProgressManager class from '../../components/progress-manager.js'
+- [x] Initialize ProgressManager instance for 'kids-eco-quiz'
+- [x] Update startQuiz() to use progressManager.clearProgress()
+- [x] Update resumeQuiz() to use progressManager.loadProgress()
+- [x] Update selectOption() to use progressManager.saveProgress()
+- [x] Update showResult() to use progressManager.clearProgress()

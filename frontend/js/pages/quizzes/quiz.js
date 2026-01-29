@@ -131,52 +131,9 @@ let timer = null;      // Timer interval reference
 let answers = [];      // User's selected answers
 
 // ===== PROGRESS PERSISTENCE =====
-/**
- * localStorage key for saving quiz progress
- * @type {string}
- */
-const PROGRESS_KEY = 'quizProgress';
-
-/**
- * Save current quiz progress to localStorage
- */
-function saveProgress() {
-  const progress = {
-    currentIndex: index,
-    answers: answers,
-    score: score,
-    remainingTime: seconds,
-    timestamp: Date.now(),
-    quizQuestions: quiz, // Store the current quiz questions
-    quizId: 'kids-eco-quiz'
-  };
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-}
-
-/**
- * Load saved quiz progress from localStorage
- * @returns {boolean} True if progress was loaded successfully
- */
-function loadProgress() {
-  const saved = localStorage.getItem(PROGRESS_KEY);
-  if (saved) {
-    const progress = JSON.parse(saved);
-    index = progress.currentIndex || 0;
-    answers = progress.answers || [];
-    score = progress.score || 0;
-    seconds = progress.remainingTime || 0;
-    quiz = progress.quizQuestions || []; // Load saved quiz questions
-    return true;
-  }
-  return false;
-}
-
-/**
- * Clear saved quiz progress from localStorage
- */
-function clearProgress() {
-  localStorage.removeItem(PROGRESS_KEY);
-}
+// Import and initialize ProgressManager
+import ProgressManager from '../../components/progress-manager.js';
+const progressManager = new ProgressManager('kids-eco-quiz');
 
 // ===== DOM ELEMENT REFERENCES =====
 /**
@@ -201,7 +158,7 @@ async function initializeQuiz() {
   await loadQuizData();
 
   // Check for existing progress on page load
-  if (loadProgress()) {
+  if (progressManager.canResume()) {
     const resumeSection = document.getElementById('resumeSection');
     if (resumeSection) {
       resumeSection.style.display = 'block';
@@ -220,7 +177,7 @@ function startQuiz() {
   const timeSelect = document.getElementById('timeSelect');
 
   // Clear any existing progress when starting new quiz
-  clearProgress();
+  progressManager.clearProgress();
 
   // Select 10 random questions
   quiz = [...questions].sort(() => 0.5 - Math.random()).slice(0, 10);
@@ -246,8 +203,14 @@ function startQuiz() {
  * Resume a previously saved quiz session
  */
 function resumeQuiz() {
-  if (loadProgress()) {
-    // Questions are already loaded from saved progress
+  const progress = progressManager.loadProgress();
+  if (progress) {
+    // Restore quiz state from saved progress
+    index = progress.currentIndex;
+    answers = progress.answers;
+    score = progress.score;
+    seconds = progress.remainingTime;
+    quiz = progress.quizQuestions;
 
     // Transition to quiz screen
     startScreen.style.display = "none";
@@ -362,7 +325,13 @@ function selectOption(element, optionIndex) {
   answers[index] = optionIndex;
 
   // Save progress after each answer selection
-  saveProgress();
+  progressManager.saveProgress({
+    currentIndex: index,
+    answers: answers,
+    score: score,
+    remainingTime: seconds,
+    quizQuestions: quiz
+  });
 }
 
 // ===== QUESTION NAVIGATION =====
@@ -400,7 +369,7 @@ function nextQuestion() {
 function showResult() {
   // Stop timer and clear saved progress
   clearInterval(timer);
-  clearProgress();
+  progressManager.clearProgress();
 
   // Transition screens with loading animation
   quizScreen.style.display = "none";
