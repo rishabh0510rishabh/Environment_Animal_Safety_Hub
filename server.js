@@ -11,6 +11,13 @@ const app = express();
 connectDB();
 initializeDatabase();
 
+// Middleware to log all requests
+app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    next();
+});
+
 // Security middleware
 app.use(helmet());
 app.use(rateLimits.general);
@@ -42,12 +49,6 @@ app.use('/api/species', require('./backend/routes/species'));
 app.use('/api/carbon-offsets', require('./backend/routes/carbon-offsets'));
 app.use('/api/eco-challenges', require('./backend/routes/eco-challenges'));
 
-// Middleware to log all requests
-app.use((req, res, next) => {
-    const timestamp = new Date().toISOString();
-    console.log(`[${timestamp}] ${req.method} ${req.url}`);
-    next();
-});
 
 // Serve static files from frontend directory
 app.use(express.static(path.join(__dirname, 'frontend')));
