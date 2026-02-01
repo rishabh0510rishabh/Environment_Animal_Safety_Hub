@@ -812,35 +812,36 @@ select {
   width: 100%;
   height: 100%;
   position: relative;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; /* Essential for 3D effect */
   transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
   cursor: pointer;
+  border-radius: 22px;
   box-shadow: var(--shadow-lg);
-  border-radius: 22px;
 }
 
+/* =========================================
+   2. THE FLIP ACTION (CRITICAL FIX)
+   ========================================= */
 .myth-card.flipped {
-  transform: rotateY(180deg);
+  /* Only rotate. Do NOT add translateY here. */
+  transform: rotateY(180deg); 
 }
 
-.myth-card:hover {
-  transform: translateY(-5px);
-  border: 2px solid var(--primary-color);
-  border-radius: 22px;
-  box-shadow: 0 10px 30px var(--shadow-dark);
-}
-
-.myth-card.flipped:hover {
-  transform: rotateY(180deg) translateY(-5px);
-}
-
+/* =========================================
+   3. CARD FACES (CRITICAL FIX)
+   ========================================= */
 .card-face {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;  /* Pins face to top of card */
+  left: 0; /* Pins face to left of card */
+  width: 100%; /* Must be 100% to fill the parent */
+  height: 100%; /* Must be 100% to fill the parent */
+  
   backface-visibility: hidden;
-  border-radius: 20px;
-  padding: 25px;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  
+  /* Flexbox for centering content */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -851,26 +852,18 @@ select {
   overflow: hidden;
 }
 
+/* =========================================
+   4. FRONT & BACK SPECIFICS
+   ========================================= */
 .card-front {
   background: linear-gradient(135deg, #e65100 0%, #f57c00 100%);
-  /* Deep Orange */
-  position: relative;
-}
-
-.card-front::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 50px;
-  height: 50px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-  border-radius: 50%;
+  z-index: 2; /* Ensures front sits on top initially */
 }
 
 .card-back {
   background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
-  /* Green */
+  /* Rotate 180deg so it faces away initially. 
+     Do NOT add translateY here. */
   transform: rotateY(180deg);
 }
 
@@ -927,7 +920,7 @@ select {
 .card-shine {
   position: absolute;
   top: 0;
-  left: -100%;
+
   width: 50%;
   height: 100%;
   background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
@@ -935,9 +928,7 @@ select {
   transition: 0.5s;
 }
 
-.myth-card-wrapper:hover .card-shine {
-  left: 100%;
-}
+
 
 /* ===========================================
    GARDEN GAME COMPONENT
@@ -4096,9 +4087,4 @@ body:not([data-theme="dark"]) .hero-content *:not(.btn):not(.btn *):not(.hero-im
   --text-primary: #111111;
   --text-secondary: #333333;
   --text-muted: #555555;
-}
-
-  50% {
-    transform: translateY(6px);
-  }
 }

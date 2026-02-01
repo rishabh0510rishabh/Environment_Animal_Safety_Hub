@@ -1823,6 +1823,14 @@ document.addEventListener('DOMContentLoaded', initCrisisAlert);
 
 // Make closeCrisisAlert globally available
 window.closeCrisisAlert = closeCrisisAlert;
+function initFlipCards() {
+  const cards = document.querySelectorAll('.myth-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+  });
+}
 
 // ===========================================
 // END OF MAIN.JS
