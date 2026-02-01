@@ -19,13 +19,13 @@
 
 <body>
 
+  <div id="navbar-container"></div>
   <div id="cursor-container"></div>
   <script src="../../js/components/loadComponents.js"></script>
 
       <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <div id="navbar-container"></div>
 
     <!-- Theme Toggle Button -->
     <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
@@ -260,8 +260,18 @@
   <script src="../../js/global/scrollProgress.js"></script>
   <script src="../../js/global/themeToggle.js"></script>
   <script src="../js/pages/endocrine-disruption-pesticides.js"></script>
+  <script>
+       // Load navbar and footer
+    fetch('../components/navbar.html').then(r => r.text()).then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+    });
+    fetch('../components/footer.html').then(r => r.text()).then(html => {
+      document.getElementById('footer-container').innerHTML = html;
+    });
+
+  </script>
 
 </body>
 
 </html></content>
-<parameter name="filePath">c:\Users\Gupta\Downloads\Environment_Animal_Safety_Hub\frontend\pages\endocrine-disruption-pesticides.html
+<parameter name="filePath">frontend/pages/endocrine-disruption-pesticides.html</parameter>
