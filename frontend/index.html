@@ -91,6 +91,8 @@
   <link href="css/pwa.css" rel="stylesheet" />
   <link href="css/components/cards-3d.css" rel="stylesheet" />
   <!-- Inline Interactive Elements Fix -->
+  <!-- 🌗 THEME TOGGLE (Early Apply) -->
+  <script src="js/global/theme-toggle.js"></script>
 </head>
 <!-- <button id="scrollBottomBtn" title="Scroll to Bottom">
   ⬇️ -->
@@ -230,15 +232,7 @@
   <!-- Navbar -->
   <div id="navbar-container">
   </div>
-  <!-- 🌗 Dark / Light Mode Toggle -->
-  <button aria-label="Toggle dark and light mode" aria-pressed="false" class="theme-toggle" id="themeToggle"
-    title="Toggle Dark / Light Mode">
-    <i aria-hidden="true" class="fa-solid fa-moon">
-    </i>
-    <span class="sr-only">
-      Current theme: Light mode
-    </span>
-  </button>
+
   <!-- Main Content -->
   <main id="main-content" role="main">
     <!-- Hero Section -->
@@ -1777,7 +1771,7 @@
               </span>
             </div>
           </div>
-          <a class="explore-btn" href="pages/visual-museum.html">
+          <a class="explore-btn" href="pages/visual-mueseum.html">
             🏛️ Visit Museum
             <i class="fas fa-arrow-right">
             </i>
@@ -2408,8 +2402,7 @@
   </script>
   <script src="js/pages/home.js">
   </script>
-  <!-- 🌗 THEME TOGGLE (LOAD LAST) -->
-  <script src="js/global/theme-toggle.js"></script>
+
   <!-- Chatbase Script -->
   <script>
     (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "ws110ZzXAkEnbVsIy9g8d"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
@@ -2715,80 +2708,7 @@
   <!-- PWA Script -->
   <script src="js/pwa.js">
   </script>
-  <script>
-    // Set initial theme based on localStorage or preference
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Theme toggle function
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    }
-  </script>
-  <script>
-    // Theme toggle functionality
-    document.addEventListener('DOMContentLoaded', function () {
-      const themeToggle = document.getElementById('themeToggle');
-      const themeIcon = themeToggle.querySelector('i');
-      const themeText = themeToggle.querySelector('.sr-only');
-
-      // Set initial theme
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      updateThemeIcon(savedTheme);
-
-      // Toggle theme on button click
-      themeToggle.addEventListener('click', function () {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-
-        // Force a reflow to ensure CSS updates
-        document.body.offsetHeight;
-      });
-
-      function updateThemeIcon(theme) {
-        if (theme === 'dark') {
-          themeIcon.className = 'fa-solid fa-sun';
-          themeText.textContent = 'Current theme: Dark mode';
-        } else {
-          themeIcon.className = 'fa-solid fa-moon';
-          themeText.textContent = 'Current theme: Light mode';
-        }
-      }
-
-      // Apply text color fixes immediately
-      applyTextColorFixes();
-
-      function applyTextColorFixes() {
-        // This function ensures text colors are correct
-        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-
-        if (!isDarkTheme) {
-          // Force dark text on all hero elements in light mode
-          const heroElements = document.querySelectorAll('.hero-content p, .hero-content span, .hero-content div');
-          heroElements.forEach(el => {
-            if (!el.classList.contains('btn') && !el.closest('.btn')) {
-              el.style.color = '#222222';
-            }
-          });
-
-          // Specifically fix the hero features text
-          const heroFeatures = document.querySelectorAll('.hero-feature span');
-          heroFeatures.forEach(span => {
-            span.style.color = '#1b5e20';
-            span.style.fontWeight = '600';
-          });
-        }
-      }
-    });
-  </script>
 </body>
 
 </html>
