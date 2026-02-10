@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Virtual Eco Garden Simulator</title>
   <link rel="stylesheet" href="../css/eco-garden.css">
-    <link rel="stylesheet" href="../css/eco-habit-tracker.css">
-    <link rel="stylesheet" href="../css/wildlife-game.css">
+  <link rel="stylesheet" href="../css/eco-habit-tracker.css">
+  <link rel="stylesheet" href="../css/wildlife-game.css">
   <script defer src="../js/eco-garden.js"></script>
-    <script defer src="../js/eco-habit-tracker.js"></script>
-      <script defer src="../js/wildlife-game.js"></script>
-    <!-- html2canvas for achievement card sharing -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="../js/utils/achievements.js"></script>
+  <script type="module" src="../js/utils/user-progress.js"></script>
+  <script defer src="../js/eco-habit-tracker.js"></script>
+  <script defer src="../js/wildlife-game.js"></script>
+  <!-- html2canvas for achievement card sharing -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     body {
       background: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%);
@@ -22,6 +25,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .garden-container {
       background: #fff;
       border-radius: 18px;
@@ -34,6 +38,7 @@
       gap: 1.5rem;
       align-items: center;
     }
+
     .garden-title {
       font-size: 2rem;
       font-weight: 700;
@@ -41,6 +46,7 @@
       margin-bottom: 0.5rem;
       text-align: center;
     }
+
     .garden-canvas {
       width: 350px;
       height: 220px;
@@ -51,13 +57,16 @@
       overflow: hidden;
       margin-bottom: 1rem;
     }
+
     .actions {
       display: flex;
       gap: 0.7rem;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .action-btn, .share-btn {
+
+    .action-btn,
+    .share-btn {
       background: #43a047;
       color: #fff;
       border: none;
@@ -69,27 +78,34 @@
       transition: background 0.2s;
       margin-top: 0.5rem;
     }
-    .action-btn:hover, .share-btn:hover {
+
+    .action-btn:hover,
+    .share-btn:hover {
       background: #2e7031;
     }
+
     .share-btn {
       background: #0288d1;
       margin-top: 0.7rem;
     }
+
     .share-btn:hover {
       background: #01579b;
     }
+
     .unlocked {
       color: #388e3c;
       font-weight: 600;
       margin-top: 0.7rem;
       font-size: 1.1rem;
     }
+
     @media (max-width: 600px) {
       .garden-container {
         padding: 1.2rem 0.5rem;
         max-width: 98vw;
       }
+
       .garden-canvas {
         width: 98vw;
         min-width: 220px;
@@ -98,6 +114,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="garden-container">
     <div class="garden-title">Virtual Eco Garden 🌱</div>
@@ -173,4 +190,5 @@
     </div>
   </div>
 </body>
+
 </html>

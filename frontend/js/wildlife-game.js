@@ -94,6 +94,13 @@ function completeMission(id) {
     if (mission.area === "Riverbank") wildlifeData.unlockedAreas.push("Beach");
     if (mission.area === "Beach") wildlifeData.unlockedAreas.push("Forest");
     saveWildlifeData();
+
+    // Save to UserProgress
+    if (window.UserProgress) {
+      window.UserProgress.recordGame('wildlife-rescue', 100);
+      window.UserProgress.showToast(`Mission Complete! +100 XP`);
+    }
+
     renderMap();
     renderGallery();
     showMissions(mission.area);
