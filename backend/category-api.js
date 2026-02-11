@@ -373,6 +373,62 @@ app.delete('/api/water-initiatives/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Urban Pollinator Pathways Mapper API
+let pollinatorHabitats = [
+  {
+    id: 1,
+    name: "Lincoln Park Pollinator Garden",
+    type: "garden",
+    region: "north",
+    lat: 41.9214,
+    lng: -87.6513,
+    info: "Native flowers, bee hotels, butterfly host plants."
+  },
+  {
+    id: 2,
+    name: "City Hall Green Roof",
+    type: "green-roof",
+    region: "west",
+    lat: 41.8837,
+    lng: -87.6376,
+    info: "Green roof with wildflowers and pollinator habitat."
+  },
+  {
+    id: 3,
+    name: "Wildflower Corridor on Riverwalk",
+    type: "wildflower-corridor",
+    region: "east",
+    lat: 41.8880,
+    lng: -87.6207,
+    info: "Continuous wildflower strip for bees and butterflies."
+  }
+];
+
+app.get('/api/pollinator-habitats', (req, res) => {
+  res.json({ success: true, data: pollinatorHabitats });
+});
+
+app.post('/api/pollinator-habitats', (req, res) => {
+  const hab = req.body;
+  hab.id = pollinatorHabitats.length + 1;
+  pollinatorHabitats.push(hab);
+  res.status(201).json({ success: true, data: hab });
+});
+
+app.put('/api/pollinator-habitats/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = pollinatorHabitats.findIndex(h => h.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  pollinatorHabitats[idx] = { ...pollinatorHabitats[idx], ...req.body };
+  res.json({ success: true, data: pollinatorHabitats[idx] });
+});
+
+app.delete('/api/pollinator-habitats/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  pollinatorHabitats = pollinatorHabitats.filter(h => h.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));

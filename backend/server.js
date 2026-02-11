@@ -38,6 +38,9 @@ app.use('/api/food-locations', require('./category-api'));
 // Water Conservation Action Tracker API
 app.use('/api/water-initiatives', require('./category-api'));
 
+// Urban Pollinator Pathways Mapper API
+app.use('/api/pollinator-habitats', require('./category-api'));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
