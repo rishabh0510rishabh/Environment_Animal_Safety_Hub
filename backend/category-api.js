@@ -541,6 +541,62 @@ app.delete('/api/transportation-options/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Urban Tree Canopy Tracker API
+let treeSites = [
+  {
+    id: 1,
+    name: "Fairmount Park Tree Planting",
+    type: "planting-site",
+    region: "north",
+    lat: 39.9832,
+    lng: -75.2107,
+    info: "Annual tree planting event."
+  },
+  {
+    id: 2,
+    name: "East Philly Forestry Project",
+    type: "forestry-project",
+    region: "east",
+    lat: 39.9700,
+    lng: -75.1200,
+    info: "Community-led urban forestry initiative."
+  },
+  {
+    id: 3,
+    name: "South Street Tree Maintenance",
+    type: "maintenance-event",
+    region: "south",
+    lat: 39.9400,
+    lng: -75.1600,
+    info: "Monthly tree care and pruning."
+  }
+];
+
+app.get('/api/tree-sites', (req, res) => {
+  res.json({ success: true, data: treeSites });
+});
+
+app.post('/api/tree-sites', (req, res) => {
+  const site = req.body;
+  site.id = treeSites.length + 1;
+  treeSites.push(site);
+  res.status(201).json({ success: true, data: site });
+});
+
+app.put('/api/tree-sites/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const idx = treeSites.findIndex(s => s.id === id);
+  if (idx === -1) return res.status(404).send('Not found');
+  treeSites[idx] = { ...treeSites[idx], ...req.body };
+  res.json({ success: true, data: treeSites[idx] });
+});
+
+app.delete('/api/tree-sites/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  treeSites = treeSites.filter(s => s.id !== id);
+  res.status(204).send();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('\n' + '='.repeat(60));

@@ -47,6 +47,9 @@ app.use('/api/compost-sites', require('./category-api'));
 // Eco-Friendly Transportation Mapper API
 app.use('/api/transportation-options', require('./category-api'));
 
+// Urban Tree Canopy Tracker API
+app.use('/api/tree-sites', require('./category-api'));
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
