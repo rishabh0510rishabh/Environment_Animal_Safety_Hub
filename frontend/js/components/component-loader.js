@@ -155,11 +155,18 @@
 
             links.forEach(link => {
                 const href = link.getAttribute('href');
-                if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                        
+                if (
+                    href &&
+                    !href.startsWith('http') &&
+                    !href.startsWith('#') &&
+                    !href.startsWith('mailto:') &&
+                    !href.startsWith('/')
+                ) {
                     link.setAttribute('href', prefix + href);
                 }
             });
-
+            
             images.forEach(img => {
                 const src = img.getAttribute('src');
                 if (src && !src.startsWith('http')) {
