@@ -31,7 +31,7 @@ const errorMessage = document.getElementById("errorMessage");
 let contributorsData = [];
 
 /* ================================
-   FETCH CONTRIBUTORS (COMMITS)
+   FETCH CONTRIBUTORS
 ================================ */
 async function fetchContributors() {
   const res = await fetch(
@@ -71,7 +71,7 @@ async function fetchAllMergedPRs() {
 }
 
 /* ================================
-   LOAD ADMIN & MENTOR CARDS
+   LOAD ADMIN & MENTOR
 ================================ */
 async function loadMentors() {
   mentorsSection.innerHTML = "";
@@ -156,11 +156,14 @@ function displayContributors(data) {
     const card = document.createElement("div");
     card.className = "contributor-card";
 
-    const crown = index === 0 ? "👑" : "";
+    let badge = "";
+    if (index === 0) badge = "🥇";
+    else if (index === 1) badge = "🥈";
+    else if (index === 2) badge = "🥉";
 
     card.innerHTML = `
       <img src="${user.avatar}" />
-      <h3>${crown} ${user.username}</h3>
+      <h3>${badge} ${user.username}</h3>
       <p><strong>Commits:</strong> ${user.commits}</p>
       <p><strong>Merged PRs:</strong> ${user.mergedPRs}</p>
       <a href="${user.profile}" target="_blank">View Profile</a>
