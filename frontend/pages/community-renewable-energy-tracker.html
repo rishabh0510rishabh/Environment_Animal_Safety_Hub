@@ -118,8 +118,11 @@
       h1 { font-size: 1.3rem; }
     }
   </style>
+  <link rel="stylesheet" href="../css/components/navbar.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
 </head>
 <body>
+  <div id="navbar-container"></div>
   <div class="container">
     <h1>Community Renewable Energy Tracker</h1>
     <p style="color:var(--muted);">Track local renewable energy projects, submit new ones, view progress, and learn how to get involved.</p>
@@ -156,6 +159,7 @@
       </ul>
     </div>
   </div>
+  <div id="footer-container"></div>
   <script>
     // Project tracking logic
     const projectForm = document.getElementById('projectForm');
@@ -194,5 +198,30 @@
     // Initial render
     renderProjects();
   </script>
+  <script>
+    // Load navbar
+    fetch('../components/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+        
+        // Initialize navbar functionality
+        const script = document.createElement('script');
+        script.src = '../js/components/navbar.js';
+        document.body.appendChild(script);
+      });
+
+
+
+      
+  </script>
+  <script>
+  // Load footer
+  fetch('../components/footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    });
+</script>
 </body>
 </html>
